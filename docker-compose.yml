@@ -1,0 +1,28 @@
+version: "3.5"
+
+services:
+
+  author-mysql:
+    container_name: author-mysql
+    image: mysql:5.7.22
+    restart: unless-stopped
+    ports:
+    - 3306:3306
+    environment:
+    - MYSQL_ROOT_PASSWORD=secret
+    - MYSQL_DATABASE=authordb
+    - MYSQL_USERNAME=root
+    - MYSQL_PASSWORD=secret
+    healthcheck:
+      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+      start_period: 20s
+
+#  zipkin:
+#    container_name: zipkin
+#    image: openzipkin/zipkin:2.11
+#    restart: unless-stopped
+#    ports:
+#    - 9411:9411
+#    healthcheck:
+#      test: "curl -f http://localhost:9411 || exit 1"
+#      start_period: 20s
