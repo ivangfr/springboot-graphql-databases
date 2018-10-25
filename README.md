@@ -72,7 +72,7 @@ mvn spring-boot:run
 - create author
 ```
 mutation {
-  createAuthor(firstName:"Ivan", lastName:"Franchin") {
+  createAuthor(authorInput: {firstName: "Ivan", lastName: "Franchin"}) {
     id
   }
 }
@@ -81,8 +81,10 @@ mutation {
 - find all authors
 ```
 {
-  findAllAuthors {
-    id, firstName, lastName
+  getAuthors {
+    id
+    firstName
+    lastName
   }
 }
 ```

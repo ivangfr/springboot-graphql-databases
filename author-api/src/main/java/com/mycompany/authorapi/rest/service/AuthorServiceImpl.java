@@ -1,6 +1,6 @@
-package com.mycompany.authorapi.service;
+package com.mycompany.authorapi.rest.service;
 
-import com.mycompany.authorapi.exception.AuthorNotFoundException;
+import com.mycompany.authorapi.rest.exception.AuthorNotFoundException;
 import com.mycompany.authorapi.model.Author;
 import com.mycompany.authorapi.repository.AuthorRepository;
 import org.springframework.stereotype.Service;

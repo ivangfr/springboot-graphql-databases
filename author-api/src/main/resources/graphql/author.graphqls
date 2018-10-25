@@ -4,10 +4,16 @@ type Author {
     lastName: String!
 }
 
+input AuthorInput {
+    firstName: String!
+    lastName: String!
+}
+
 type Query {
-    findAllAuthors: [Author]!
+    getAuthors: [Author]!
+    getAuthor(id: ID!): Author!
 }
 
 type Mutation {
-    createAuthor(firstName: String!, lastName: String): Author!
+    createAuthor(authorInput: AuthorInput!): Author!
 }

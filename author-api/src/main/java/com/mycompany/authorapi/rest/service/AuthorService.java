@@ -1,4 +1,4 @@
-package com.mycompany.authorapi.service;
+package com.mycompany.authorapi.rest.service;
 
 import com.mycompany.authorapi.model.Author;
 

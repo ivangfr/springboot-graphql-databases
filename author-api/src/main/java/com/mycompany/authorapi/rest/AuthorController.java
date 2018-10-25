@@ -4,7 +4,7 @@ import com.mycompany.authorapi.model.Author;
 import com.mycompany.authorapi.rest.dto.AuthorDto;
 import com.mycompany.authorapi.rest.dto.CreateAuthorDto;
 import com.mycompany.authorapi.rest.dto.UpdateAuthorDto;
-import com.mycompany.authorapi.service.AuthorService;
+import com.mycompany.authorapi.rest.service.AuthorService;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
