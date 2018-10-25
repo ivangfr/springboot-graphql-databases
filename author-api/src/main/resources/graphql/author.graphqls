@@ -1,0 +1,13 @@
+type Author {
+    id: ID!
+    firstName: String!
+    lastName: String!
+}
+
+type Query {
+    findAllAuthors: [Author]!
+}
+
+type Mutation {
+    createAuthor(firstName: String!, lastName: String): Author!
+}

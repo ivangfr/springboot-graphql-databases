@@ -21,9 +21,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
-        <graphql.version>5.0.2</graphql.version>
         <springfox.version>2.9.2</springfox.version>
         <orika.version>1.5.2</orika.version>
+        <graphql.version>5.0.2</graphql.version>
+        <graphql-java-tools.version>5.3.3</graphql-java-tools.version>
     </properties>
 
     <dependencies>
@@ -53,7 +54,6 @@
         </dependency>
 
         <!-- GraphQL -->
-        <!--
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
@@ -64,7 +64,11 @@
             <artifactId>graphiql-spring-boot-starter</artifactId>
             <version>${graphql.version}</version>
         </dependency>
-        -->
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphql-java-tools</artifactId>
+            <version>${graphql-java-tools.version}</version>
+        </dependency>
 
         <!-- Swagger2 -->
         <dependency>
