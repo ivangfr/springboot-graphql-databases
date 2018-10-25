@@ -1,5 +1,6 @@
 package com.mycompany.authorapi.config;
 
+import com.mycompany.authorapi.graphql.input.UpdateAuthorInput;
 import com.mycompany.authorapi.model.Author;
 import com.mycompany.authorapi.rest.dto.UpdateAuthorDto;
 import ma.glasnost.orika.MapperFacade;
@@ -16,6 +17,8 @@ public class MapperConfig {
         DefaultMapperFactory defaultMapperFactory = new DefaultMapperFactory.Builder().useAutoMapping(true).build();
 
         defaultMapperFactory.classMap(UpdateAuthorDto.class, Author.class).mapNulls(false).byDefault().register();
+
+        defaultMapperFactory.classMap(UpdateAuthorInput.class, Author.class).mapNulls(false).byDefault().register();
 
         return defaultMapperFactory;
     }

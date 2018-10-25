@@ -1,26 +1,39 @@
 package com.mycompany.authorapi.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.mycompany.authorapi.graphql.input.AuthorInput;
+import com.mycompany.authorapi.graphql.input.CreateAuthorInput;
+import com.mycompany.authorapi.graphql.input.UpdateAuthorInput;
+import com.mycompany.authorapi.graphql.service.AuthorService;
 import com.mycompany.authorapi.model.Author;
-import com.mycompany.authorapi.repository.AuthorRepository;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Mutation implements GraphQLMutationResolver {
 
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
     private final MapperFacade mapperFacade;
 
-    public Mutation(AuthorRepository authorRepository, MapperFacade mapperFacade) {
-        this.authorRepository = authorRepository;
+    public Mutation(AuthorService authorService, MapperFacade mapperFacade) {
+        this.authorService = authorService;
         this.mapperFacade = mapperFacade;
     }
 
-    public Author createAuthor(AuthorInput authorInput) {
-        Author author = mapperFacade.map(authorInput, Author.class);
-        return authorRepository.save(author);
+    public Author createAuthor(CreateAuthorInput createAuthorInput) {
+        Author author = mapperFacade.map(createAuthorInput, Author.class);
+        return authorService.saveAuthor(author);
+    }
+
+    public Author updateAuthor(Long id, UpdateAuthorInput updateAuthorInput) {
+        Author author = authorService.validateAndGetAuthor(id);
+        mapperFacade.map(updateAuthorInput, author);
+        return authorService.saveAuthor(author);
+    }
+
+    public Author deleteAuthor(Long id) {
+        Author author = authorService.validateAndGetAuthor(id);
+        authorService.deleteAuthor(author);
+        return author;
     }
 
 }

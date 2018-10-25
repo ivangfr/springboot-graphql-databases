@@ -32,6 +32,12 @@ public class AuthorController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping
+    public Iterable<Author> getAuthors() {
+        return authorService.getAuthors();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public AuthorDto getAuthor(@PathVariable Long id) {
         Author author = authorService.validateAndGetAuthor(id);

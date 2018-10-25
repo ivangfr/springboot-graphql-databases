@@ -4,9 +4,14 @@ type Author {
     lastName: String!
 }
 
-input AuthorInput {
+input CreateAuthorInput {
     firstName: String!
     lastName: String!
+}
+
+input UpdateAuthorInput {
+    firstName: String
+    lastName: String
 }
 
 type Query {
@@ -15,5 +20,7 @@ type Query {
 }
 
 type Mutation {
-    createAuthor(authorInput: AuthorInput!): Author!
+    createAuthor(createAuthorInput: CreateAuthorInput!): Author!
+    updateAuthor(id: ID!, updateAuthorInput: UpdateAuthorInput!): Author!
+    deleteAuthor(id: ID!): Author!
 }

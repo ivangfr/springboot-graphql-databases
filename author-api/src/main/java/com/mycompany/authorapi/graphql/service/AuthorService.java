@@ -1,4 +1,4 @@
-package com.mycompany.authorapi.rest.service;
+package com.mycompany.authorapi.graphql.service;
 
 import com.mycompany.authorapi.model.Author;
 

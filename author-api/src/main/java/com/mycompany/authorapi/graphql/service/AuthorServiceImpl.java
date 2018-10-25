@@ -1,13 +1,13 @@
-package com.mycompany.authorapi.rest.service;
+package com.mycompany.authorapi.graphql.service;
 
+import com.mycompany.authorapi.graphql.exception.AuthorNotFoundException;
 import com.mycompany.authorapi.model.Author;
 import com.mycompany.authorapi.repository.AuthorRepository;
-import com.mycompany.authorapi.rest.exception.AuthorNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service("RestAuthorServiceImpl")
+@Service("GraphQLAuthorServiceImpl")
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
@@ -28,7 +28,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author validateAndGetAuthor(Long id) {
-        return getAuthor(id).orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id '%s' not found", id)));
+        return getAuthor(id).orElseThrow(() -> new AuthorNotFoundException("Author to be retrieved not found", id));
     }
 
     @Override
