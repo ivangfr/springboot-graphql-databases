@@ -69,22 +69,59 @@ mvn spring-boot:run
 
 - access http://localhost:8081/graphiql
 
-- create author
+- create author and return the id
 ```
 mutation {
-  createAuthor(authorInput: {firstName: "Ivan", lastName: "Franchin"}) {
+  createAuthor(createAuthorInput: {firstName: "Ivan", lastName: "Franchin"}) {
     id
   }
 }
 ```
 
-- find all authors
+- create book and return the id of the book, first and last name of the author
+```
+mutation {
+  createBook(createBookInput: {authorId: 1, title: "C++", year: 2018}) {
+    id
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+- get author by id and return all information about his/her books
 ```
 {
-  getAuthors {
+  getAuthor(id: 1) {
     id
     firstName
     lastName
+    books {
+      id
+      title
+      year
+    }
+  }
+}
+```
+
+- update book title and return its id and new title
+```
+mutation {
+  updateBook(id: 2, updateBookInput: {title: "Java10"}) {
+    id
+    title
+  }
+}
+```
+
+- delete author and return his/her id
+```
+mutation {
+  deleteAuthor(id: 1) {
+    id
   }
 }
 ```
@@ -97,5 +134,6 @@ mutation {
 
 ## References
 
+- https://graphql.org/learn
 - https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
 - https://www.baeldung.com/spring-graphql

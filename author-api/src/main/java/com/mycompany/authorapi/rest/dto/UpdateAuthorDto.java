@@ -9,7 +9,7 @@ public class UpdateAuthorDto {
     @ApiModelProperty(example = "Steve")
     private String firstName;
 
-    @ApiModelProperty(example = "Jobs")
+    @ApiModelProperty(position = 2, example = "Jobs")
     private String lastName;
 
 }

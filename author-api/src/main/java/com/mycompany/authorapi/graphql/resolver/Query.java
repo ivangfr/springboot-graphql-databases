@@ -1,26 +1,43 @@
 package com.mycompany.authorapi.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.mycompany.authorapi.graphql.exception.AuthorNotFoundException;
+import com.mycompany.authorapi.graphql.service.AuthorService;
+import com.mycompany.authorapi.graphql.service.BookService;
 import com.mycompany.authorapi.model.Author;
-import com.mycompany.authorapi.repository.AuthorRepository;
+import com.mycompany.authorapi.model.Book;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Query implements GraphQLQueryResolver {
 
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
+    private final BookService bookService;
 
-    public Query(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
+    public Query(AuthorService authorService, BookService bookService) {
+        this.authorService = authorService;
+        this.bookService = bookService;
     }
 
+    // ------
+    // Author
+
     public Iterable<Author> getAuthors() {
-        return authorRepository.findAll();
+        return authorService.getAuthors();
     }
 
     public Author getAuthor(Long id) {
-        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("Author not found", id));
+        return authorService.validateAndGetAuthor(id);
+    }
+
+    // ----
+    // Book
+
+    public Iterable<Book> getBooks() {
+        return bookService.getBooks();
+    }
+
+    public Book getBook(Long id) {
+        return bookService.validateAndGetBook(id);
     }
 
 }

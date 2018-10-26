@@ -1,11 +1,10 @@
 package com.mycompany.authorapi.rest;
 
 import com.mycompany.authorapi.model.Author;
-import com.mycompany.authorapi.repository.AuthorRepository;
 import com.mycompany.authorapi.rest.dto.AuthorDto;
 import com.mycompany.authorapi.rest.dto.CreateAuthorDto;
 import com.mycompany.authorapi.rest.dto.UpdateAuthorDto;
-import com.mycompany.authorapi.rest.exception.AuthorNotFoundException;
+import com.mycompany.authorapi.rest.service.AuthorService;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,24 +23,24 @@ import javax.validation.Valid;
 @RequestMapping("/api/authors")
 public class AuthorController {
 
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
     private final MapperFacade mapperFacade;
 
-    public AuthorController(AuthorRepository authorRepository, MapperFacade mapperFacade) {
-        this.authorRepository = authorRepository;
+    public AuthorController(AuthorService authorService, MapperFacade mapperFacade) {
+        this.authorService = authorService;
         this.mapperFacade = mapperFacade;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public Iterable<Author> getAuthors() {
-        return authorRepository.findAll();
+        return authorService.getAuthors();
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{id}")
-    public AuthorDto getAuthor(@PathVariable Long id) {
-        Author author = validateAndGetAuthor(id);
+    @GetMapping("/{authorId}")
+    public AuthorDto getAuthor(@PathVariable Long authorId) {
+        Author author = authorService.validateAndGetAuthor(authorId);
         return mapperFacade.map(author, AuthorDto.class);
     }
 
@@ -49,29 +48,25 @@ public class AuthorController {
     @PostMapping
     public AuthorDto createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
         Author author = mapperFacade.map(createAuthorDto, Author.class);
-        author = authorRepository.save(author);
+        author = authorService.saveAuthor(author);
         return mapperFacade.map(author, AuthorDto.class);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/{id}")
-    public AuthorDto updateAuthor(@PathVariable Long id, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
-        Author author = validateAndGetAuthor(id);
+    @PutMapping("/{authorId}")
+    public AuthorDto updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
+        Author author = authorService.validateAndGetAuthor(authorId);
         mapperFacade.map(updateAuthorDto, author);
-        author = authorRepository.save(author);
+        author = authorService.saveAuthor(author);
         return mapperFacade.map(author, AuthorDto.class);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/{id}")
-    public AuthorDto deleteAuthor(@PathVariable Long id) {
-        Author author = validateAndGetAuthor(id);
-        authorRepository.delete(author);
+    @DeleteMapping("/{authorId}")
+    public AuthorDto deleteAuthor(@PathVariable Long authorId) {
+        Author author = authorService.validateAndGetAuthor(authorId);
+        authorService.deleteAuthor(author);
         return mapperFacade.map(author, AuthorDto.class);
-    }
-
-    private Author validateAndGetAuthor(Long id) {
-        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id '%s' not found", id)));
     }
 
 }

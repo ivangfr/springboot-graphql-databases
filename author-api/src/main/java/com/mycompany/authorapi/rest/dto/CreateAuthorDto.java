@@ -3,10 +3,6 @@ package com.mycompany.authorapi.rest.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +14,7 @@ public class CreateAuthorDto {
     @NotEmpty
     private String firstName;
 
-    @ApiModelProperty(example = "Franchin")
+    @ApiModelProperty(position = 2, example = "Franchin")
     @NotNull
     @NotEmpty
     private String lastName;
