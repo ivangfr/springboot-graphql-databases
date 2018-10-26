@@ -22,6 +22,11 @@ spring:
     sampler.probability: 1.0
 #    web.skipPattern: (^cleanup.*|.+favicon.*)
 
+logging.level:
+  org.hibernate:
+    SQL: DEBUG
+    type.descriptor.sql.BasicBinder: TRACE
+
 eureka:
   client:
     serviceUrl:
