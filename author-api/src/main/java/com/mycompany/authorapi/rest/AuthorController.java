@@ -1,7 +1,6 @@
 package com.mycompany.authorapi.rest;
 
 import com.mycompany.authorapi.model.Author;
-import com.mycompany.authorapi.rest.dto.AuthorDto;
 import com.mycompany.authorapi.rest.dto.CreateAuthorDto;
 import com.mycompany.authorapi.rest.dto.UpdateAuthorDto;
 import com.mycompany.authorapi.rest.service.AuthorService;
@@ -39,34 +38,31 @@ public class AuthorController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{authorId}")
-    public AuthorDto getAuthor(@PathVariable Long authorId) {
-        Author author = authorService.validateAndGetAuthor(authorId);
-        return mapperFacade.map(author, AuthorDto.class);
+    public Author getAuthor(@PathVariable Long authorId) {
+        return authorService.validateAndGetAuthor(authorId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public AuthorDto createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
+    public Author createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
         Author author = mapperFacade.map(createAuthorDto, Author.class);
-        author = authorService.saveAuthor(author);
-        return mapperFacade.map(author, AuthorDto.class);
+        return authorService.saveAuthor(author);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{authorId}")
-    public AuthorDto updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
+    public Author updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
         Author author = authorService.validateAndGetAuthor(authorId);
         mapperFacade.map(updateAuthorDto, author);
-        author = authorService.saveAuthor(author);
-        return mapperFacade.map(author, AuthorDto.class);
+        return authorService.saveAuthor(author);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{authorId}")
-    public AuthorDto deleteAuthor(@PathVariable Long authorId) {
+    public Author deleteAuthor(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthor(authorId);
         authorService.deleteAuthor(author);
-        return mapperFacade.map(author, AuthorDto.class);
+        return author;
     }
 
 }

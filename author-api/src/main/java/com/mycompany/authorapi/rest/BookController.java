@@ -1,16 +1,12 @@
 package com.mycompany.authorapi.rest;
 
-import com.mycompany.authorapi.graphql.service.AuthorService;
-import com.mycompany.authorapi.graphql.service.BookService;
 import com.mycompany.authorapi.model.Author;
 import com.mycompany.authorapi.model.Book;
-import com.mycompany.authorapi.rest.dto.BookDto;
 import com.mycompany.authorapi.rest.dto.CreateBookDto;
 import com.mycompany.authorapi.rest.dto.UpdateBookDto;
-import com.mycompany.authorapi.rest.exception.AuthorNotFoundException;
-import com.mycompany.authorapi.rest.exception.BookNotFoundException;
+import com.mycompany.authorapi.rest.service.AuthorService;
+import com.mycompany.authorapi.rest.service.BookService;
 import ma.glasnost.orika.MapperFacade;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,43 +42,38 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/{bookId}")
-    public BookDto getBook(@PathVariable Long bookId) {
-        Book book = bookService.validateAndGetBook(bookId);
-        return mapperFacade.map(book, BookDto.class);
+    public Book getBook(@PathVariable Long bookId) {
+        return bookService.validateAndGetBook(bookId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public BookDto createBook(@Valid @RequestBody CreateBookDto createBookDto) {
+    public Book createBook(@Valid @RequestBody CreateBookDto createBookDto) {
         Author author = authorService.validateAndGetAuthor(createBookDto.getAuthorId());
         Book book = mapperFacade.map(createBookDto, Book.class);
         book.setAuthor(author);
-        book = bookService.saveBook(book);
-        return mapperFacade.map(book, BookDto.class);
+        return bookService.saveBook(book);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/{bookId}")
-    public BookDto updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
+    public Book updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
         Book book = bookService.validateAndGetBook(bookId);
         mapperFacade.map(updateBookDto, book);
-
         Long authorId = updateBookDto.getAuthorId();
         if (authorId != null) {
             Author author = authorService.validateAndGetAuthor(authorId);
             book.setAuthor(author);
         }
-
-        book = bookService.saveBook(book);
-        return mapperFacade.map(book, BookDto.class);
+        return bookService.saveBook(book);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @DeleteMapping("/{bookId}")
-    public BookDto deleteBook(@PathVariable Long bookId) {
+    public Book deleteBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBook(bookId);
         bookService.deleteBook(book);
-        return mapperFacade.map(book, BookDto.class);
+        return book;
     }
 
 }
