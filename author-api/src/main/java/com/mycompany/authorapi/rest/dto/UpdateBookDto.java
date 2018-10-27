@@ -3,9 +3,6 @@ package com.mycompany.authorapi.rest.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 @Data
 public class UpdateBookDto {
 
@@ -17,5 +14,8 @@ public class UpdateBookDto {
 
     @ApiModelProperty(position = 3, example = "2019")
     private Integer year;
+
+    @ApiModelProperty(position = 4, example = "356")
+    private Integer numPages;
 
 }

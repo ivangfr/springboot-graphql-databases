@@ -7,5 +7,6 @@ public class UpdateAuthorInput {
 
     private String firstName;
     private String lastName;
+//  private LocalDate birthday; // Waiting for LocalDate Scalar: https://github.com/graphql-java/graphql-java/issues/991
 
 }

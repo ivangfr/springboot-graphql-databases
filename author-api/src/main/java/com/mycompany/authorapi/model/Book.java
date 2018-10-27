@@ -12,7 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Data
 @ToString(exclude = "author")
@@ -35,5 +38,24 @@ public class Book {
 
     @Column(nullable = false)
     private Integer year;
+
+    @Column(nullable = false)
+    private Integer numPages;
+
+    @JsonIgnore
+    private LocalDateTime createdAt;
+
+    @JsonIgnore
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void onPrePersist() {
+        createdAt = updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onPreUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
 }

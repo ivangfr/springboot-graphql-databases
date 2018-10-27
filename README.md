@@ -81,7 +81,7 @@ mutation {
 - create book and return the id of the book, first and last name of the author
 ```
 mutation {
-  createBook(createBookInput: {authorId: 1, title: "C++", year: 2018}) {
+  createBook(createBookInput: {authorId: 1, title: "C++", year: 2018, numPages: 512}) {
     id
     author {
       firstName
@@ -102,6 +102,7 @@ mutation {
       id
       title
       year
+      numPages
     }
   }
 }
@@ -132,7 +133,6 @@ mutation {
 
 ## TODO
 
-- add more field to author (birthDate, createdAt) and to book (pages, createdAt)
 - implement another service that stores reviews about the book and those reviews will be queryable
 - implement author-client
 - implement grapgql subscription

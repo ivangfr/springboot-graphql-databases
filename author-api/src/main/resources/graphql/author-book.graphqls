@@ -1,38 +1,55 @@
+##
+# (1) Waiting for LocalDate Scalar: https://github.com/graphql-java/graphql-java/issues/991
+
+# ------
+# Author
+
 type Author {
     id: ID!
     firstName: String!
     lastName: String!
+#   birthday: LocalDate # (1)
     books: [Book!]
 }
 
 input CreateAuthorInput {
     firstName: String!
     lastName: String!
+#   birthday: LocalDate # (1)
 }
 
 input UpdateAuthorInput {
     firstName: String
     lastName: String
+#   birthday: LocalDate # (1)
+}
+
+# ----
+# Book
+
+type Book {
+    id: ID!
+    title: String!
+    year: Int!
+    numPages: Int!
+    author: Author!
 }
 
 input CreateBookInput {
     authorId: Int!
     title: String!
     year: Int!
+    numPages: Int!
 }
 
 input UpdateBookInput {
     authorId: Int
     title: String
     year: Int
+    numPages: Int
 }
 
-type Book {
-    id: ID!
-    title: String!
-    year: Int!
-    author: Author!
-}
+# ---
 
 type Query {
     getAuthors: [Author!]!
@@ -41,6 +58,8 @@ type Query {
     getBooks: [Book!]!
     getBook(id: ID!): Book!
 }
+
+# ---
 
 type Mutation {
     createAuthor(createAuthorInput: CreateAuthorInput!): Author!

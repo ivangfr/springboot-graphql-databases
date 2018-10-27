@@ -22,4 +22,8 @@ public class CreateBookDto {
     @NotNull
     private Integer year;
 
+    @ApiModelProperty(position = 4, example = "512")
+    @NotNull
+    private Integer numPages;
+
 }
