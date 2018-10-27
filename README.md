@@ -1,4 +1,4 @@
-# springboot-graphql-mysql
+# springboot-graphql-databases
 
 ## Goal
 
@@ -14,7 +14,7 @@ friendly interface implemented using [Thymeleaf](https://www.thymeleaf.org).
 
 - Open one terminal
 
-- In `/springboot-graphql-mysql` root folder run
+- In `/springboot-graphql-databases` root folder run
 ```
 docker-compose up -d
 ```
@@ -34,7 +34,7 @@ docker-compose ps
 ### eureka-server
 
 - Open a new terminal
-- Inside `/springboot-graphql-mysql/eureka-server` folder run
+- Inside `/springboot-graphql-databases/eureka-server` folder run
 ```
 mvn spring-boot:run
 ```
@@ -43,7 +43,7 @@ mvn spring-boot:run
 ### author-api
 
 - Open a new terminal
-- Inside `/springboot-graphql-mysql/author-api` folder run
+- Inside `/springboot-graphql-databases/author-api` folder run
 ```
 mvn spring-boot:run
 ```
@@ -59,7 +59,7 @@ mvn spring-boot:run
 ### author-client
 
 - Open a new terminal
-- Inside `/springboot-graphql-mysql/author-client` folder run
+- Inside `/springboot-graphql-databases/author-client` folder run
 ```
 mvn spring-boot:run
 ```
