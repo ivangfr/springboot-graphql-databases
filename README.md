@@ -2,11 +2,19 @@
 
 ## Goal
 
-The goal of this project is to implement an API that uses [GraphQL](https://graphql.org) and explore
-what GrapghQL has to offer. `author-book-api` is a spring-boot application that has GraphQL endpoints together with the
-traditional REST endpoints. `author-book-api` uses [MySQL](https://www.mysql.com) as storage. Besides, we will implement
-another micro-service, called `author-book-client`, that will consume `author-book-api` and display the information in an user
-friendly interface implemented using [Thymeleaf](https://www.thymeleaf.org).
+The goal of this project is to explore [GraphQL](https://graphql.org). In order to do it, we will implement three micro-services: `author-book-api`, `author-book-client` and `book-review-api`.
+
+### author-book-api
+
+Spring-boot application to handle authors and books. It exposes a GraphQL endpoint and traditional REST endpoints. It uses [MySQL](https://www.mysql.com) as storage.
+
+### author-book-client
+
+Spring-boot application that consumes `author-book-api` and display the information in an user friendly interface implemented using [Thymeleaf](https://www.thymeleaf.org).
+
+### book-review-api
+
+Spring-boot application to handle books and their reviews. It only exposes a GraphQL endpoint and uses [MongoDB](https://www.mongodb.com) as storage.
 
 ## Start Environment
 
@@ -50,11 +58,23 @@ mvn spring-boot:run
 
 #### Rest API
 
-- The link for author-book-api `Swagger` is: http://localhost:8081/swagger-ui.html
+- The link for author-book-api `Swagger` web page is: http://localhost:8080/swagger-ui.html
 
 #### GraphQL
 
-- The link for author-book-api `GraphiQL` is: http://localhost:8081/graphiql
+- The link for author-book-api `GraphiQL` web page is: http://localhost:8080/graphiql
+
+### book-review-api
+
+- Open a new terminal
+- Inside `/springboot-graphql-databases/book-review-api` folder run
+```
+mvn spring-boot:run
+```
+
+#### GraphQL
+
+- The link for book-review-api `GraphiQL` web page is: http://localhost:8081/graphiql
 
 ### author-book-client
 
@@ -63,11 +83,11 @@ mvn spring-boot:run
 ```
 mvn spring-boot:run
 ```
-- The link for author-book-client website is http://localhost:8082
+- The link for author-book-client web page is http://localhost:8082
 
-## How to use GraphiQL
+## How to use GraphiQL (for example author-book-api)
 
-- access http://localhost:8081/graphiql
+- access http://localhost:8080/graphiql
 
 - create author and return the id
 ```
@@ -135,7 +155,7 @@ mutation {
 
 - implement another service that stores reviews about the book and those reviews will be queryable
 - implement author-book-client
-- implement grapgql subscription
+- implement graphql subscription
 
 ## References
 
