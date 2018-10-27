@@ -4,7 +4,7 @@ services:
 
   author-mysql:
     container_name: author-mysql
-    image: mysql:8.0
+    image: mysql:8.0.13
     restart: unless-stopped
     ports:
     - 3306:3306
@@ -16,6 +16,15 @@ services:
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
       start_period: 20s
+
+  mongodb:
+    image: mongo:4.0.3
+    container_name: mongodb
+    ports:
+    - 27017:27017
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/bookdb --quiet
+      start_period: 10s
 
 #  zipkin:
 #    container_name: zipkin

@@ -1,8 +1,8 @@
-server.port: 8080
+server.port: 8081
 
 spring:
   application:
-    name: author-book-api
+    name: book-review-api
   zipkin:
     baseUrl: http://localhost:9411
     sender.type: web
