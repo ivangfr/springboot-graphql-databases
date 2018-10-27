@@ -132,6 +132,11 @@ mutation {
 
 ## TODO
 
+- add more field to author (birthDate, createdAt) and to book (pages, createdAt)
+- implement another service that stores reviews about the book and those reviews will be queryable
+- implement author-client
+- implement grapgql subscription
+
 ## References
 
 - https://graphql.org/learn

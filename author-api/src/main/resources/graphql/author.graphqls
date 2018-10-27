@@ -2,7 +2,7 @@ type Author {
     id: ID!
     firstName: String!
     lastName: String!
-    books: [Book]
+    books: [Book!]
 }
 
 input CreateAuthorInput {
@@ -35,10 +35,10 @@ type Book {
 }
 
 type Query {
-    getAuthors: [Author]!
+    getAuthors: [Author!]!
     getAuthor(id: ID!): Author!
 
-    getBooks: [Book]!
+    getBooks: [Book!]!
     getBook(id: ID!): Book!
 }
 

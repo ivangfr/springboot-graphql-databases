@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,10 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private Integer year;
 
 }
