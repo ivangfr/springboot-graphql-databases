@@ -33,6 +33,9 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
+    //@Column(unique = true)
+    private String isbn;
+
     @Column(nullable = false)
     private String title;
 

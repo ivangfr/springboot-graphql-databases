@@ -85,14 +85,18 @@ mvn spring-boot:run
 ```
 - The link for author-book-client web page is http://localhost:8082
 
-## How to use GraphiQL (author-book-api) 
+## How to use GraphiQL
+
+Bellow, there are some GraphQL queries and mutations to be used in `author-book-api`.
+
+> We won't write GraphQL queries and mutations for `book-review-api` because they will be similar and easily writable using GraphiQL
 
 - access http://localhost:8080/graphiql
 
 - create author and return the id
 ```
 mutation {
-  createAuthor(createAuthorInput: {firstName: "Ivan", lastName: "Franchin"}) {
+  createAuthor(authorInput: {firstName: "Ivan", lastName: "Franchin"}) {
     id
   }
 }
@@ -101,7 +105,7 @@ mutation {
 - create book and return the id of the book, first and last name of the author
 ```
 mutation {
-  createBook(createBookInput: {authorId: 1, title: "C++", year: 2018, numPages: 512}) {
+  createBook(bookInput: {authorId: 1, isbn: "123", title: "C++", year: 2018, numPages: 512}) {
     id
     author {
       firstName
@@ -114,12 +118,12 @@ mutation {
 - get author by id and return all information about his/her books
 ```
 {
-  getAuthor(id: 1) {
+  getAuthor(authorId: 1) {
     id
     firstName
     lastName
     books {
-      id
+      isbn
       title
       year
       numPages
@@ -131,7 +135,7 @@ mutation {
 - update book title and return its id and new title
 ```
 mutation {
-  updateBook(id: 2, updateBookInput: {title: "Java10"}) {
+  updateBook(bookId: 2, bookInput: {title: "Java10"}) {
     id
     title
   }
@@ -141,7 +145,7 @@ mutation {
 - delete author and return his/her id
 ```
 mutation {
-  deleteAuthor(id: 1) {
+  deleteAuthor(authorId: 1) {
     id
   }
 }

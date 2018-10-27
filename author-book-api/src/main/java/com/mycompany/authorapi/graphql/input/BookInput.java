@@ -3,8 +3,9 @@ package com.mycompany.authorapi.graphql.input;
 import lombok.Data;
 
 @Data
-public class UpdateBookInput {
+public class BookInput {
 
+    private String isbn;
     private String title;
     private Integer year;
     private Integer numPages;

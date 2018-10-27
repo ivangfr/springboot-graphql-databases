@@ -29,6 +29,7 @@ input UpdateAuthorInput {
 
 type Book {
     id: ID!
+    isbn: String!
     title: String!
     year: Int!
     numPages: Int!
@@ -37,6 +38,7 @@ type Book {
 
 input CreateBookInput {
     authorId: Int!
+    isbn: String!
     title: String!
     year: Int!
     numPages: Int!
@@ -44,6 +46,7 @@ input CreateBookInput {
 
 input UpdateBookInput {
     authorId: Int
+    isbn: String
     title: String
     year: Int
     numPages: Int
@@ -53,20 +56,20 @@ input UpdateBookInput {
 
 type Query {
     getAuthors: [Author!]!
-    getAuthor(id: ID!): Author!
+    getAuthor(authorId: ID!): Author!
 
     getBooks: [Book!]!
-    getBook(id: ID!): Book!
+    getBook(authorId: ID!): Book!
 }
 
 # ---
 
 type Mutation {
-    createAuthor(createAuthorInput: CreateAuthorInput!): Author!
-    updateAuthor(id: ID!, updateAuthorInput: UpdateAuthorInput!): Author!
-    deleteAuthor(id: ID!): Author!
+    createAuthor(authorInput: CreateAuthorInput!): Author!
+    updateAuthor(authorId: ID!, authorInput: UpdateAuthorInput!): Author!
+    deleteAuthor(authorId: ID!): Author!
 
-    createBook(createBookInput: CreateBookInput!): Book!
-    updateBook(id: ID!, updateBookInput: UpdateBookInput!): Book!
-    deleteBook(id: ID!): Book!
+    createBook(bookInput: CreateBookInput!): Book!
+    updateBook(bookId: ID!, bookInput: UpdateBookInput!): Book!
+    deleteBook(bookId: ID!): Book!
 }

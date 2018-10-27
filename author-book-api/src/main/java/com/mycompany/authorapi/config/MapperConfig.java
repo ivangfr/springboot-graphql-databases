@@ -1,7 +1,7 @@
 package com.mycompany.authorapi.config;
 
-import com.mycompany.authorapi.graphql.input.UpdateAuthorInput;
-import com.mycompany.authorapi.graphql.input.UpdateBookInput;
+import com.mycompany.authorapi.graphql.input.AuthorInput;
+import com.mycompany.authorapi.graphql.input.BookInput;
 import com.mycompany.authorapi.model.Author;
 import com.mycompany.authorapi.model.Book;
 import com.mycompany.authorapi.rest.dto.UpdateAuthorDto;
@@ -22,8 +22,8 @@ public class MapperConfig {
         // ----
         // GraphQL
 
-        defaultMapperFactory.classMap(UpdateAuthorInput.class, Author.class).mapNulls(false).byDefault().register();
-        defaultMapperFactory.classMap(UpdateBookInput.class, Book.class).mapNulls(false).byDefault().register();
+        defaultMapperFactory.classMap(AuthorInput.class, Author.class).mapNulls(false).byDefault().register();
+        defaultMapperFactory.classMap(BookInput.class, Book.class).mapNulls(false).byDefault().register();
 
         // ----
         // Rest

@@ -25,8 +25,8 @@ public class Query implements GraphQLQueryResolver {
         return authorService.getAuthors();
     }
 
-    public Author getAuthor(Long id) {
-        return authorService.validateAndGetAuthor(id);
+    public Author getAuthor(Long authorId) {
+        return authorService.validateAndGetAuthor(authorId);
     }
 
     // ----
@@ -36,8 +36,8 @@ public class Query implements GraphQLQueryResolver {
         return bookService.getBooks();
     }
 
-    public Book getBook(Long id) {
-        return bookService.validateAndGetBook(id);
+    public Book getBook(Long bookId) {
+        return bookService.validateAndGetBook(bookId);
     }
 
 }
