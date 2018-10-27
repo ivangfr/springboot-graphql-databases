@@ -3,9 +3,9 @@
 ## Goal
 
 The goal of this project is to implement an API that uses [GraphQL](https://graphql.org) and explore
-what GrapghQL has to offer. `author-api` is a spring-boot application that has GraphQL endpoints together with the
-traditional REST endpoints. `author-api` uses [MySQL](https://www.mysql.com) as storage. Besides, we will implement
-another micro-service, called `author-client`, that will consume `author-api` and display the information in an user
+what GrapghQL has to offer. `author-book-api` is a spring-boot application that has GraphQL endpoints together with the
+traditional REST endpoints. `author-book-api` uses [MySQL](https://www.mysql.com) as storage. Besides, we will implement
+another micro-service, called `author-book-client`, that will consume `author-book-api` and display the information in an user
 friendly interface implemented using [Thymeleaf](https://www.thymeleaf.org).
 
 ## Start Environment
@@ -40,30 +40,30 @@ mvn spring-boot:run
 ```
 - The link for eureka-server is http://localhost:8761
 
-### author-api
+### author-book-api
 
 - Open a new terminal
-- Inside `/springboot-graphql-databases/author-api` folder run
+- Inside `/springboot-graphql-databases/author-book-api` folder run
 ```
 mvn spring-boot:run
 ```
 
 #### Rest API
 
-- The link for author-api `Swagger` is: http://localhost:8081/swagger-ui.html
+- The link for author-book-api `Swagger` is: http://localhost:8081/swagger-ui.html
 
 #### GraphQL
 
-- The link for author-api `GraphiQL` is: http://localhost:8081/graphiql
+- The link for author-book-api `GraphiQL` is: http://localhost:8081/graphiql
 
-### author-client
+### author-book-client
 
 - Open a new terminal
-- Inside `/springboot-graphql-databases/author-client` folder run
+- Inside `/springboot-graphql-databases/author-book-client` folder run
 ```
 mvn spring-boot:run
 ```
-- The link for author-client website is http://localhost:8082
+- The link for author-book-client website is http://localhost:8082
 
 ## How to use GraphiQL
 
@@ -134,7 +134,7 @@ mutation {
 ## TODO
 
 - implement another service that stores reviews about the book and those reviews will be queryable
-- implement author-client
+- implement author-book-client
 - implement grapgql subscription
 
 ## References

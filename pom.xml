@@ -20,8 +20,8 @@
 
     <modules>
         <module>/eureka-server</module>
-        <module>/author-api</module>
-        <module>/author-client</module>
+        <module>/author-book-api</module>
+        <module>/author-book-client</module>
     </modules>
 
     <properties>
