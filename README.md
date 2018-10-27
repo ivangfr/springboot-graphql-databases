@@ -85,7 +85,7 @@ mvn spring-boot:run
 ```
 - The link for author-book-client web page is http://localhost:8082
 
-## How to use GraphiQL (for example author-book-api)
+## How to use GraphiQL (author-book-api) 
 
 - access http://localhost:8080/graphiql
 

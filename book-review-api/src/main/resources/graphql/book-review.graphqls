@@ -1,0 +1,51 @@
+# ----
+# Book
+
+type Book {
+    id: ID!
+    isbn: String!
+    title: String!
+    reviews: [Review!]
+}
+
+input CreateBookInput {
+    isbn: String!
+    title: String!
+}
+
+input UpdateBookInput {
+    isbn: String
+    title: String
+}
+
+# ------
+# Review
+
+type Review {
+    reviewer: String!
+    comment: String!
+    rating: Int!
+}
+
+input ReviewInput {
+    reviewer: String!
+    comment: String!
+    rating: Int!
+}
+
+# ---
+
+type Query {
+    getBooks: [Book!]!
+    getBook(bookId:ID!): Book
+}
+
+# ---
+
+type Mutation {
+    createBook(bookInput:CreateBookInput!): Book!
+    updateBook(bookId:ID!, bookInput:UpdateBookInput!): Book!
+    deleteBook(bookId:ID!): Book!
+
+    addBookReview(bookId:ID!, reviewInput: ReviewInput): Book!
+}
