@@ -13,16 +13,21 @@ public class CreateBookDto {
     @NotNull
     private Long authorId;
 
-    @ApiModelProperty(position = 2, example = "Introduction to GraphQL")
+    @ApiModelProperty(position = 2, example = "123")
+    @NotNull
+    @NotEmpty
+    private String isbn;
+
+    @ApiModelProperty(position = 3, example = "Introduction to GraphQL")
     @NotNull
     @NotEmpty
     private String title;
 
-    @ApiModelProperty(position = 3, example = "2018")
+    @ApiModelProperty(position = 4, example = "2018")
     @NotNull
     private Integer year;
 
-    @ApiModelProperty(position = 4, example = "512")
+    @ApiModelProperty(position = 5, example = "512")
     @NotNull
     private Integer numPages;
 

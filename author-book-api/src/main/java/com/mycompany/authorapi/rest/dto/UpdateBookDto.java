@@ -9,13 +9,16 @@ public class UpdateBookDto {
     @ApiModelProperty(example = "2")
     private Long authorId;
 
-    @ApiModelProperty(position = 2, example = "Introduction to Java9")
+    @ApiModelProperty(position = 2, example = "124")
+    private String isbn;
+
+    @ApiModelProperty(position = 3, example = "Introduction to Java9")
     private String title;
 
-    @ApiModelProperty(position = 3, example = "2019")
+    @ApiModelProperty(position = 4, example = "2019")
     private Integer year;
 
-    @ApiModelProperty(position = 4, example = "356")
+    @ApiModelProperty(position = 5, example = "356")
     private Integer numPages;
 
 }
