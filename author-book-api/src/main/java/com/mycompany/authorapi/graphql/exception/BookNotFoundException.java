@@ -23,13 +23,13 @@ public class BookNotFoundException extends RuntimeException implements GraphQLEr
     }
 
     @Override
-    public Map<String, Object> getExtensions() {
-        return extensions;
+    public ErrorType getErrorType() {
+        return ErrorType.DataFetchingException;
     }
 
     @Override
-    public ErrorType getErrorType() {
-        return ErrorType.DataFetchingException;
+    public Map<String, Object> getExtensions() {
+        return extensions;
     }
 
 }

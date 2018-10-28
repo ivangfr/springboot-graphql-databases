@@ -23,12 +23,12 @@ public class AuthorNotFoundException extends RuntimeException implements GraphQL
     }
 
     @Override
-    public Map<String, Object> getExtensions() {
-        return extensions;
+    public ErrorType getErrorType() {
+        return ErrorType.DataFetchingException;
     }
 
     @Override
-    public ErrorType getErrorType() {
-        return ErrorType.DataFetchingException;
+    public Map<String, Object> getExtensions() {
+        return extensions;
     }
 }

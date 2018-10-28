@@ -26,19 +26,19 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     public Book updateBook(String bookId, BookInput bookInput) {
-        Book book = bookService.validateAndGetBook(bookId);
+        Book book = bookService.validateAndGetBookById(bookId);
         mapperFacade.map(bookInput, book);
         return bookService.saveBook(book);
     }
 
     public Book deleteBook(String bookId) {
-        Book book = bookService.validateAndGetBook(bookId);
+        Book book = bookService.validateAndGetBookById(bookId);
         bookService.deleteBook(book);
         return book;
     }
 
     public Book addBookReview(String bookId, ReviewInput reviewInput) {
-        Book book = bookService.validateAndGetBook(bookId);
+        Book book = bookService.validateAndGetBookById(bookId);
         Review review = mapperFacade.map(reviewInput, Review.class);
         book.getReviews().add(review);
         return bookService.saveBook(book);

@@ -4,9 +4,9 @@ import com.mycompany.authorapi.model.Book;
 
 public interface BookService {
 
-    Iterable<Book> getBooks();
+    Iterable<Book> getAllBooks();
 
-    Book validateAndGetBook(Long id);
+    Book validateAndGetBookById(Long id);
 
     Book saveBook(Book book);
 

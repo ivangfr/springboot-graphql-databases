@@ -18,7 +18,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Iterable<Book> getBooks() {
+    public Iterable<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book validateAndGetBook(Long id) {
+    public Book validateAndGetBookById(Long id) {
         return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found", id));
     }
 

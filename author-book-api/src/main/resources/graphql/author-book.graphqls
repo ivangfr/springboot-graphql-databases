@@ -65,11 +65,11 @@ type Review {
 # ---
 
 type Query {
-    getAuthors: [Author!]!
-    getAuthor(authorId: ID!): Author!
+    getAllAuthors: [Author!]!
+    getAuthorById(authorId: ID!): Author
 
-    getBooks: [Book!]!
-    getBook(authorId: ID!): Book!
+    getAllBooks: [Book!]!
+    getBookById(bookId: ID!): Book
 }
 
 # ---

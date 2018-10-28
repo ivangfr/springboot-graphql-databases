@@ -36,20 +36,20 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public Iterable<Book> getBooks() {
-        return bookService.getBooks();
+    public Iterable<Book> getAllBooks() {
+        return bookService.getAllBooks();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @GetMapping("/{bookId}")
-    public Book getBook(@PathVariable Long bookId) {
-        return bookService.validateAndGetBook(bookId);
+    public Book getBookById(@PathVariable Long bookId) {
+        return bookService.validateAndGetBookById(bookId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Book createBook(@Valid @RequestBody CreateBookDto createBookDto) {
-        Author author = authorService.validateAndGetAuthor(createBookDto.getAuthorId());
+        Author author = authorService.validateAndGetAuthorById(createBookDto.getAuthorId());
         Book book = mapperFacade.map(createBookDto, Book.class);
         book.setAuthor(author);
         return bookService.saveBook(book);
@@ -58,11 +58,11 @@ public class BookController {
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/{bookId}")
     public Book updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
-        Book book = bookService.validateAndGetBook(bookId);
+        Book book = bookService.validateAndGetBookById(bookId);
         mapperFacade.map(updateBookDto, book);
         Long authorId = updateBookDto.getAuthorId();
         if (authorId != null) {
-            Author author = authorService.validateAndGetAuthor(authorId);
+            Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
         }
         return bookService.saveBook(book);
@@ -71,7 +71,7 @@ public class BookController {
     @ResponseStatus(HttpStatus.CREATED)
     @DeleteMapping("/{bookId}")
     public Book deleteBook(@PathVariable Long bookId) {
-        Book book = bookService.validateAndGetBook(bookId);
+        Book book = bookService.validateAndGetBookById(bookId);
         bookService.deleteBook(book);
         return book;
     }

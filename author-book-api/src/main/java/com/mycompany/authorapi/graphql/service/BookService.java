@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface BookService {
 
-    Iterable<Book> getBooks();
+    Iterable<Book> getAllBooks();
 
     List<Book> getBooksByAuthor(Author author);
 
-    Book validateAndGetBook(Long id);
+    Book validateAndGetBookById(Long id);
 
     Book saveBook(Book book);
 

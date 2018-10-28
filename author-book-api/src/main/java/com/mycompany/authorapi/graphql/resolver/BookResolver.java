@@ -9,10 +9,13 @@ import com.mycompany.authorapi.graphql.service.AuthorService;
 import com.mycompany.authorapi.model.Author;
 import com.mycompany.authorapi.model.Book;
 import com.mycompany.authorapi.model.Review;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Component
 public class BookResolver implements GraphQLResolver<Book> {
 
@@ -27,14 +30,21 @@ public class BookResolver implements GraphQLResolver<Book> {
     }
 
     public Author getAuthor(Book book) {
-        return authorService.validateAndGetAuthor(book.getAuthor().getId());
+        return authorService.validateAndGetAuthorById(book.getAuthor().getId());
     }
 
     public List<Review> getReviews(Book book) {
-        String query = String.format("{ getBookByIsbn(isbn: \"%s\") { reviews {comment, rating, reviewer} } }", book.getIsbn());
+        String query = String.format("{ getBookByIsbn(bookIsbn: \"%s\") { reviews {comment, rating, reviewer} } }", book.getIsbn());
         BookReviewApiQuery bookReviewApiQueryDto = new BookReviewApiQuery(query);
         BookReviewApiResult result = bookReviewApiClient.getBookReviews(gson.toJson(bookReviewApiQueryDto));
-        return result.getData().getGetBookByIsbn().getReviews();
+
+        BookReviewApiResult.ResultData.QueryName getBookByIsbn = result.getData().getGetBookByIsbn();
+        if (getBookByIsbn == null) {
+            log.warn("Book with isbn '{}' is not present in book-review-api", book.getIsbn());
+            return Collections.emptyList();
+        } else {
+            return getBookByIsbn.getReviews();
+        }
     }
 
 }

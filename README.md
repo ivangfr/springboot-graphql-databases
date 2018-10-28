@@ -157,7 +157,7 @@ mutation {
 
 ## TODO
 
-- implement another service that stores reviews about the book and those reviews will be queryable
+- implement integration between author-book-api (rest) and book-review-api
 - implement author-book-client
 - implement graphql subscription
 

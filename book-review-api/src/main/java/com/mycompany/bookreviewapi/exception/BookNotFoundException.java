@@ -1,12 +1,34 @@
 package com.mycompany.bookreviewapi.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import graphql.ErrorType;
+import graphql.GraphQLError;
+import graphql.language.SourceLocation;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class BookNotFoundException extends RuntimeException {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    public BookNotFoundException(String message) {
+public class BookNotFoundException extends RuntimeException implements GraphQLError {
+
+    private Map<String, Object> extensions = new HashMap<>();
+
+    public BookNotFoundException(String message, String field, String value) {
         super(message);
+        extensions.put(field, value);
+    }
+
+    @Override
+    public List<SourceLocation> getLocations() {
+        return null;
+    }
+
+    @Override
+    public ErrorType getErrorType() {
+        return ErrorType.DataFetchingException;
+    }
+
+    @Override
+    public Map<String, Object> getExtensions() {
+        return extensions;
     }
 }

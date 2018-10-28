@@ -4,9 +4,9 @@ import com.mycompany.authorapi.model.Author;
 
 public interface AuthorService {
 
-    Iterable<Author> getAuthors();
+    Iterable<Author> getAllAuthors();
 
-    Author validateAndGetAuthor(Long id);
+    Author validateAndGetAuthorById(Long id);
 
     Author saveAuthor(Author author);
 

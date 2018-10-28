@@ -15,12 +15,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Iterable<Author> getAuthors() {
+    public Iterable<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
     @Override
-    public Author validateAndGetAuthor(Long id) {
+    public Author validateAndGetAuthorById(Long id) {
         return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("Author not found", id));
     }
 

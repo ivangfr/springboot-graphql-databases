@@ -36,10 +36,10 @@ input ReviewInput {
 # ---
 
 type Query {
-    getBooks: [Book!]!
-    getBook(bookId:ID!): Book
+    getAllBooks: [Book!]!
+    getBookById(bookId:ID!): Book
 
-    getBookByIsbn(isbn:String!): Book
+    getBookByIsbn(bookIsbn:String!): Book
 }
 
 # ---

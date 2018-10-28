@@ -32,14 +32,14 @@ public class AuthorController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public Iterable<Author> getAuthors() {
-        return authorService.getAuthors();
+    public Iterable<Author> getAllAuthors() {
+        return authorService.getAllAuthors();
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{authorId}")
-    public Author getAuthor(@PathVariable Long authorId) {
-        return authorService.validateAndGetAuthor(authorId);
+    public Author getAuthorById(@PathVariable Long authorId) {
+        return authorService.validateAndGetAuthorById(authorId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -52,7 +52,7 @@ public class AuthorController {
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{authorId}")
     public Author updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
-        Author author = authorService.validateAndGetAuthor(authorId);
+        Author author = authorService.validateAndGetAuthorById(authorId);
         mapperFacade.map(updateAuthorDto, author);
         return authorService.saveAuthor(author);
     }
@@ -60,7 +60,7 @@ public class AuthorController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{authorId}")
     public Author deleteAuthor(@PathVariable Long authorId) {
-        Author author = authorService.validateAndGetAuthor(authorId);
+        Author author = authorService.validateAndGetAuthorById(authorId);
         authorService.deleteAuthor(author);
         return author;
     }

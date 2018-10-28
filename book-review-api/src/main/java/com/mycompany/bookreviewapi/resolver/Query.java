@@ -16,15 +16,15 @@ public class Query implements GraphQLQueryResolver {
         this.bookService = bookService;
     }
 
-    public List<Book> getBooks() {
-        return bookService.getBooks();
+    public List<Book> getAllBooks() {
+        return bookService.getAllBooks();
     }
 
-    public Book getBook(String bookId) {
-        return bookService.validateAndGetBook(bookId);
+    public Book getBookById(String bookId) {
+        return bookService.validateAndGetBookById(bookId);
     }
 
-    public Book getBookByIsbn(String isbn) {
-        return bookService.validateAndGetBookByIsbn(isbn);
+    public Book getBookByIsbn(String bookIsbn) {
+        return bookService.validateAndGetBookByIsbn(bookIsbn);
     }
 }

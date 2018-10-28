@@ -21,23 +21,23 @@ public class Query implements GraphQLQueryResolver {
     // ------
     // Author
 
-    public Iterable<Author> getAuthors() {
-        return authorService.getAuthors();
+    public Iterable<Author> getAllAuthors() {
+        return authorService.getAllAuthors();
     }
 
-    public Author getAuthor(Long authorId) {
-        return authorService.validateAndGetAuthor(authorId);
+    public Author getAuthorById(Long authorId) {
+        return authorService.validateAndGetAuthorById(authorId);
     }
 
     // ----
     // Book
 
-    public Iterable<Book> getBooks() {
-        return bookService.getBooks();
+    public Iterable<Book> getAllBooks() {
+        return bookService.getAllBooks();
     }
 
-    public Book getBook(Long bookId) {
-        return bookService.validateAndGetBook(bookId);
+    public Book getBookById(Long bookId) {
+        return bookService.validateAndGetBookById(bookId);
     }
 
 }

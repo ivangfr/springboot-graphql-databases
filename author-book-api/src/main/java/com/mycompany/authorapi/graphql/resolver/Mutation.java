@@ -32,13 +32,13 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     public Author updateAuthor(Long authorId, AuthorInput authorInput) {
-        Author author = authorService.validateAndGetAuthor(authorId);
+        Author author = authorService.validateAndGetAuthorById(authorId);
         mapperFacade.map(authorInput, author);
         return authorService.saveAuthor(author);
     }
 
     public Author deleteAuthor(Long authorId) {
-        Author author = authorService.validateAndGetAuthor(authorId);
+        Author author = authorService.validateAndGetAuthorById(authorId);
         authorService.deleteAuthor(author);
         return author;
     }
@@ -47,19 +47,19 @@ public class Mutation implements GraphQLMutationResolver {
     // Book
 
     public Book createBook(BookInput bookInput) {
-        Author author = authorService.validateAndGetAuthor(bookInput.getAuthorId());
+        Author author = authorService.validateAndGetAuthorById(bookInput.getAuthorId());
         Book book = mapperFacade.map(bookInput, Book.class);
         book.setAuthor(author);
         return bookService.saveBook(book);
     }
 
     public Book updateBook(Long bookId, BookInput bookInput) {
-        Book book = bookService.validateAndGetBook(bookId);
+        Book book = bookService.validateAndGetBookById(bookId);
         mapperFacade.map(bookInput, book);
 
         Long authorId = bookInput.getAuthorId();
         if (authorId != null) {
-            Author author = authorService.validateAndGetAuthor(authorId);
+            Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
         }
 
@@ -67,7 +67,7 @@ public class Mutation implements GraphQLMutationResolver {
     }
 
     public Book deleteBook(Long bookId) {
-        Book book = bookService.validateAndGetBook(bookId);
+        Book book = bookService.validateAndGetBookById(bookId);
         bookService.deleteBook(book);
         return book;
     }
