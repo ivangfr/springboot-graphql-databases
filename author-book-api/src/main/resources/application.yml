@@ -26,7 +26,7 @@ logging.level:
   org.hibernate:
     SQL: DEBUG
     type.descriptor.sql.BasicBinder: TRACE
-  com.mycompany.authorapi.client.BookReviewApiClient: DEBUG
+  com.mycompany.authorbookapi.client.BookReviewApiClient: DEBUG
 
 feign:
   client:
