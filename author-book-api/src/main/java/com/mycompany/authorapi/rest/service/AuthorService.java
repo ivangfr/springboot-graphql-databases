@@ -2,13 +2,9 @@ package com.mycompany.authorapi.rest.service;
 
 import com.mycompany.authorapi.model.Author;
 
-import java.util.Optional;
-
 public interface AuthorService {
 
     Iterable<Author> getAuthors();
-
-    Optional<Author> getAuthor(Long id);
 
     Author validateAndGetAuthor(Long id);
 

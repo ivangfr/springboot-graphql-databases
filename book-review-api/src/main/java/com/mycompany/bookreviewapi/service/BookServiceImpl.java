@@ -6,7 +6,6 @@ import com.mycompany.bookreviewapi.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -23,13 +22,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> getBook(String id) {
-        return bookRepository.findById(id);
-    }
-
-    @Override
     public Book validateAndGetBook(String id) {
-        return getBook(id).orElseThrow(() -> new BookNotFoundException(String.format("Book with id '%s' not found", id)));
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(String.format("Book with id '%s' not found", id)));
     }
 
     @Override
@@ -40,5 +34,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Book book) {
         bookRepository.delete(book);
+    }
+
+    @Override
+    public Book validateAndGetBookByIsbn(String isbn) {
+        return bookRepository.findByIsbn(isbn).orElseThrow(() -> new BookNotFoundException(String.format("Book with isbn '%s' not found", isbn)));
     }
 }

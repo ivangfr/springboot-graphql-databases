@@ -20,7 +20,11 @@ public class Query implements GraphQLQueryResolver {
         return bookService.getBooks();
     }
 
-    public Book getBook(String id) {
-        return bookService.validateAndGetBook(id);
+    public Book getBook(String bookId) {
+        return bookService.validateAndGetBook(bookId);
+    }
+
+    public Book getBookByIsbn(String isbn) {
+        return bookService.validateAndGetBookByIsbn(isbn);
     }
 }

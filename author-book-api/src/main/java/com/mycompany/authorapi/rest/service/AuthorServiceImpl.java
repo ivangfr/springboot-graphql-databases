@@ -5,8 +5,6 @@ import com.mycompany.authorapi.repository.AuthorRepository;
 import com.mycompany.authorapi.rest.exception.AuthorNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service("RestAuthorServiceImpl")
 public class AuthorServiceImpl implements AuthorService {
 
@@ -22,13 +20,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Optional<Author> getAuthor(Long id) {
-        return authorRepository.findById(id);
-    }
-
-    @Override
     public Author validateAndGetAuthor(Long id) {
-        return getAuthor(id).orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id '%s' not found", id)));
+        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id '%s' not found", id)));
     }
 
     @Override

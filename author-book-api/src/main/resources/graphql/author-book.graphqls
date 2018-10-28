@@ -34,6 +34,7 @@ type Book {
     year: Int!
     numPages: Int!
     author: Author!
+    reviews: [Review!] # list of book reviews are obtained from book-review-api
 }
 
 input CreateBookInput {
@@ -50,6 +51,15 @@ input UpdateBookInput {
     title: String
     year: Int
     numPages: Int
+}
+
+# ------
+# Review : book review are created in book-review-api
+
+type Review {
+    reviewer: String!
+    comment: String!
+    rating: Int!
 }
 
 # ---

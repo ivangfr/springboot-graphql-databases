@@ -7,7 +7,6 @@ import com.mycompany.authorapi.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service("GraphQLBookServiceImpl")
 public class BookServiceImpl implements BookService {
@@ -29,13 +28,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> getBook(Long id) {
-        return bookRepository.findById(id);
-    }
-
-    @Override
     public Book validateAndGetBook(Long id) {
-        return getBook(id).orElseThrow(() -> new BookNotFoundException("Book not found", id));
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found", id));
     }
 
     @Override

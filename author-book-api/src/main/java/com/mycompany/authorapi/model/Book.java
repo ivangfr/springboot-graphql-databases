@@ -15,7 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @ToString(exclude = "author")
@@ -44,6 +46,9 @@ public class Book {
 
     @Column(nullable = false)
     private Integer numPages;
+
+    @Transient
+    private List<Review> reviews;
 
     @JsonIgnore
     private LocalDateTime createdAt;

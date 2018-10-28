@@ -89,7 +89,7 @@ mvn spring-boot:run
 
 Bellow, there are some GraphQL queries and mutations to be used in `author-book-api`.
 
-> We won't write GraphQL queries and mutations for `book-review-api` because they will be similar and easily writable using GraphiQL
+> We did not write GraphQL queries and mutations for `book-review-api` because they are similar and can be easily written using GraphiQL
 
 - access http://localhost:8080/graphiql
 

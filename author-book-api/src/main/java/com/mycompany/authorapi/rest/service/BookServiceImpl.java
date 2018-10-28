@@ -5,8 +5,6 @@ import com.mycompany.authorapi.repository.BookRepository;
 import com.mycompany.authorapi.rest.exception.BookNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service("RestBookServiceImpl")
 public class BookServiceImpl implements BookService {
 
@@ -22,13 +20,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> getBook(Long id) {
-        return bookRepository.findById(id);
-    }
-
-    @Override
     public Book validateAndGetBook(Long id) {
-        return getBook(id).orElseThrow(() -> new BookNotFoundException(String.format("Book with id '%s' not found", id)));
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(String.format("Book with id '%s' not found", id)));
     }
 
     @Override

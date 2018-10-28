@@ -3,13 +3,10 @@ package com.mycompany.bookreviewapi.service;
 import com.mycompany.bookreviewapi.model.Book;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookService {
 
     List<Book> getBooks();
-
-    Optional<Book> getBook(String id);
 
     Book validateAndGetBook(String id);
 
@@ -17,4 +14,5 @@ public interface BookService {
 
     void deleteBook(Book book);
 
+    Book validateAndGetBookByIsbn(String isbn);
 }
