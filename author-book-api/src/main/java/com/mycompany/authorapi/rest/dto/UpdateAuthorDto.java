@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class UpdateAuthorDto {
@@ -17,6 +17,6 @@ public class UpdateAuthorDto {
 
     @ApiModelProperty(position = 3, example = "2002-02-02")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date birthday;
+    private LocalDate birthday;
 
 }
