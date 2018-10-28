@@ -1,9 +1,8 @@
 package com.mycompany.authorapi.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import com.google.gson.Gson;
 import com.mycompany.authorapi.client.BookReviewApiClient;
-import com.mycompany.authorapi.client.dto.BookReviewApiQuery;
+import com.mycompany.authorapi.client.BookReviewApiQueryBuilder;
 import com.mycompany.authorapi.client.dto.BookReviewApiResult;
 import com.mycompany.authorapi.graphql.service.AuthorService;
 import com.mycompany.authorapi.model.Author;
@@ -21,12 +20,13 @@ public class BookResolver implements GraphQLResolver<Book> {
 
     private final AuthorService authorService;
     private final BookReviewApiClient bookReviewApiClient;
-    private final Gson gson;
+    private final BookReviewApiQueryBuilder bookReviewApiQueryBuilder;
 
-    public BookResolver(AuthorService authorService, BookReviewApiClient bookReviewApiClient, Gson gson) {
+    public BookResolver(AuthorService authorService, BookReviewApiClient bookReviewApiClient,
+                        BookReviewApiQueryBuilder bookReviewApiQueryBuilder) {
         this.authorService = authorService;
         this.bookReviewApiClient = bookReviewApiClient;
-        this.gson = gson;
+        this.bookReviewApiQueryBuilder = bookReviewApiQueryBuilder;
     }
 
     public Author getAuthor(Book book) {
@@ -34,13 +34,12 @@ public class BookResolver implements GraphQLResolver<Book> {
     }
 
     public List<Review> getReviews(Book book) {
-        String query = String.format("{ getBookByIsbn(bookIsbn: \"%s\") { reviews {comment, rating, reviewer} } }", book.getIsbn());
-        BookReviewApiQuery bookReviewApiQueryDto = new BookReviewApiQuery(query);
-        BookReviewApiResult result = bookReviewApiClient.getBookReviews(gson.toJson(bookReviewApiQueryDto));
+        String graphQLQuery = bookReviewApiQueryBuilder.getBookReviewQuery(book.getIsbn());
+        BookReviewApiResult result = bookReviewApiClient.getBookReviews(graphQLQuery);
 
         BookReviewApiResult.ResultData.QueryName getBookByIsbn = result.getData().getGetBookByIsbn();
         if (getBookByIsbn == null) {
-            log.warn("Book with isbn '{}' is not present in book-review-api", book.getIsbn());
+            log.warn("Book with isbn '{}' not found in book-review-api", book.getIsbn());
             return Collections.emptyList();
         } else {
             return getBookByIsbn.getReviews();

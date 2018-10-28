@@ -157,7 +157,8 @@ mutation {
 
 ## TODO
 
-- implement integration between author-book-api (rest) and book-review-api
+- rename com.mycompany.authorapi package to com.mycompany.authorbookapi
+- implement hystrix fallback in case book-review-api is down
 - implement author-book-client
 - implement graphql subscription
 

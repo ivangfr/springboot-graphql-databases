@@ -1,6 +1,8 @@
 package com.mycompany.authorapi.rest;
 
 import com.mycompany.authorapi.model.Author;
+import com.mycompany.authorapi.rest.dto.AuthorDto;
+import com.mycompany.authorapi.rest.dto.BookDto;
 import com.mycompany.authorapi.rest.dto.CreateAuthorDto;
 import com.mycompany.authorapi.rest.dto.UpdateAuthorDto;
 import com.mycompany.authorapi.rest.service.AuthorService;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api/authors")
@@ -32,37 +37,50 @@ public class AuthorController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public Iterable<Author> getAllAuthors() {
-        return authorService.getAllAuthors();
+    public Iterable<AuthorDto> getAllAuthors() {
+        return StreamSupport.stream(authorService.getAllAuthors().spliterator(), false)
+                .map(author -> mapperFacade.map(author, AuthorDto.class))
+                .collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{authorId}")
-    public Author getAuthorById(@PathVariable Long authorId) {
-        return authorService.validateAndGetAuthorById(authorId);
+    public AuthorDto getAuthorById(@PathVariable Long authorId) {
+        Author author = authorService.validateAndGetAuthorById(authorId);
+        return mapperFacade.map(author, AuthorDto.class);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Author createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
+    public Long createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
         Author author = mapperFacade.map(createAuthorDto, Author.class);
-        return authorService.saveAuthor(author);
+        return authorService.saveAuthor(author).getId();
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{authorId}")
-    public Author updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
+    public Long updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
         Author author = authorService.validateAndGetAuthorById(authorId);
         mapperFacade.map(updateAuthorDto, author);
-        return authorService.saveAuthor(author);
+        return authorService.saveAuthor(author).getId();
     }
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{authorId}")
-    public Author deleteAuthor(@PathVariable Long authorId) {
+    public Long deleteAuthor(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);
         authorService.deleteAuthor(author);
-        return author;
+        return author.getId();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{authorId}/books")
+    public Set<BookDto> getAuthorBooks(@PathVariable Long authorId) {
+        Author author = authorService.validateAndGetAuthorById(authorId);
+        return author.getBooks()
+                .stream()
+                .map(book -> mapperFacade.map(book, BookDto.class))
+                .collect(Collectors.toSet());
     }
 
 }

@@ -1,7 +1,6 @@
 package com.mycompany.authorapi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -43,10 +42,7 @@ public class Author {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
-    @JsonIgnore
     private LocalDateTime createdAt;
-
-    @JsonIgnore
     private LocalDateTime updatedAt;
 
     @PrePersist

@@ -1,6 +1,5 @@
 package com.mycompany.authorapi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,7 +29,6 @@ public class Book {
     @GeneratedValue
     private Long id;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Author author;
@@ -50,10 +48,7 @@ public class Book {
     @Transient
     private List<Review> reviews;
 
-    @JsonIgnore
     private LocalDateTime createdAt;
-
-    @JsonIgnore
     private LocalDateTime updatedAt;
 
     @PrePersist

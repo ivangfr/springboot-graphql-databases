@@ -14,7 +14,7 @@ management:
 spring:
   data:
     mongodb:
-      uri: mongodb://${MONGODB_ADDR:localhost:27017}/bookdb
+      uri: mongodb://${MONGODB_ADDR:localhost:27017}/bookreviewdb
   sleuth:
     sampler.probability: 1.0
 #    web.skipPattern: (^cleanup.*|.+favicon.*)

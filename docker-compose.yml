@@ -2,28 +2,28 @@ version: "3.5"
 
 services:
 
-  author-mysql:
-    container_name: author-mysql
+  author-book-mysql:
+    container_name: author-book-mysql
     image: mysql:8.0.13
     restart: unless-stopped
     ports:
     - 3306:3306
     environment:
     - MYSQL_ROOT_PASSWORD=secret
-    - MYSQL_DATABASE=authordb
+    - MYSQL_DATABASE=authorbookdb
     - MYSQL_USERNAME=root
     - MYSQL_PASSWORD=secret
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
       start_period: 20s
 
-  mongodb:
+  book-review-mongodb:
     image: mongo:4.0.3
-    container_name: mongodb
+    container_name: book-review-mongodb
     ports:
     - 27017:27017
     healthcheck:
-      test: echo 'db.stats().ok' | mongo localhost:27017/bookdb --quiet
+      test: echo 'db.stats().ok' | mongo localhost:27017/bookreviewdb --quiet
       start_period: 10s
 
 #  zipkin:
