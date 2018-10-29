@@ -39,7 +39,7 @@ public class BookResolver implements GraphQLResolver<Book> {
 
         BookReviewApiResult.ResultData.QueryName getBookByIsbn = result.getData().getGetBookByIsbn();
         if (getBookByIsbn == null) {
-            log.warn("Book with isbn '{}' not found in book-review-api", book.getIsbn());
+            log.warn("Unable to get reviews of the book with isbn '{}' from book-review-api", book.getIsbn());
             return Collections.emptyList();
         } else {
             return getBookByIsbn.getReviews();

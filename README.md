@@ -3,17 +3,20 @@
 ## Goal
 
 The goal of this project is to explore [GraphQL](https://graphql.org). In order to do it, we will implement three
-micro-services: `author-book-api`, `author-book-client` and `book-review-api`.
+micro-services (discoverable by an `eureka-server`): `author-book-api`, `author-book-client` and `book-review-api`.
 
 ### author-book-api
 
-Spring-boot application to handle authors and books. It exposes a GraphQL endpoint and traditional REST endpoints.
-It uses [MySQL](https://www.mysql.com) as storage. It communicates with `book-review-api` to get book reviews. The
-link between `author-book-api` and `book-review-api` is the `ISBN` of the book.
+Spring-boot application that handles authors and books. It exposes a GraphQL endpoint and traditional REST endpoints.
+`author-book-api` uses [MySQL](https://www.mysql.com) as storage and communicates with `book-review-api` to get book
+reviews. It's used [Feign](https://github.com/OpenFeign/feign) to create easily a client for `book-review-api` and
+[Hystrix](https://github.com/Netflix/Hystrix) (latency and fault tolerance library) to deal with situations when
+`book-review-api` is down. The book `ISBN` value is what connects books stored in `author-book-api` with the ones stored in
+`book-review-api`.
 
 ### book-review-api
 
-Spring-boot application to handle books and their reviews. It only exposes a GraphQL endpoint and uses
+Spring-boot application that handles books and their reviews. It only exposes a GraphQL endpoint and uses
 [MongoDB](https://www.mongodb.com) as storage.
 
 ### author-book-client
@@ -51,7 +54,7 @@ docker-compose ps
 ```
 mvn spring-boot:run
 ```
-- The link for eureka-server is http://localhost:8761
+- The link for `eureka-server` is http://localhost:8761
 
 ### author-book-api
 
@@ -63,11 +66,11 @@ mvn spring-boot:run
 
 #### Rest API
 
-- The link for author-book-api `Swagger` web page is: http://localhost:8080/swagger-ui.html
+- The link for `author-book-api` **Swagger** web page is: http://localhost:8080/swagger-ui.html
 
 #### GraphQL
 
-- The link for author-book-api `GraphiQL` web page is: http://localhost:8080/graphiql
+- The link for `author-book-api` **GraphiQL** web page is: http://localhost:8080/graphiql
 
 ### book-review-api
 
@@ -77,9 +80,7 @@ mvn spring-boot:run
 mvn spring-boot:run
 ```
 
-#### GraphQL
-
-- The link for book-review-api `GraphiQL` web page is: http://localhost:8081/graphiql
+- The link for `book-review-api` **GraphiQL** web page is: http://localhost:8081/graphiql
 
 ### author-book-client
 
@@ -88,7 +89,7 @@ mvn spring-boot:run
 ```
 mvn spring-boot:run
 ```
-- The link for author-book-client web page is http://localhost:8082
+- The link for `author-book-client` web page is http://localhost:8082
 
 ## How to use GraphiQL
 
@@ -156,7 +157,10 @@ mutation {
 }
 ```
 
-- get author by id and return some information about his/her books including reviews of his/her book stored in `book-review-api`
+- get author by id and return some information about his/her books including reviews of his/her book stored in `book-review-api`.
+P.S. as the book stored in `author-book-api` has ISBN `123` and the book stored in `book-review-api` has the same ISBN,
+it is possible to retrieve reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does
+not have a specific ISBN or the service is down. 
 ```
 {
   getAuthorById(authorId: 1) {
@@ -195,12 +199,13 @@ mutation {
 
 ### Useful links
 
-- Zipkin can be accessed at http://localhost:9411
+#### Hystrix Dashboard
+
+- It can be accessed at http://localhost:8080/hystrix
+- Add `http://localhost:8080/actuator/hystrix.stream` to the input field.
 
 ## TODO
 
-- implement hystrix fallback in case book-review-api is down (http://nphumbert.github.io/blog/2017/07/23/setup-a-circuit-breaker-with-hystrix)
-- add hystrix dashboard
 - implement author-book-client
 - implement graphql subscription
 

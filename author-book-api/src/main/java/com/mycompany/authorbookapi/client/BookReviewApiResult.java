@@ -20,7 +20,7 @@ public class BookReviewApiResult {
         }
     }
 
-    public static BookReviewApiResult empty() {
+    static BookReviewApiResult empty() {
         BookReviewApiResult bookReviewApiResult = new BookReviewApiResult();
         bookReviewApiResult.setData(new ResultData());
         return bookReviewApiResult;

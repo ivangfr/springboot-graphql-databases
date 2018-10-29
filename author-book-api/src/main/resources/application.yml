@@ -29,6 +29,8 @@ logging.level:
   com.mycompany.authorbookapi.client.BookReviewApiClient: DEBUG
 
 feign:
+  hystrix:
+    enabled: true
   client:
     config:
       default:
