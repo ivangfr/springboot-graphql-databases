@@ -2,7 +2,7 @@ package com.mycompany.authorbookapi.rest;
 
 import com.mycompany.authorbookapi.client.BookReviewApiClient;
 import com.mycompany.authorbookapi.client.BookReviewApiQueryBuilder;
-import com.mycompany.authorbookapi.client.dto.BookReviewApiResult;
+import com.mycompany.authorbookapi.client.BookReviewApiResult;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
 import com.mycompany.authorbookapi.model.Review;

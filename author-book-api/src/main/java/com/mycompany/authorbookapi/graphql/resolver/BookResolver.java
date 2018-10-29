@@ -3,7 +3,7 @@ package com.mycompany.authorbookapi.graphql.resolver;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.mycompany.authorbookapi.client.BookReviewApiClient;
 import com.mycompany.authorbookapi.client.BookReviewApiQueryBuilder;
-import com.mycompany.authorbookapi.client.dto.BookReviewApiResult;
+import com.mycompany.authorbookapi.client.BookReviewApiResult;
 import com.mycompany.authorbookapi.graphql.service.AuthorService;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;

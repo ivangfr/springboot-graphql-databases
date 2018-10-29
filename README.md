@@ -2,19 +2,24 @@
 
 ## Goal
 
-The goal of this project is to explore [GraphQL](https://graphql.org). In order to do it, we will implement three micro-services: `author-book-api`, `author-book-client` and `book-review-api`.
+The goal of this project is to explore [GraphQL](https://graphql.org). In order to do it, we will implement three
+micro-services: `author-book-api`, `author-book-client` and `book-review-api`.
 
 ### author-book-api
 
-Spring-boot application to handle authors and books. It exposes a GraphQL endpoint and traditional REST endpoints. It uses [MySQL](https://www.mysql.com) as storage.
-
-### author-book-client
-
-Spring-boot application that consumes `author-book-api` and display the information in an user friendly interface implemented using [Thymeleaf](https://www.thymeleaf.org).
+Spring-boot application to handle authors and books. It exposes a GraphQL endpoint and traditional REST endpoints.
+It uses [MySQL](https://www.mysql.com) as storage. It communicates with `book-review-api` to get book reviews. The
+link between `author-book-api` and `book-review-api` is the `ISBN` of the book.
 
 ### book-review-api
 
-Spring-boot application to handle books and their reviews. It only exposes a GraphQL endpoint and uses [MongoDB](https://www.mongodb.com) as storage.
+Spring-boot application to handle books and their reviews. It only exposes a GraphQL endpoint and uses
+[MongoDB](https://www.mongodb.com) as storage.
+
+### author-book-client
+
+Spring-boot application that consumes `author-book-api` and display the information in an user friendly interface
+implemented using [Thymeleaf](https://www.thymeleaf.org).
 
 ## Start Environment
 
@@ -87,13 +92,49 @@ mvn spring-boot:run
 
 ## How to use GraphiQL
 
-Bellow, there are some GraphQL queries and mutations to be used in `author-book-api`.
+### book-review-api
 
-> We did not write GraphQL queries and mutations for `book-review-api` because they are similar and can be easily written using GraphiQL
+- access http://localhost:8081/graphiql
+
+- create book and return its id
+```
+mutation {
+  createBook(bookInput: {title: "Introdution to GraphQL", isbn: "123"}) {
+    id
+  }
+}
+```
+
+- add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`
+```
+mutation {
+  addBookReview(bookId: "5bd4bd4790e9f641b7388f23", reviewInput: {reviewer: "Ivan Franchin", comment: "It is a very good book", rating: 8}) {
+    id
+  }
+}
+```
+
+- get all books stored in book-review-api, including their reviews
+```
+{
+  getAllBooks {
+    id
+    title
+    isbn
+    reviews {
+      comment
+      rating
+      reviewer
+    }
+  }
+}
+```
+
+### author-book-api
 
 - access http://localhost:8080/graphiql
 
-- create author and return the id
+- create author and return its id
 ```
 mutation {
   createAuthor(authorInput: {firstName: "Ivan", lastName: "Franchin"}) {
@@ -102,10 +143,10 @@ mutation {
 }
 ```
 
-- create book and return the id of the book, first and last name of the author
+- create book and return the book id and author's first and last name
 ```
 mutation {
-  createBook(bookInput: {authorId: 1, isbn: "123", title: "C++", year: 2018, numPages: 512}) {
+  createBook(bookInput: {authorId: 1, isbn: "123", title: "Introdution to GraphQL", year: 2018, numPages: 512}) {
     id
     author {
       firstName
@@ -115,18 +156,19 @@ mutation {
 }
 ```
 
-- get author by id and return all information about his/her books
+- get author by id and return some information about his/her books including reviews of his/her book stored in `book-review-api`
 ```
 {
-  getAuthor(authorId: 1) {
-    id
+  getAuthorById(authorId: 1) {
     firstName
     lastName
     books {
       isbn
       title
-      year
-      numPages
+      reviews {
+        rating
+        comment
+      }
     }
   }
 }
@@ -157,7 +199,8 @@ mutation {
 
 ## TODO
 
-- implement hystrix fallback in case book-review-api is down
+- implement hystrix fallback in case book-review-api is down (http://nphumbert.github.io/blog/2017/07/23/setup-a-circuit-breaker-with-hystrix)
+- add hystrix dashboard
 - implement author-book-client
 - implement graphql subscription
 

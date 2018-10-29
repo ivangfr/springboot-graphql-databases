@@ -1,4 +1,4 @@
-package com.mycompany.authorbookapi.client.dto;
+package com.mycompany.authorbookapi.client;
 
 import com.mycompany.authorbookapi.model.Review;
 import lombok.Data;
@@ -18,6 +18,12 @@ public class BookReviewApiResult {
         public static class QueryName {
             private List<Review> reviews;
         }
+    }
+
+    public static BookReviewApiResult empty() {
+        BookReviewApiResult bookReviewApiResult = new BookReviewApiResult();
+        bookReviewApiResult.setData(new ResultData());
+        return bookReviewApiResult;
     }
 
 }
