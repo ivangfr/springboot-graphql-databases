@@ -35,7 +35,6 @@ public class AuthorController {
         this.mapperFacade = mapperFacade;
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public Iterable<AuthorDto> getAllAuthors() {
         return StreamSupport.stream(authorService.getAllAuthors().spliterator(), false)
@@ -43,7 +42,6 @@ public class AuthorController {
                 .collect(Collectors.toList());
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{authorId}")
     public AuthorDto getAuthorById(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);
@@ -57,7 +55,6 @@ public class AuthorController {
         return authorService.saveAuthor(author).getId();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{authorId}")
     public Long updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
         Author author = authorService.validateAndGetAuthorById(authorId);
@@ -65,7 +62,6 @@ public class AuthorController {
         return authorService.saveAuthor(author).getId();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{authorId}")
     public Long deleteAuthor(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);
@@ -73,7 +69,6 @@ public class AuthorController {
         return author.getId();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{authorId}/books")
     public Set<BookDto> getAuthorBooks(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);

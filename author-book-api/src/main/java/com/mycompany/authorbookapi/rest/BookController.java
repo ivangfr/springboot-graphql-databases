@@ -50,7 +50,6 @@ public class BookController {
         this.mapperFacade = mapperFacade;
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public Iterable<BookDto> getAllBooks() {
         return StreamSupport.stream(bookService.getAllBooks().spliterator(), false)
@@ -58,7 +57,6 @@ public class BookController {
                 .collect(Collectors.toList());
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{bookId}")
     public BookDto getBookById(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
@@ -74,7 +72,6 @@ public class BookController {
         return bookService.saveBook(book).getId();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{bookId}")
     public Long updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
         Book book = bookService.validateAndGetBookById(bookId);
@@ -87,7 +84,6 @@ public class BookController {
         return bookService.saveBook(book).getId();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{bookId}")
     public Long deleteBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
@@ -95,7 +91,6 @@ public class BookController {
         return book.getId();
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{bookId}/reviews")
     public List<Review> getBookReviews(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
