@@ -1,15 +1,13 @@
-# springboot-graphql-databases
-
-## Goal
+# `springboot-graphql-databases`
 
 The goal of this project is to explore [GraphQL](https://graphql.org). In order to do it, we will implement three
 micro-services, discoverable by an `eureka-server`: `author-book-api`, `author-book-client` and `book-review-api`.
 
-## Microservices
+# Microservices
 
 ![project-diagram](images/project-diagram.png)
 
-### author-book-api
+## author-book-api
 
 Spring-boot application that handles authors and books. It exposes a GraphQL endpoint **and** traditional REST API endpoints.
 `author-book-api` uses [MySQL](https://www.mysql.com) as storage and calls `book-review-api` to get book
@@ -18,19 +16,19 @@ reviews. It uses [Feign](https://github.com/OpenFeign/feign) to easily create a 
 `book-review-api` is down. The book `ISBN` is what connects books stored in `author-book-api` with the ones stored in
 `book-review-api`.
 
-### book-review-api
+## book-review-api
 
 Spring-boot application that handles books and their reviews. It only exposes a GraphQL API and uses
 [MongoDB](https://www.mongodb.com) as storage.
 
-### author-book-client
+## author-book-client
 
 Spring-boot application that consumes `author-book-api` and display the information in an user friendly interface
 implemented using [Thymeleaf](https://www.thymeleaf.org). It is not implemented yet.
 
-## Start Environment
+# Start Environment
 
-### Docker Compose
+## Docker Compose
 
 - Open one terminal
 
@@ -48,36 +46,36 @@ docker-compose up -d
 docker-compose ps
 ```
 
-## Start Services
+# Start Services
 
-### eureka-server
+## eureka-server
 
 - Open a new terminal
+
 - Inside `/springboot-graphql-databases` root folder run
 ```
 ./mvnw spring-boot:run --projects eureka-server
 ```
+
 - The link for `eureka-server` is http://localhost:8761
 
-### author-book-api
+## author-book-api
 
 - Open a new terminal
+
 - Inside `/springboot-graphql-databases` root folder run
 ```
 ./mvnw spring-boot:run --projects author-book-api
 ```
 
-#### Rest API
-
 - The link for `author-book-api` **Swagger** web page is: http://localhost:8080/swagger-ui.html
-
-#### GraphQL
 
 - The link for `author-book-api` **GraphiQL** web page is: http://localhost:8080/graphiql
 
-### book-review-api
+## book-review-api
 
 - Open a new terminal
+
 - Inside `/springboot-graphql-databases` root folder run
 ```
 ./mvnw spring-boot:run --projects book-review-api
@@ -85,18 +83,20 @@ docker-compose ps
 
 - The link for `book-review-api` **GraphiQL** web page is: http://localhost:8081/graphiql
 
-### author-book-client
+## author-book-client
 
 - Open a new terminal
+
 - Inside `/springboot-graphql-databases` root folder run
 ```
 ./mvnw spring-boot:run --projects author-book-client
 ```
+
 - The link for `author-book-client` web page is http://localhost:8082
 
-## How to use GraphiQL
+# How to use GraphiQL
 
-### book-review-api
+## book-review-api
 
 - access http://localhost:8081/graphiql
 
@@ -134,7 +134,7 @@ mutation {
 }
 ```
 
-### author-book-api
+## author-book-api
 
 - access http://localhost:8080/graphiql
 
@@ -201,11 +201,12 @@ mutation {
 }
 ```
 
-## Useful links & commands
+# Useful links & commands
 
 ### Hystrix Dashboard
 
 - It can be accessed at http://localhost:8080/hystrix
+
 - Add `http://localhost:8080/actuator/hystrix.stream` to the input field.
 
 ### MySQL
@@ -223,15 +224,20 @@ use bookreviewdb;
 db.books.find().pretty();
 ```
 
-## TODO
+# TODO
 
 - replace `Hystrix` by `Resilience4j`;
+
 - implement `author-book-client`;
+
 - study how to implement authentication/authorization to `GraphQL` endpoint;
+
 - implement `graphql` subscription;
 
-## References
+# References
 
 - https://graphql.org/learn
+
 - https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
+
 - https://www.baeldung.com/spring-graphql
