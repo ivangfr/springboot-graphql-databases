@@ -9,8 +9,8 @@ micro-services, discoverable by an `eureka-server`: `author-book-api`, `author-b
 
 ## author-book-api
 
-Spring-boot application that handles authors and books. It exposes a GraphQL endpoint **and** traditional REST API endpoints.
-`author-book-api` uses [MySQL](https://www.mysql.com) as storage and calls `book-review-api` to get book
+Spring-boot application that handles authors and books. It exposes a GraphQL endpoint **and** traditional REST API
+endpoints. `author-book-api` uses [MySQL](https://www.mysql.com) as storage and calls `book-review-api` to get book
 reviews. It uses [Feign](https://github.com/OpenFeign/feign) to easily create a client for `book-review-api` and
 [Hystrix](https://github.com/Netflix/Hystrix) (latency and fault tolerance library) to handle situations when
 `book-review-api` is down. The book `ISBN` is what connects books stored in `author-book-api` with the ones stored in
@@ -227,17 +227,12 @@ db.books.find().pretty();
 # TODO
 
 - replace `Hystrix` by `Resilience4j`;
-
 - implement `author-book-client`;
-
 - study how to implement authentication/authorization to `GraphQL` endpoint;
-
 - implement `graphql` subscription;
 
 # References
 
 - https://graphql.org/learn
-
 - https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
-
 - https://www.baeldung.com/spring-graphql
