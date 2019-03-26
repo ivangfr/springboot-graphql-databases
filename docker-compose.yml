@@ -2,8 +2,8 @@ version: "3.5"
 
 services:
 
-  author-book-mysql:
-    container_name: author-book-mysql
+  mysql:
+    container_name: mysql
     image: mysql:8.0.15
     restart: unless-stopped
     ports:
@@ -15,11 +15,54 @@ services:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
       start_period: 20s
 
-  book-review-mongodb:
+  mongodb:
     image: mongo:4.0.7
-    container_name: book-review-mongodb
+    container_name: mongodb
     ports:
       - "27017:27017"
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/bookreviewdb --quiet
-      start_period: 10s
+      start_period: 20s
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin:2.12.6
+    restart: unless-stopped
+    ports:
+      - "9411:9411"
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9411" ]
+      start_period: 20s
+
+  author-book-api:
+    image: docker.mycompany.com/author-book-api:1.0.0
+    container_name: author-book-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - zipkin
+    environment:
+      MYSQL_HOST: mysql
+      ZIPKIN_HOST: zipkin
+      BOOK_REVIEW_API_HOST: book-review-api
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "8080" ]
+      start_period: 40s
+
+  book-review-api:
+    image: docker.mycompany.com/book-review-api:1.0.0
+    container_name: book-review-api
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mongodb
+      - zipkin
+    environment:
+      MONGODB_HOST: mongodb
+      ZIPKIN_HOST: zipkin
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "8080" ]
+      start_period: 40s

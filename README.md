@@ -1,7 +1,7 @@
 # `springboot-graphql-databases`
 
 The goal of this project is to explore [GraphQL](https://graphql.org). In order to do it, we will implement three
-micro-services, discoverable by an `eureka-server`: `author-book-api`, `author-book-client` and `book-review-api`.
+microservices: `author-book-api`, `author-book-client` and `book-review-api`.
 
 # Microservices
 
@@ -24,15 +24,48 @@ Spring-boot application that handles books and their reviews. It only exposes a 
 ## author-book-client
 
 Spring-boot application that consumes `author-book-api` and display the information in an user friendly interface
-implemented using [Thymeleaf](https://www.thymeleaf.org). It is not implemented yet.
+implemented using [Thymeleaf](https://www.thymeleaf.org). **It is not implemented yet.**
+
+# Build Docker Images
+
+In a terminal and inside `springboot-graphql-databases` root folder, run the following `./mvnw` commands to build the
+microservices docker images
+
+### `author-book-api`
+```
+./mvnw clean package dockerfile:build -DskipTests --projects author-book-api
+```
+| Environment Variable | Description |
+| -------------------- | ------------- |
+| `MYSQL_HOST` | Specify host of the `MySQL` database to use (default `localhost`). Default port is `3306`. |
+| `ZIPKIN_HOST` | Specify host of the `Zipkin` to use (default `localhost`). Default port is `9411`. |
+| `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`) |
+| `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `8080`) |
+
+### `book-review-api`
+```
+./mvnw clean package dockerfile:build -DskipTests --projects book-review-api
+```
+| Environment Variable | Description |
+| -------------------- | ------------- |
+| `MONGODB_URL` | Specify URL of the `MongoDB` database to use (default `localhost`). Default port is `27017`. |
+| `ZIPKIN_HOST` | Specify URL of the `Zipkin` to use (default `localhost`). Default port is `9411`. |
+
+### `author-book-client`
+```
+./mvnw clean package dockerfile:build -DskipTests --projects author-book-client
+```
+| Environment Variable | Description |
+| -------------------- | ------------- |
+| TODO | TODO |
 
 # Start Environment
 
 ## Docker Compose
 
-- Open one terminal
+1. Open one terminal
 
-- In `/springboot-graphql-databases` root folder run
+2. In `springboot-graphql-databases` root folder run
 ```
 docker-compose up -d
 ```
@@ -41,58 +74,44 @@ docker-compose up -d
 >docker-compose down -v
 >```
 
-- Wait a little bit until all containers are Up (healthy). You can check their status running
+3. Wait a little bit until all containers are Up (healthy). You can check their status running
 ```
 docker-compose ps
 ```
 
-# Start Services
+# Microservice Links
 
-## eureka-server
+| Microservice | API Type | URL |
+| ------------ | -------- | --- |
+| author-book-api | Swagger | http://localhost:8080/swagger-ui.html |
+| author-book-api | GraphiQL | http://localhost:8080/graphiql |
+| book-review-api | GraphiQL | http://localhost:8081/graphiql |
+| author-book-client | Website | TODO |
 
-- Open a new terminal
+# Running microservices with Maven
 
-- Inside `/springboot-graphql-databases` root folder run
+During development, it is better to just run the microservices with Maven instead of always build the docker images and
+run it. In order to do that
+
+1. Comment the microservice(s) in `docker-compose.yml` file so that it doesn't start when you put the environment up.
+
+2. Run the following Maven commands
+
+- `author-book-api`
 ```
-./mvnw spring-boot:run --projects eureka-server
-```
-
-- The link for `eureka-server` is http://localhost:8761
-
-## author-book-api
-
-- Open a new terminal
-
-- Inside `/springboot-graphql-databases` root folder run
-```
+export BOOK_REVIEW_API_PORT=8081
 ./mvnw spring-boot:run --projects author-book-api
 ```
 
-- The link for `author-book-api` **Swagger** web page is: http://localhost:8080/swagger-ui.html
-
-- The link for `author-book-api` **GraphiQL** web page is: http://localhost:8080/graphiql
-
-## book-review-api
-
-- Open a new terminal
-
-- Inside `/springboot-graphql-databases` root folder run
+- `book-review-api`
 ```
-./mvnw spring-boot:run --projects book-review-api
+./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
 ```
 
-- The link for `book-review-api` **GraphiQL** web page is: http://localhost:8081/graphiql
-
-## author-book-client
-
-- Open a new terminal
-
-- Inside `/springboot-graphql-databases` root folder run
+- `author-book-client`
 ```
-./mvnw spring-boot:run --projects author-book-client
+TODO
 ```
-
-- The link for `author-book-client` web page is http://localhost:8082
 
 # How to use GraphiQL
 
@@ -211,7 +230,7 @@ mutation {
 
 ### MySQL
 ```
-docker exec -it author-book-mysql bash -c 'mysql -uroot -psecret --database=authorbookdb'
+docker exec -it mysql mysql  -uroot -psecret --database=authorbookdb
 show tables;
 select * from authors;
 select * from books;
@@ -219,7 +238,7 @@ select * from books;
 
 ### MongoDB
 ```
-docker exec -it book-review-mongodb mongo
+docker exec -it mongodb mongo
 use bookreviewdb;
 db.books.find().pretty();
 ```

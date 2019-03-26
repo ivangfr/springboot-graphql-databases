@@ -16,12 +16,11 @@ spring:
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    url: jdbc:mysql://${MYSQL_ADDR:localhost}:3306/authorbookdb?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/authorbookdb?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: secret
   sleuth:
     sampler.probability: 1.0
-#    web.skipPattern: (^cleanup.*|.+favicon.*)
 
 logging.level:
   org.hibernate:
@@ -36,13 +35,6 @@ feign:
     config:
       default:
         loggerLevel: basic
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-  instance:
-    preferIpAddress: true
 
 graphql: # default values
   servlet:

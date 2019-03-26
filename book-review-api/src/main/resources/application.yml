@@ -14,14 +14,6 @@ management:
 spring:
   data:
     mongodb:
-      uri: mongodb://${MONGODB_ADDR:localhost:27017}/bookreviewdb
+      uri: mongodb://${MONGODB_HOST:localhost}:27017/bookreviewdb
   sleuth:
     sampler.probability: 1.0
-#    web.skipPattern: (^cleanup.*|.+favicon.*)
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-  instance:
-    preferIpAddress: true

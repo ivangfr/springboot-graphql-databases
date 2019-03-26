@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "book-review-api", fallbackFactory = BookReviewApiClient.BookReviewApiClientFallbackFactory.class)
+@FeignClient(
+        name = "book-review-api",
+        url = "http://${BOOK_REVIEW_API_HOST:localhost}:${BOOK_REVIEW_API_PORT:8080}",
+        fallbackFactory = BookReviewApiClient.BookReviewApiClientFallbackFactory.class)
 public interface BookReviewApiClient {
 
     @PostMapping("/graphql")
