@@ -2,9 +2,11 @@ package com.mycompany.authorbookapi.rest.service;
 
 import com.mycompany.authorbookapi.model.Author;
 
+import java.util.List;
+
 public interface AuthorService {
 
-    Iterable<Author> getAllAuthors();
+    List<Author> getAllAuthors();
 
     Author validateAndGetAuthorById(Long id);
 

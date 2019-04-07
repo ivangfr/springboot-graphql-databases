@@ -10,6 +10,5 @@ public class BookDto {
     private String title;
     private Integer year;
     private Integer numPages;
-    private AuthorDto author;
 
 }

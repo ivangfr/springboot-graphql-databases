@@ -51,8 +51,9 @@ public class BookController {
     }
 
     @GetMapping
-    public Iterable<BookDto> getAllBooks() {
-        return StreamSupport.stream(bookService.getAllBooks().spliterator(), false)
+    public List<BookDto> getAllBooks() {
+        return bookService.getAllBooks()
+                .stream()
                 .map(book -> mapperFacade.map(book, BookDto.class))
                 .collect(Collectors.toList());
     }
@@ -65,15 +66,16 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Long createBook(@Valid @RequestBody CreateBookDto createBookDto) {
+    public BookDto createBook(@Valid @RequestBody CreateBookDto createBookDto) {
         Author author = authorService.validateAndGetAuthorById(createBookDto.getAuthorId());
         Book book = mapperFacade.map(createBookDto, Book.class);
         book.setAuthor(author);
-        return bookService.saveBook(book).getId();
+        book = bookService.saveBook(book);
+        return mapperFacade.map(book, BookDto.class);
     }
 
     @PutMapping("/{bookId}")
-    public Long updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
+    public BookDto updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
         Book book = bookService.validateAndGetBookById(bookId);
         mapperFacade.map(updateBookDto, book);
         Long authorId = updateBookDto.getAuthorId();
@@ -81,14 +83,15 @@ public class BookController {
             Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
         }
-        return bookService.saveBook(book).getId();
+        book = bookService.saveBook(book);
+        return mapperFacade.map(book, BookDto.class);
     }
 
     @DeleteMapping("/{bookId}")
-    public Long deleteBook(@PathVariable Long bookId) {
+    public BookDto deleteBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
         bookService.deleteBook(book);
-        return book.getId();
+        return mapperFacade.map(book, BookDto.class);
     }
 
     @GetMapping("/{bookId}/reviews")

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api/authors")
@@ -37,7 +36,8 @@ public class AuthorController {
 
     @GetMapping
     public Iterable<AuthorDto> getAllAuthors() {
-        return StreamSupport.stream(authorService.getAllAuthors().spliterator(), false)
+        return authorService.getAllAuthors()
+                .stream()
                 .map(author -> mapperFacade.map(author, AuthorDto.class))
                 .collect(Collectors.toList());
     }
@@ -50,23 +50,25 @@ public class AuthorController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Long createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
+    public AuthorDto createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
         Author author = mapperFacade.map(createAuthorDto, Author.class);
-        return authorService.saveAuthor(author).getId();
+        author = authorService.saveAuthor(author);
+        return mapperFacade.map(author, AuthorDto.class);
     }
 
     @PutMapping("/{authorId}")
-    public Long updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
+    public AuthorDto updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
         Author author = authorService.validateAndGetAuthorById(authorId);
         mapperFacade.map(updateAuthorDto, author);
-        return authorService.saveAuthor(author).getId();
+        author = authorService.saveAuthor(author);
+        return mapperFacade.map(author, AuthorDto.class);
     }
 
     @DeleteMapping("/{authorId}")
-    public Long deleteAuthor(@PathVariable Long authorId) {
+    public AuthorDto deleteAuthor(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);
         authorService.deleteAuthor(author);
-        return author.getId();
+        return mapperFacade.map(author, AuthorDto.class);
     }
 
     @GetMapping("/{authorId}/books")

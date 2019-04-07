@@ -5,6 +5,8 @@ import com.mycompany.authorbookapi.repository.BookRepository;
 import com.mycompany.authorbookapi.rest.exception.BookNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("RestBookServiceImpl")
 public class BookServiceImpl implements BookService {
 
@@ -15,7 +17,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Iterable<Book> getAllBooks() {
+    public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 

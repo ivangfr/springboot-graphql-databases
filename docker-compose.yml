@@ -9,14 +9,14 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE=authorbookdb
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: authorbookdb
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
       start_period: 20s
 
   mongodb:
-    image: mongo:4.0.7
+    image: mongo:4.0.8
     container_name: mongodb
     ports:
       - "27017:27017"

@@ -230,7 +230,7 @@ mutation {
 
 ### MySQL
 ```
-docker exec -it mysql mysql  -uroot -psecret --database=authorbookdb
+docker exec -it mysql mysql -uroot -psecret --database=authorbookdb
 show tables;
 select * from authors;
 select * from books;

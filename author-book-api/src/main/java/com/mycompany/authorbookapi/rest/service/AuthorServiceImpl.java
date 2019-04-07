@@ -5,6 +5,8 @@ import com.mycompany.authorbookapi.repository.AuthorRepository;
 import com.mycompany.authorbookapi.rest.exception.AuthorNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("RestAuthorServiceImpl")
 public class AuthorServiceImpl implements AuthorService {
 
@@ -15,7 +17,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Iterable<Author> getAllAuthors() {
+    public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
