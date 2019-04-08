@@ -31,7 +31,7 @@ implemented using [Thymeleaf](https://www.thymeleaf.org). **It is not implemente
 In a terminal and inside `springboot-graphql-databases` root folder, run the following `./mvnw` commands to build the
 microservices docker images
 
-### `author-book-api`
+## author-book-api
 ```
 ./mvnw clean package dockerfile:build -DskipTests --projects author-book-api
 ```
@@ -42,7 +42,7 @@ microservices docker images
 | `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`) |
 | `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `8080`) |
 
-### `book-review-api`
+## book-review-api
 ```
 ./mvnw clean package dockerfile:build -DskipTests --projects book-review-api
 ```
@@ -51,7 +51,7 @@ microservices docker images
 | `MONGODB_URL` | Specify URL of the `MongoDB` database to use (default `localhost`). Default port is `27017`. |
 | `ZIPKIN_HOST` | Specify URL of the `Zipkin` to use (default `localhost`). Default port is `9411`. |
 
-### `author-book-client`
+## author-book-client
 ```
 ./mvnw clean package dockerfile:build -DskipTests --projects author-book-client
 ```
@@ -61,11 +61,9 @@ microservices docker images
 
 # Start Environment
 
-## Docker Compose
+- Open one terminal
 
-1. Open one terminal
-
-2. In `springboot-graphql-databases` root folder run
+- In `springboot-graphql-databases` root folder run
 ```
 docker-compose up -d
 ```
@@ -74,7 +72,7 @@ docker-compose up -d
 >docker-compose down -v
 >```
 
-3. Wait a little bit until all containers are Up (healthy). You can check their status running
+- Wait a little bit until all containers are Up (healthy). You can check their status running
 ```
 docker-compose ps
 ```
@@ -91,24 +89,21 @@ docker-compose ps
 # Running microservices with Maven
 
 During development, it is better to just run the microservices with Maven instead of always build the docker images and
-run it. In order to do that
+run it. In order to do that, comment the microservice(s) in `docker-compose.yml` file so that it doesn't start when you
+start the environment and run the microservice with Maven.
 
-1. Comment the microservice(s) in `docker-compose.yml` file so that it doesn't start when you put the environment up.
-
-2. Run the following Maven commands
-
-- `author-book-api`
+### author-book-api
 ```
 export BOOK_REVIEW_API_PORT=8081
 ./mvnw spring-boot:run --projects author-book-api
 ```
 
-- `book-review-api`
+### book-review-api
 ```
 ./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
 ```
 
-- `author-book-client`
+### author-book-client
 ```
 TODO
 ```
@@ -222,13 +217,13 @@ mutation {
 
 # Useful links & commands
 
-### Hystrix Dashboard
+## Hystrix Dashboard
 
 - It can be accessed at http://localhost:8080/hystrix
 
 - Add `http://localhost:8080/actuator/hystrix.stream` to the input field.
 
-### MySQL
+## MySQL
 ```
 docker exec -it mysql mysql -uroot -psecret --database=authorbookdb
 show tables;
@@ -236,7 +231,7 @@ select * from authors;
 select * from books;
 ```
 
-### MongoDB
+## MongoDB
 ```
 docker exec -it mongodb mongo
 use bookreviewdb;
