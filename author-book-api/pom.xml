@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>author-book-api</artifactId>
-    <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <name>author-book-api</name>
     <description>Demo project for Spring Boot</description>

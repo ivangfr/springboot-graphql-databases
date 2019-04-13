@@ -37,8 +37,10 @@ microservices docker images
 ```
 | Environment Variable | Description |
 | -------------------- | ------------- |
-| `MYSQL_HOST` | Specify host of the `MySQL` database to use (default `localhost`). Default port is `3306`. |
-| `ZIPKIN_HOST` | Specify host of the `Zipkin` to use (default `localhost`). Default port is `9411`. |
+| `MYSQL_HOST` | Specify host of the `MySQL` database to use (default `localhost`) |
+| `MYSQL_PORT` | Specify port of the `MySQL` database to use (default `3306`) |
+| `ZIPKIN_HOST` | Specify host of the `Zipkin` to use (default `localhost`) |
+| `ZIPKIN_PORT` | Specify port of the `Zipkin` to use (default `9411`) |
 | `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`) |
 | `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `8080`) |
 
@@ -48,16 +50,14 @@ microservices docker images
 ```
 | Environment Variable | Description |
 | -------------------- | ------------- |
-| `MONGODB_URL` | Specify URL of the `MongoDB` database to use (default `localhost`). Default port is `27017`. |
-| `ZIPKIN_HOST` | Specify URL of the `Zipkin` to use (default `localhost`). Default port is `9411`. |
+| `MONGODB_HOST` | Specify host of the `MongoDB` database to use (default `localhost`) |
+| `MONGODB_PORT` | Specify port of the `MongoDB` database to use (default `27017`) |
+| `ZIPKIN_HOST` | Specify host of the `Zipkin` to use (default `localhost`) |
+| `ZIPKIN_PORT` | Specify port of the `Zipkin` to use (default `9411`) |
 
 ## author-book-client
-```
-./mvnw clean package dockerfile:build -DskipTests --projects author-book-client
-```
-| Environment Variable | Description |
-| -------------------- | ------------- |
-| TODO | TODO |
+
+TODO
 
 # Start Environment
 
@@ -79,7 +79,7 @@ docker-compose ps
 
 # Microservice Links
 
-| Microservice | API Type | URL |
+| Microservice | URL Type | URL |
 | ------------ | -------- | --- |
 | author-book-api | Swagger | http://localhost:8080/swagger-ui.html |
 | author-book-api | GraphiQL | http://localhost:8080/graphiql |

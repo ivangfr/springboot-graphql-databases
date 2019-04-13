@@ -1,4 +1,4 @@
-FROM openjdk:8u191-jdk-alpine
+FROM openjdk:8-jre-alpine
 
 LABEL maintainer="ivangfr@yahoo.com.br"
 
