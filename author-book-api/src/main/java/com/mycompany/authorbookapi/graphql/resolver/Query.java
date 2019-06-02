@@ -7,6 +7,8 @@ import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class Query implements GraphQLQueryResolver {
 
@@ -21,7 +23,7 @@ public class Query implements GraphQLQueryResolver {
     // ------
     // Author
 
-    public Iterable<Author> getAllAuthors() {
+    public List<Author> getAllAuthors() {
         return authorService.getAllAuthors();
     }
 
@@ -32,7 +34,7 @@ public class Query implements GraphQLQueryResolver {
     // ----
     // Book
 
-    public Iterable<Book> getAllBooks() {
+    public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
 

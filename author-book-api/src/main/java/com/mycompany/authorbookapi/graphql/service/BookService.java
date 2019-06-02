@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookService {
 
-    Iterable<Book> getAllBooks();
+    List<Book> getAllBooks();
 
     List<Book> getBooksByAuthor(Author author);
 

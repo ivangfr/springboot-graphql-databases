@@ -5,6 +5,8 @@ import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("GrapgQLAuthorServiceImpl")
 public class AuthorServiceImpl implements AuthorService {
 
@@ -15,7 +17,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Iterable<Author> getAllAuthors() {
+    public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 

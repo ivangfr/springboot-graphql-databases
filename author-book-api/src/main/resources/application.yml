@@ -1,16 +1,3 @@
-management:
-  security:
-    enabled: false
-  endpoints:
-    web:
-      exposure.include: "*"
-  endpoint:
-    health:
-      show-details: always
-  health:
-    binders:
-      enabled: true
-
 spring:
   jpa:
     hibernate.ddl-auto: update
@@ -21,12 +8,6 @@ spring:
     password: secret
   sleuth:
     sampler.probability: 1.0
-
-logging.level:
-  org.hibernate:
-    SQL: DEBUG
-    type.descriptor.sql.BasicBinder: TRACE
-  com.mycompany.authorbookapi.client.BookReviewApiClient: DEBUG
 
 feign:
   hystrix:
@@ -46,3 +27,20 @@ graphiql: # default values
   mapping: /graphiql
   endpoint: /graphql
   enabled: true
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.hibernate:
+      SQL: DEBUG
+      type.descriptor.sql.BasicBinder: TRACE
+    com.mycompany.authorbookapi.client.BookReviewApiClient: DEBUG

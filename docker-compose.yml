@@ -4,7 +4,7 @@ services:
 
   mysql:
     container_name: mysql
-    image: mysql:8.0.15
+    image: mysql:8.0.16
     restart: unless-stopped
     ports:
       - "3306:3306"
@@ -16,7 +16,7 @@ services:
       start_period: 20s
 
   mongodb:
-    image: mongo:4.0.8
+    image: mongo:4.0.10
     container_name: mongodb
     ports:
       - "27017:27017"
@@ -26,7 +26,7 @@ services:
 
   zipkin:
     container_name: zipkin
-    image: openzipkin/zipkin:2.12.6
+    image: openzipkin/zipkin:2.14.0
     restart: unless-stopped
     ports:
       - "9411:9411"

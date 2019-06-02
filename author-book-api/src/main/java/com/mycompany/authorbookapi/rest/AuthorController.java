@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class AuthorController {
     }
 
     @GetMapping
-    public Iterable<AuthorDto> getAllAuthors() {
+    public List<AuthorDto> getAllAuthors() {
         return authorService.getAllAuthors()
                 .stream()
                 .map(author -> mapperFacade.map(author, AuthorDto.class))
