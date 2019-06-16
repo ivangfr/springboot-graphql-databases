@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookReviewApiQueryBuilder {
 
-    private static final String BOOK_REVIEW_QUERY = "{ getBookByIsbn(bookIsbn: \"%s\") { reviews {comment, rating, reviewer} } }";
+    private static final String BOOK_REVIEW_QUERY = "{ getBookByIsbn(bookIsbn: \"%s\") { reviews {comment, rating, reviewer, createdAt} } }";
 
     private final Gson gson;
 

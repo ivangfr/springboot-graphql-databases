@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Document(collection = "books")
@@ -23,7 +23,7 @@ public class Book {
 
     private String title;
 
-    private Set<Review> reviews = new LinkedHashSet<>();
+    private List<Review> reviews = new ArrayList<>();
 
     @CreatedDate
     private LocalDateTime createdAt;

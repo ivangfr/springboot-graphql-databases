@@ -40,7 +40,7 @@ public class Mutation implements GraphQLMutationResolver {
     public Book addBookReview(String bookId, ReviewInput reviewInput) {
         Book book = bookService.validateAndGetBookById(bookId);
         Review review = mapperFacade.map(reviewInput, Review.class);
-        book.getReviews().add(review);
+        book.getReviews().add(0, review);
         return bookService.saveBook(book);
     }
 }

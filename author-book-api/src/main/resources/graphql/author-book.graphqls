@@ -60,6 +60,7 @@ type Review {
     reviewer: String!
     comment: String!
     rating: Int!
+    createdAt: String!
 }
 
 # ---

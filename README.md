@@ -31,7 +31,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run the fol
 microservices docker images
 
 ## author-book-api
-```bash
+```
 ./mvnw clean package dockerfile:build -DskipTests --projects author-book-api
 ```
 | Environment Variable | Description |
@@ -44,7 +44,7 @@ microservices docker images
 | `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `8080`) |
 
 ## book-review-api
-```bash
+```
 ./mvnw clean package dockerfile:build -DskipTests --projects book-review-api
 ```
 | Environment Variable | Description |
@@ -63,16 +63,16 @@ TODO
 - Open one terminal
 
 - In `springboot-graphql-databases` root folder run
-```bash
+```
 docker-compose up -d
 ```
 > To stop and remove containers, networks and volumes
->```bash
+>```
 >docker-compose down -v
 >```
 
 - Wait a little bit until all containers are Up (healthy). You can check their status running
-```bash
+```
 docker-compose ps
 ```
 
@@ -92,13 +92,13 @@ them. In order to do that, comment the microservice(s) in `docker-compose.yml` f
 start the environment) and run them with Maven.
 
 ### author-book-api
-```bash
+```
 export BOOK_REVIEW_API_PORT=8081
 ./mvnw spring-boot:run --projects author-book-api
 ```
 
 ### book-review-api
-```bash
+```
 ./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
 ```
 
@@ -124,7 +124,7 @@ mutation {
 - Add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`
 ```
 mutation {
-  addBookReview(bookId: "5bd4bd4790e9f641b7388f23", reviewInput: {reviewer: "Ivan Franchin", comment: "It is a very good book", rating: 8}) {
+  addBookReview(bookId: "5bd4bd4790e9f641b7388f23", reviewInput: {reviewer: "Ivan Franchin", comment: "It is a very good book", rating: 5}) {
     id
   }
 }
@@ -141,6 +141,7 @@ mutation {
       comment
       rating
       reviewer
+      createdAt
     }
   }
 }
@@ -190,8 +191,10 @@ specific ISBN or the service is down.
       isbn
       title
       reviews {
+        reviewer
         rating
         comment
+        createdAt
       }
     }
   }
