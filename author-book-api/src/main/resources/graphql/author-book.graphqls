@@ -1,27 +1,18 @@
-##
-# (1) Waiting for LocalDate Scalar: https://github.com/graphql-java/graphql-java/issues/991
-
 # ------
 # Author
 
 type Author {
     id: ID!
-    firstName: String!
-    lastName: String!
-#   birthday: LocalDate # (1)
-    books: [Book!]
+    name: String!
+    books: [Book!]!
 }
 
 input CreateAuthorInput {
-    firstName: String!
-    lastName: String!
-#   birthday: LocalDate # (1)
+    name: String!
 }
 
 input UpdateAuthorInput {
-    firstName: String
-    lastName: String
-#   birthday: LocalDate # (1)
+    name: String
 }
 
 # ----
@@ -32,9 +23,8 @@ type Book {
     isbn: String!
     title: String!
     year: Int!
-    numPages: Int!
     author: Author!
-    reviews: [Review!] # list of book reviews are obtained from book-review-api
+    bookReview: BookReview!
 }
 
 input CreateBookInput {
@@ -42,7 +32,6 @@ input CreateBookInput {
     isbn: String!
     title: String!
     year: Int!
-    numPages: Int!
 }
 
 input UpdateBookInput {
@@ -50,11 +39,19 @@ input UpdateBookInput {
     isbn: String
     title: String
     year: Int
-    numPages: Int
+}
+
+# ----------
+# BookReview
+
+type BookReview {
+    error: String
+    id: String
+    reviews: [Review!]!
 }
 
 # ------
-# Review : book review are created in book-review-api
+# Review
 
 type Review {
     reviewer: String!

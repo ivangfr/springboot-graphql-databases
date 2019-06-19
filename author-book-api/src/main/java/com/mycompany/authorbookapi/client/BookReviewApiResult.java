@@ -9,6 +9,7 @@ import java.util.List;
 public class BookReviewApiResult {
 
     private ResultData data;
+    private String error;
 
     @Data
     public static class ResultData {
@@ -16,12 +17,14 @@ public class BookReviewApiResult {
 
         @Data
         public static class QueryName {
+            private String id;
             private List<Review> reviews;
         }
     }
 
-    static BookReviewApiResult empty() {
+    static BookReviewApiResult empty(String error) {
         BookReviewApiResult bookReviewApiResult = new BookReviewApiResult();
+        bookReviewApiResult.setError(error);
         bookReviewApiResult.setData(new ResultData());
         return bookReviewApiResult;
     }

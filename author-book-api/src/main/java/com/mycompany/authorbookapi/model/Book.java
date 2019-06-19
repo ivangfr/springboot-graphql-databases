@@ -18,7 +18,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @ToString(exclude = "author")
@@ -35,7 +34,7 @@ public class Book {
     @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "FK_AUTHOR"))
     private Author author;
 
-    @Column(nullable = false/*, unique = true*/)
+    @Column(nullable = false, unique = true)
     private String isbn;
 
     @Column(nullable = false)
@@ -44,11 +43,8 @@ public class Book {
     @Column(nullable = false)
     private Integer year;
 
-    @Column(nullable = false)
-    private Integer numPages;
-
     @Transient
-    private List<Review> reviews;
+    private BookReview reviewRes;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

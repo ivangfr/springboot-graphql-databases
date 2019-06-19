@@ -5,7 +5,7 @@ import com.mycompany.authorbookapi.client.BookReviewApiQueryBuilder;
 import com.mycompany.authorbookapi.client.BookReviewApiResult;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
-import com.mycompany.authorbookapi.model.Review;
+import com.mycompany.authorbookapi.model.BookReview;
 import com.mycompany.authorbookapi.rest.dto.BookDto;
 import com.mycompany.authorbookapi.rest.dto.CreateBookDto;
 import com.mycompany.authorbookapi.rest.dto.UpdateBookDto;
@@ -25,10 +25,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Slf4j
 @RestController
@@ -95,19 +93,12 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}/reviews")
-    public List<Review> getBookReviews(@PathVariable Long bookId) {
+    public BookReview getBookReviews(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
 
         String graphQLQuery = bookReviewApiQueryBuilder.getBookReviewQuery(book.getIsbn());
-        BookReviewApiResult result = bookReviewApiClient.getBookReviews(graphQLQuery);
-
-        BookReviewApiResult.ResultData.QueryName getBookByIsbn = result.getData().getGetBookByIsbn();
-        if (getBookByIsbn == null) {
-            log.warn("Unable to get reviews of the book with isbn '{}' from book-review-api", book.getIsbn());
-            return Collections.emptyList();
-        } else {
-            return getBookByIsbn.getReviews();
-        }
+        BookReviewApiResult bookReviewApiResult = bookReviewApiClient.getBookReviews(graphQLQuery);
+        return new BookReview(bookReviewApiResult);
     }
 
 }

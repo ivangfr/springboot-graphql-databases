@@ -1,7 +1,7 @@
 # `springboot-graphql-databases`
 
-The goal of this project is to explore [GraphQL](https://graphql.org). For it, we will implement three microservices:
-`author-book-api`, `author-book-client` and `book-review-api`.
+The goal of this project is to explore [GraphQL](https://graphql.org). For it, we will implement two microservices:
+`author-book-api` and `book-review-api`.
 
 # Microservices
 
@@ -20,10 +20,6 @@ and [Hystrix](https://github.com/Netflix/Hystrix) (latency and fault tolerance l
 
 Spring-boot Web Java application that handles books and their reviews. It only exposes a GraphQL API and uses
 [MongoDB](https://www.mongodb.com) as storage.
-
-## author-book-client
-
-TODO
 
 # Build Docker Images
 
@@ -54,10 +50,6 @@ microservices docker images
 | `ZIPKIN_HOST` | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
 | `ZIPKIN_PORT` | Specify port of the `Zipkin` distributed tracing system to use (default `9411`) |
 
-## author-book-client
-
-TODO
-
 # Start Environment
 
 - Open one terminal
@@ -66,10 +58,6 @@ TODO
 ```
 docker-compose up -d
 ```
-> To stop and remove containers, networks and volumes
->```
->docker-compose down -v
->```
 
 - Wait a little bit until all containers are Up (healthy). You can check their status running
 ```
@@ -83,7 +71,6 @@ docker-compose ps
 | author-book-api | Swagger | http://localhost:8080/swagger-ui.html |
 | author-book-api | GraphiQL | http://localhost:8080/graphiql |
 | book-review-api | GraphiQL | http://localhost:8081/graphiql |
-| author-book-client | Website | TODO |
 
 # Running microservices with Maven
 
@@ -102,10 +89,6 @@ export BOOK_REVIEW_API_PORT=8081
 ./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
 ```
 
-### author-book-client
-
-TODO
-
 # How to use GraphiQL
 
 ## book-review-api
@@ -115,7 +98,7 @@ TODO
 - Create a book and return its id
 ```
 mutation {
-  createBook(bookInput: {title: "Introdution to GraphQL", isbn: "123"}) {
+  createBook(bookInput: {title: "Learning GraphQL and Relay", isbn: "9781786465757"}) {
     id
   }
 }
@@ -154,47 +137,46 @@ mutation {
 - Create an author and return its id
 ```
 mutation {
-  createAuthor(authorInput: {firstName: "Ivan", lastName: "Franchin"}) {
+  createAuthor(authorInput: {name: "Samer Buna"}) {
     id
   }
 }
 ```
 
-- Create a book and return the book id and author's first and last name
+- Create a book and return the book id and author name
 
-> **Note.** while creating this book in `author-book-api`, we are setting the same ISBN, `123`, as we did when 
+> **Note.** while creating this book in `author-book-api`, we are setting the same ISBN, `9781786465757`, as we did when 
 creating the book in `book-review-api`.
 ```
 mutation {
-  createBook(bookInput: {authorId: 1, isbn: "123", title: "Introdution to GraphQL", year: 2018, numPages: 512}) {
+  createBook(bookInput: {authorId: 1, isbn: "9781786465757", title: "Learning GraphQL and Relay", year: 2016}) {
     id
     author {
-      firstName
-      lastName
+      name
     }
   }
 }
 ```
 
-- Get author by id and return some information about his/her books including reviews of the book stored in
-`book-review-api`.
+- Get author by id and return some information about his/her books including reviews of the book from `book-review-api`.
 
-> **Note.** as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `123`, it's possible to
-retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does not have a
-specific ISBN or the service is down. 
+> **Note.** as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781786465757`, it's
+possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does
+not have a specific ISBN or the service is down. 
 ```
 {
   getAuthorById(authorId: 1) {
-    firstName
-    lastName
+    name
     books {
       isbn
       title
-      reviews {
-        reviewer
-        rating
-        comment
-        createdAt
+      bookReview {
+        reviews {
+          reviewer
+          rating
+          comment
+          createdAt
+        }
       }
     }
   }
@@ -204,7 +186,7 @@ specific ISBN or the service is down.
 - Update book title and return its id and new title
 ```
 mutation {
-  updateBook(bookId: 1, bookInput: {title: "GraphQL in a Nutshell"}) {
+  updateBook(bookId: 1, bookInput: {title: "Learning GraphQL and Relay 2"}) {
     id
     title
   }
@@ -218,6 +200,13 @@ mutation {
     id
   }
 }
+```
+
+# Shutdown
+
+To stop and remove containers, networks and volumes
+```
+docker-compose down -v
 ```
 
 # Useful links & commands
@@ -248,7 +237,6 @@ db.books.find().pretty();
 # TODO
 
 - replace `Hystrix` by `Resilience4j`;
-- implement `author-book-client`;
 - study how to implement authentication/authorization to `GraphQL` endpoint;
 - implement `graphql` subscription;
 

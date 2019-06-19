@@ -9,6 +9,5 @@ public class BookDto {
     private String isbn;
     private String title;
     private Integer year;
-    private Integer numPages;
 
 }

@@ -42,8 +42,9 @@ public interface BookReviewApiClient {
 
         @Override
         public BookReviewApiResult getBookReviews(String graphQLQuery) {
-            log.error("Unable to access book-review-api. Cause: {}", cause.getMessage());
-            return BookReviewApiResult.empty();
+            String error = String.format("Unable to access book-review-api. Cause: %s", cause.getMessage());
+            log.error(error);
+            return BookReviewApiResult.empty(error);
         }
     }
 

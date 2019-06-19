@@ -21,7 +21,6 @@
     <modules>
         <module>/author-book-api</module>
         <module>/book-review-api</module>
-        <module>/author-book-client</module>
     </modules>
 
     <properties>
