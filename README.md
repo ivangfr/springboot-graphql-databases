@@ -3,11 +3,11 @@
 The goal of this project is to explore [GraphQL](https://graphql.org). For it, we will implement two microservices:
 `author-book-api` and `book-review-api`.
 
-# Microservices
+## Microservices
 
 ![project-diagram](images/project-diagram.png)
 
-## author-book-api
+### author-book-api
 
 Spring-boot Web Java application that handles authors and books. It exposes a GraphQL endpoint **and** traditional REST
 API endpoints. `author-book-api` uses [MySQL](https://www.mysql.com) as storage and calls `book-review-api` to get the
@@ -16,41 +16,41 @@ and [Hystrix](https://github.com/Netflix/Hystrix) (latency and fault tolerance l
 `book-review-api` is down. The book `ISBN` is what connects books stored in `author-book-api` with the ones stored in
 `book-review-api`.
 
-## book-review-api
+### book-review-api
 
 Spring-boot Web Java application that handles books and their reviews. It only exposes a GraphQL API and uses
 [MongoDB](https://www.mongodb.com) as storage.
 
-# Build Docker Images
+## Build Docker Images
 
 In a terminal and inside `springboot-graphql-databases` root folder, run the following `./mvnw` commands to build the
 microservices docker images
 
-## author-book-api
+### author-book-api
 ```
 ./mvnw clean package dockerfile:build -DskipTests --projects author-book-api
 ```
-| Environment Variable | Description |
-| -------------------- | ------------- |
-| `MYSQL_HOST` | Specify host of the `MySQL` database to use (default `localhost`) |
-| `MYSQL_PORT` | Specify port of the `MySQL` database to use (default `3306`) |
-| `ZIPKIN_HOST` | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
-| `ZIPKIN_PORT` | Specify port of the `Zipkin` distributed tracing system to use (default `9411`) |
-| `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`) |
-| `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `8080`) |
+| Environment Variable   | Description                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| `MYSQL_HOST`           | Specify host of the `MySQL` database to use (default `localhost`)                    |
+| `MYSQL_PORT`           | Specify port of the `MySQL` database to use (default `3306`)                         |
+| `ZIPKIN_HOST`          | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
+| `ZIPKIN_PORT`          | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
+| `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`)                  |
+| `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `8080`)                       |
 
-## book-review-api
+### book-review-api
 ```
 ./mvnw clean package dockerfile:build -DskipTests --projects book-review-api
 ```
-| Environment Variable | Description |
-| -------------------- | ------------- |
-| `MONGODB_HOST` | Specify host of the `MongoDB` database to use (default `localhost`) |
-| `MONGODB_PORT` | Specify port of the `MongoDB` database to use (default `27017`) |
-| `ZIPKIN_HOST` | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
-| `ZIPKIN_PORT` | Specify port of the `Zipkin` distributed tracing system to use (default `9411`) |
+| Environment Variable | Description                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------ |
+| `MONGODB_HOST`       | Specify host of the `MongoDB` database to use (default `localhost`)                  |
+| `MONGODB_PORT`       | Specify port of the `MongoDB` database to use (default `27017`)                      |
+| `ZIPKIN_HOST`        | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
+| `ZIPKIN_PORT`        | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
 
-# Start Environment
+## Start Environment
 
 - Open one terminal
 
@@ -64,15 +64,15 @@ docker-compose up -d
 docker-compose ps
 ```
 
-# Microservice Links
+## Microservice Links
 
-| Microservice | URL Type | URL |
-| ------------ | -------- | --- |
-| author-book-api | Swagger | http://localhost:8080/swagger-ui.html |
-| author-book-api | GraphiQL | http://localhost:8080/graphiql |
-| book-review-api | GraphiQL | http://localhost:8081/graphiql |
+| Microservice    | URL Type | URL                                   |
+| --------------- | -------- | ------------------------------------- |
+| author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
+| author-book-api | GraphiQL | http://localhost:8080/graphiql        |
+| book-review-api | GraphiQL | http://localhost:8081/graphiql        |
 
-# Running microservices with Maven
+## Running microservices with Maven
 
 During development, it is easy to just run the microservices instead of always build their docker images before running
 them. In order to do that, comment the microservice(s) in `docker-compose.yml` file (so that they do not start when you
@@ -89,9 +89,9 @@ export BOOK_REVIEW_API_PORT=8081
 ./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
 ```
 
-# How to use GraphiQL
+## How to use GraphiQL
 
-## book-review-api
+### book-review-api
 
 - In a browser, access the url http://localhost:8081/graphiql
 
@@ -130,7 +130,7 @@ mutation {
 }
 ```
 
-## author-book-api
+### author-book-api
 
 - In a browser, access the url http://localhost:8080/graphiql
 
@@ -202,22 +202,21 @@ mutation {
 }
 ```
 
-# Shutdown
+## Shutdown
 
 To stop and remove containers, networks and volumes
 ```
 docker-compose down -v
 ```
 
-# Useful links & commands
+## Useful links & commands
 
-## Hystrix Dashboard
+### Hystrix Dashboard
 
 - It can be accessed at http://localhost:8080/hystrix
-
 - Add `http://localhost:8080/actuator/hystrix.stream` to the input field.
 
-## MySQL monitor
+### MySQL monitor
 ```
 docker exec -it mysql mysql -uroot -psecret --database=authorbookdb
 show tables;
@@ -226,7 +225,7 @@ select * from books;
 ```
 > Type `exit` to get out of MySQL monitor
 
-## MongoDB shell
+### MongoDB shell
 ```
 docker exec -it mongodb mongo
 use bookreviewdb;
@@ -234,13 +233,13 @@ db.books.find().pretty();
 ```
 > Type `exit` to get out of MongoDB shell
 
-# TODO
+## TODO
 
 - replace `Hystrix` by `Resilience4j`;
 - study how to implement authentication/authorization to `GraphQL` endpoint;
 - implement `graphql` subscription;
 
-# References
+## References
 
 - https://graphql.org/learn
 - https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
