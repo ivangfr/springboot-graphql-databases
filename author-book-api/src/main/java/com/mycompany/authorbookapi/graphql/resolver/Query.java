@@ -31,6 +31,10 @@ public class Query implements GraphQLQueryResolver {
         return authorService.validateAndGetAuthorById(authorId);
     }
 
+    public Author getAuthorByName(String authorName) {
+        return authorService.validateAndGetAuthorByName(authorName);
+    }
+
     // ----
     // Book
 

@@ -43,6 +43,12 @@ public class AuthorController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/name/{authorName}")
+    public AuthorDto getAuthorByName(@PathVariable String authorName) {
+        Author author = authorService.validateAndGetAuthorByName(authorName);
+        return mapperFacade.map(author, AuthorDto.class);
+    }
+
     @GetMapping("/{authorId}")
     public AuthorDto getAuthorById(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);

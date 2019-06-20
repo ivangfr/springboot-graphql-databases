@@ -3,6 +3,7 @@ package com.mycompany.authorbookapi.graphql.service;
 import com.mycompany.authorbookapi.graphql.exception.AuthorNotFoundException;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.repository.AuthorRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,15 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Author validateAndGetAuthorById(Long id) {
         return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("Author not found", id));
+    }
+
+    @Override
+    public Author validateAndGetAuthorByName(String name) {
+        final String nameNormSpace = StringUtils.normalizeSpace(name);
+        return authorRepository.findByNameIgnoreCase(nameNormSpace)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new AuthorNotFoundException("Author not found", nameNormSpace));
     }
 
     @Override

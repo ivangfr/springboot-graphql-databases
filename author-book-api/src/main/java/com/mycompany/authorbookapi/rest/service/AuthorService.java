@@ -10,6 +10,8 @@ public interface AuthorService {
 
     Author validateAndGetAuthorById(Long id);
 
+    Author validateAndGetAuthorByName(String name);
+
     Author saveAuthor(Author author);
 
     void deleteAuthor(Author author);

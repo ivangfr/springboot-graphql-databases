@@ -65,6 +65,7 @@ type Review {
 type Query {
     getAllAuthors: [Author!]!
     getAuthorById(authorId: ID!): Author
+    getAuthorByName(authorName: String!): Author
 
     getAllBooks: [Book!]!
     getBookById(bookId: ID!): Book

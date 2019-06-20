@@ -17,6 +17,11 @@ public class AuthorNotFoundException extends RuntimeException implements GraphQL
         extensions.put("invalidAuthorId", id);
     }
 
+    public AuthorNotFoundException(String message, String name) {
+        super(message);
+        extensions.put("invalidAuthorName", name);
+    }
+
     @Override
     public List<SourceLocation> getLocations() {
         return null;
