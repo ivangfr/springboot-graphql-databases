@@ -7,4 +7,4 @@ COPY ${JAR_FILE} /app.jar
 
 CMD ["java", "-jar", "/app.jar"]
 
-EXPOSE 8080
+EXPOSE 9080

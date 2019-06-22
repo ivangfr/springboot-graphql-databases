@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(
         name = "book-review-api",
-        url = "http://${BOOK_REVIEW_API_HOST:localhost}:${BOOK_REVIEW_API_PORT:8080}",
+        url = "http://${BOOK_REVIEW_API_HOST:localhost}:${BOOK_REVIEW_API_PORT:9080}",
         fallbackFactory = BookReviewApiClient.BookReviewApiClientFallbackFactory.class)
 public interface BookReviewApiClient {
 

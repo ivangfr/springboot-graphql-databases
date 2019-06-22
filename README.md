@@ -5,7 +5,7 @@ The goal of this project is to explore [GraphQL](https://graphql.org). For it, w
 
 ## Microservices
 
-![project-diagram](images/project-diagram.png)
+![project-diagram](images/project-diagram-BE.png)
 
 ### author-book-api
 
@@ -20,6 +20,15 @@ and [Hystrix](https://github.com/Netflix/Hystrix) (latency and fault tolerance l
 
 Spring-boot Web Java application that handles books and their reviews. It only exposes a GraphQL API and uses
 [MongoDB](https://www.mongodb.com) as storage.
+
+## Frontend applications
+
+In the Github project [`react-graphql-databases`](https://github.com/ivangfr/react-graphql-databases), I have
+implemented two [`ReactJS`](https://reactjs.org/) applications `author-book-ui` and `book-review-ui` that are frontend
+applications for `author-book-api` and `book-review-api` respectively.
+
+If you want to see the complete communication frontend-backend using GraphQL, clone the `react-graphql-databases` and
+follow the README instructions.
 
 ## Build Docker Images
 
@@ -37,7 +46,7 @@ microservices docker images
 | `ZIPKIN_HOST`          | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
 | `ZIPKIN_PORT`          | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
 | `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`)                  |
-| `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `8080`)                       |
+| `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `9080`)                       |
 
 ### book-review-api
 ```
@@ -70,7 +79,7 @@ docker-compose ps
 | --------------- | -------- | ------------------------------------- |
 | author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
 | author-book-api | GraphiQL | http://localhost:8080/graphiql        |
-| book-review-api | GraphiQL | http://localhost:8081/graphiql        |
+| book-review-api | GraphiQL | http://localhost:9080/graphiql        |
 
 ## Running microservices with Maven
 
@@ -80,20 +89,20 @@ start the environment) and run them with Maven.
 
 ### author-book-api
 ```
-export BOOK_REVIEW_API_PORT=8081
+export BOOK_REVIEW_API_PORT=9080
 ./mvnw spring-boot:run --projects author-book-api
 ```
 
 ### book-review-api
 ```
-./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
+./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=9080"
 ```
 
 ## How to use GraphiQL
 
 ### book-review-api
 
-- In a browser, access the url http://localhost:8081/graphiql
+- In a browser, access the url http://localhost:9080/graphiql
 
 - Create a book and return its id
 ```
