@@ -61,25 +61,23 @@ microservices docker images
 
 ## Start Environment
 
-- Open one terminal
-
-- In `springboot-graphql-databases` root folder run
+Open one terminal and inside `springboot-graphql-databases` root folder run
 ```
 docker-compose up -d
 ```
 
-- Wait a little bit until all containers are Up (healthy). You can check their status running
+Wait a little bit until all containers are Up (healthy). You can check their status running
 ```
 docker-compose ps
 ```
 
 ## Microservice Links
 
-| Microservice    | URL Type | URL                                   |
-| --------------- | -------- | ------------------------------------- |
-| author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
-| author-book-api | GraphiQL | http://localhost:8080/graphiql        |
-| book-review-api | GraphiQL | http://localhost:9080/graphiql        |
+| Microservice      | URL Type | URL                                   |
+| ----------------- | -------- | ------------------------------------- |
+| `author-book-api` | Swagger  | http://localhost:8080/swagger-ui.html |
+| `author-book-api` | GraphiQL | http://localhost:8080/graphiql        |
+| `book-review-api` | GraphiQL | http://localhost:9080/graphiql        |
 
 ## Running microservices with Maven
 
@@ -213,7 +211,7 @@ mutation {
 
 ## Shutdown
 
-To stop and remove containers, networks and volumes
+Run the command below to stop and remove containers, networks and volumes
 ```
 docker-compose down -v
 ```
@@ -224,6 +222,10 @@ docker-compose down -v
 
 - It can be accessed at http://localhost:8080/hystrix
 - Add `http://localhost:8080/actuator/hystrix.stream` to the input field.
+
+### Zipkin
+
+`Zipkin` can be accessed at http://localhost:9411
 
 ### MySQL monitor
 ```
