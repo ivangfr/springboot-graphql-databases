@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AuthorNotFoundException extends RuntimeException implements GraphQLError {
 
-    private Map<String, Object> extensions = new HashMap<>();
+    private final Map<String, Object> extensions = new HashMap<>();
 
     public AuthorNotFoundException(String message, Long id) {
         super(message);

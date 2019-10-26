@@ -11,4 +11,5 @@ public class BookReviewApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(BookReviewApiApplication.class, args);
     }
+
 }

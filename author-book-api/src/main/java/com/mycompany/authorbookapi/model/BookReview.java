@@ -16,11 +16,11 @@ public class BookReview {
     public BookReview(BookReviewApiResult bookReviewApiResult) {
         BookReviewApiResult.ResultData.QueryName getBookByIsbn = bookReviewApiResult.getData().getGetBookByIsbn();
         if (getBookByIsbn == null) {
-            String error = bookReviewApiResult.getError();
-            if (error == null) {
-                error = "Unable to get book reviews. Check if there is a book with exact ISBN in book-review-api.";
+            String errorStr = bookReviewApiResult.getError();
+            if (errorStr == null) {
+                errorStr = "Unable to get book reviews. Check if there is a book with exact ISBN in book-review-api.";
             }
-            this.error = error;
+            this.error = errorStr;
             this.reviews = Collections.emptyList();
         } else {
             this.id = getBookByIsbn.getId();

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class BookNotFoundException extends RuntimeException implements GraphQLError {
 
-    private Map<String, Object> extensions = new HashMap<>();
+    private final Map<String, Object> extensions = new HashMap<>();
 
     public BookNotFoundException(String message, String field, String value) {
         super(message);

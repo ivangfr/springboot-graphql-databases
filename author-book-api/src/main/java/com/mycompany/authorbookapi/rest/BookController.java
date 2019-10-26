@@ -49,7 +49,7 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDto> getAllBooks() {
+    public List<BookDto> getBooks() {
         return bookService.getAllBooks()
                 .stream()
                 .map(book -> mapperFacade.map(book, BookDto.class))
@@ -57,7 +57,7 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}")
-    public BookDto getBookById(@PathVariable Long bookId) {
+    public BookDto getBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
         return mapperFacade.map(book, BookDto.class);
     }

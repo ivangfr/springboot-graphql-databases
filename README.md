@@ -1,39 +1,42 @@
 # `springboot-graphql-databases`
 
-The goal of this project is to explore [GraphQL](https://graphql.org). For it, we will implement two microservices:
+The goal of this project is to explore [`GraphQL`](https://graphql.org). For it, we will implement two
+[`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Web Java applications:
 `author-book-api` and `book-review-api`.
 
-## Microservices
+## Project Diagram
 
 ![project-diagram](images/project-diagram-BE.png)
 
+## Applications
+
 ### author-book-api
 
-Spring-boot Web Java application that handles authors and books. It exposes a GraphQL endpoint **and** traditional REST
-API endpoints. `author-book-api` uses [MySQL](https://www.mysql.com) as storage and calls `book-review-api` to get the
-reviews of the books. It uses [Feign](https://github.com/OpenFeign/feign) to easily create a client for `book-review-api`
-and [Hystrix](https://github.com/Netflix/Hystrix) (latency and fault tolerance library) to handle situations when
+`Spring Boot` Web Java application that handles `authors` and `books`. It exposes a `GraphQL` endpoint **and** traditional
+REST API endpoints. `author-book-api` uses [`MySQL`](https://www.mysql.com) as storage and calls `book-review-api` to get
+the reviews of the books. It uses [`Feign`](https://github.com/OpenFeign/feign) to easily create a client for `book-review-api`
+and [`Hystrix`](https://github.com/Netflix/Hystrix) (latency and fault tolerance library) to handle situations when
 `book-review-api` is down. The book `ISBN` is what connects books stored in `author-book-api` with the ones stored in
 `book-review-api`.
 
 ### book-review-api
 
-Spring-boot Web Java application that handles books and their reviews. It only exposes a GraphQL API and uses
-[MongoDB](https://www.mongodb.com) as storage.
+`Spring Boot` Web Java application that handles `books` and their `reviews`. It only exposes a `GraphQL` API and uses
+[`MongoDB`](https://www.mongodb.com) as storage.
 
 ## Frontend applications
 
 In the Github project [`react-graphql-databases`](https://github.com/ivangfr/react-graphql-databases), I have
 implemented two [`ReactJS`](https://reactjs.org/) applications `author-book-ui` and `book-review-ui` that are frontend
-applications for `author-book-api` and `book-review-api` respectively.
+applications for `author-book-api` and `book-review-api`, respectively.
 
-If you want to see the complete communication frontend-backend using GraphQL, clone the `react-graphql-databases` and
+If you want to see the complete communication frontend-backend using `GraphQL`, clone the `react-graphql-databases` and
 follow the README instructions.
 
 ## Build Docker Images
 
 In a terminal and inside `springboot-graphql-databases` root folder, run the following `./mvnw` commands to build the
-microservices docker images
+applications docker images
 
 ### author-book-api
 ```
@@ -61,7 +64,7 @@ microservices docker images
 
 ## Start Environment
 
-Open one terminal and inside `springboot-graphql-databases` root folder run
+Open a terminal and inside `springboot-graphql-databases` root folder run
 ```
 docker-compose up -d
 ```
@@ -71,18 +74,18 @@ Wait a little bit until all containers are Up (healthy). You can check their sta
 docker-compose ps
 ```
 
-## Microservice Links
+## Applications Link
 
-| Microservice      | URL Type | URL                                   |
+| Application       | URL Type | URL                                   |
 | ----------------- | -------- | ------------------------------------- |
 | `author-book-api` | Swagger  | http://localhost:8080/swagger-ui.html |
 | `author-book-api` | GraphiQL | http://localhost:8080/graphiql        |
 | `book-review-api` | GraphiQL | http://localhost:9080/graphiql        |
 
-## Running microservices with Maven
+## Running applications with Maven
 
-During development, it is easy to just run the microservices instead of always build their docker images before running
-them. In order to do that, comment the microservice(s) in `docker-compose.yml` file (so that they do not start when you
+During development, it is better to just run the applications instead of always build their docker images before running
+them. In order to do that, comment the application(s) in `docker-compose.yml` file (so that they do not start when you
 start the environment) and run them with Maven.
 
 ### author-book-api
@@ -100,7 +103,7 @@ export BOOK_REVIEW_API_PORT=9080
 
 ### book-review-api
 
-- In a browser, access the url http://localhost:9080/graphiql
+- In a browser, access http://localhost:9080/graphiql
 
 - Create a book and return its id
 ```
@@ -120,7 +123,7 @@ mutation {
 }
 ```
 
-- Get all books stored in book-review-api, including their reviews
+- Get all books stored in `book-review-api`, including their reviews
 ```
 {
   getAllBooks {
@@ -139,7 +142,7 @@ mutation {
 
 ### author-book-api
 
-- In a browser, access the url http://localhost:8080/graphiql
+- In a browser, access http://localhost:8080/graphiql
 
 - Create an author and return its id
 ```
@@ -167,7 +170,7 @@ mutation {
 
 - Get author by id and return some information about his/her books including reviews of the book from `book-review-api`.
 
-> **Note.** as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781786465757`, it's
+> Note. as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781786465757`, it's
 possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does
 not have a specific ISBN or the service is down. 
 ```
@@ -225,7 +228,7 @@ docker-compose down -v
 
 ### Zipkin
 
-`Zipkin` can be accessed at http://localhost:9411
+It can be accessed at http://localhost:9411
 
 ### MySQL monitor
 ```
@@ -244,14 +247,40 @@ db.books.find().pretty();
 ```
 > Type `exit` to get out of MongoDB shell
 
-## TODO
-
-- replace `Hystrix` by `Resilience4j`;
-- study how to implement authentication/authorization to `GraphQL` endpoint;
-- implement `graphql` subscription;
-
 ## References
 
 - https://graphql.org/learn
 - https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
 - https://www.baeldung.com/spring-graphql
+
+## TODO
+
+- replace `Hystrix` by `Resilience4j`;
+- study how to implement authentication/authorization to `GraphQL` endpoint;
+- implement `graphql` subscription;
+- Fix Automatic index creation
+```
+WARN [book-review-api,,,] 1 --- [           main] .m.c.i.MongoPersistentEntityIndexCreator : Automatic index creation will be disabled by default as of Spring Data MongoDB 3.x.
+        Please use 'MongoMappingContext#setAutoIndexCreation(boolean)' or override 'MongoConfigurationSupport#autoIndexCreation()' to be explicit.
+        However, we recommend setting up indices manually in an application ready block. You may use index derivation there as well.
+
+        > -----------------------------------------------------------------------------------------
+        > @EventListener(ApplicationReadyEvent.class)
+        > public void initIndicesAfterStartup() {
+        >
+        >     IndexOperations indexOps = mongoTemplate.indexOps(DomainType.class);
+        >
+        >     IndexResolver resolver = new MongoPersistentEntityIndexResolver(mongoMappingContext);
+        >     resolver.resolveIndexFor(DomainType.class).forEach(indexOps::ensureIndex);
+        > }
+        > -----------------------------------------------------------------------------------------
+```
+
+## Issues
+
+- During the startup, there is a warning presented below. It seems to be a `spring-data-mongo` problem
+(https://github.com/aidanwhiteley/books/issues/86)
+```
+WARN 3450 --- [           main] o.s.data.convert.CustomConversions       : Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+WARN 3450 --- [           main] o.s.data.convert.CustomConversions       : Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+```
