@@ -76,11 +76,11 @@ docker-compose ps
 
 ## Applications Link
 
-| Application       | URL Type | URL                                   |
-| ----------------- | -------- | ------------------------------------- |
-| `author-book-api` | Swagger  | http://localhost:8080/swagger-ui.html |
-| `author-book-api` | GraphiQL | http://localhost:8080/graphiql        |
-| `book-review-api` | GraphiQL | http://localhost:9080/graphiql        |
+| Application     | URL Type | URL                                   |
+| --------------- | -------- | ------------------------------------- |
+| author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
+| author-book-api | GraphiQL | http://localhost:8080/graphiql        |
+| book-review-api | GraphiQL | http://localhost:9080/graphiql        |
 
 ## Running applications with Maven
 
