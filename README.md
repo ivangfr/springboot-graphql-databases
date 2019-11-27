@@ -4,6 +4,9 @@ The goal of this project is to explore [`GraphQL`](https://graphql.org). For it,
 [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Web Java applications:
 `author-book-api` and `book-review-api`.
 
+> Note. In the [`Kubernetes Environment`](https://github.com/ivangfr/kubernetes-environment) repository, it is shown how
+to deploy this project in Kubernetes (Minikube)
+
 ## Project Diagram
 
 ![project-diagram](images/project-diagram-BE.png)
