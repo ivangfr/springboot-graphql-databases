@@ -4,8 +4,8 @@ The goal of this project is to explore [`GraphQL`](https://graphql.org). For it,
 [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Web Java applications:
 `author-book-api` and `book-review-api`.
 
-> Note. In the [`Kubernetes Environment`](https://github.com/ivangfr/kubernetes-environment) repository, it is shown how
-to deploy this project in Kubernetes (Minikube)
+> Note. In [`kubernetes-environment`](https://github.com/ivangfr/kubernetes-environment/tree/master/author-book-review-helm-chart)
+repository, it is shown how to deploy this project in `Kubernetes` (`Minikube`)
 
 ## Project Diagram
 
@@ -29,7 +29,7 @@ and [`Hystrix`](https://github.com/Netflix/Hystrix) (latency and fault tolerance
 
 ## Frontend applications
 
-In the Github project [`react-graphql-databases`](https://github.com/ivangfr/react-graphql-databases), I have
+In the repository [`react-graphql-databases`](https://github.com/ivangfr/react-graphql-databases), I have
 implemented two [`ReactJS`](https://reactjs.org/) applications `author-book-ui` and `book-review-ui` that are frontend
 applications for `author-book-api` and `book-review-api`, respectively.
 
@@ -109,111 +109,109 @@ export BOOK_REVIEW_API_PORT=9080
 - In a browser, access http://localhost:9080/graphiql
 
 - Create a book and return its id
-```
-mutation {
-  createBook(bookInput: {title: "Learning GraphQL and Relay", isbn: "9781786465757"}) {
-    id
-  }
-}
-```
-
-- Add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`
-```
-mutation {
-  addBookReview(bookId: "5bd4bd4790e9f641b7388f23", reviewInput: {reviewer: "Ivan Franchin", comment: "It is a very good book", rating: 5}) {
-    id
-  }
-}
-```
-
-- Get all books stored in `book-review-api`, including their reviews
-```
-{
-  getAllBooks {
-    id
-    title
-    isbn
-    reviews {
-      comment
-      rating
-      reviewer
-      createdAt
+  ```
+  mutation {
+    createBook(bookInput: {title: "Learning GraphQL and Relay", isbn: "9781786465757"}) {
+      id
     }
   }
-}
-```
+  ```
+
+- Add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`
+  ```
+  mutation {
+    addBookReview(bookId: "5bd4bd4790e9f641b7388f23", reviewInput: {reviewer: "Ivan Franchin", comment: "It is a very good book", rating: 5}) {
+      id
+    }
+  }
+  ```
+
+- Get all books stored in `book-review-api`, including their reviews
+  ```
+  {
+    getAllBooks {
+      id
+      title
+      isbn
+      reviews {
+        comment
+        rating
+        reviewer
+        createdAt
+      }
+    }
+  }
+  ```
 
 ### author-book-api
 
 - In a browser, access http://localhost:8080/graphiql
 
 - Create an author and return its id
-```
-mutation {
-  createAuthor(authorInput: {name: "Samer Buna"}) {
-    id
-  }
-}
-```
-
-- Create a book and return the book id and author name
-
-> **Note.** while creating this book in `author-book-api`, we are setting the same ISBN, `9781786465757`, as we did when 
-creating the book in `book-review-api`.
-```
-mutation {
-  createBook(bookInput: {authorId: 1, isbn: "9781786465757", title: "Learning GraphQL and Relay", year: 2016}) {
-    id
-    author {
-      name
+  ```
+  mutation {
+    createAuthor(authorInput: {name: "Samer Buna"}) {
+      id
     }
   }
-}
-```
+  ```
+
+- Create a book and return the book id and author name
+  > **Note.** while creating this book in `author-book-api`, we are setting the same ISBN, `9781786465757`, as we did when 
+  creating the book in `book-review-api`.
+  ```
+  mutation {
+    createBook(bookInput: {authorId: 1, isbn: "9781786465757", title: "Learning GraphQL and Relay", year: 2016}) {
+      id
+      author {
+        name
+      }
+    }
+  }
+  ```
 
 - Get author by id and return some information about his/her books including reviews of the book from `book-review-api`.
-
-> Note. as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781786465757`, it's
-possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does
-not have a specific ISBN or the service is down. 
-```
-{
-  getAuthorById(authorId: 1) {
-    name
-    books {
-      isbn
-      title
-      bookReview {
-        reviews {
-          reviewer
-          rating
-          comment
-          createdAt
+  > Note. as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781786465757`, it's
+  possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does
+  not have a specific ISBN or the service is down. 
+  ```
+  {
+    getAuthorById(authorId: 1) {
+      name
+      books {
+        isbn
+        title
+        bookReview {
+          reviews {
+            reviewer
+            rating
+            comment
+            createdAt
+          }
         }
       }
     }
   }
-}
-```
+  ```
 
 - Update book title and return its id and new title
-```
-mutation {
-  updateBook(bookId: 1, bookInput: {title: "Learning GraphQL and Relay 2"}) {
-    id
-    title
+  ```
+  mutation {
+    updateBook(bookId: 1, bookInput: {title: "Learning GraphQL and Relay 2"}) {
+      id
+      title
+    }
   }
-}
-```
+  ```
 
 - Delete author and return his/her id
-```
-mutation {
-  deleteAuthor(authorId: 1) {
-    id
+  ```
+  mutation {
+    deleteAuthor(authorId: 1) {
+      id
+    }
   }
-}
-```
+  ```
 
 ## Shutdown
 
@@ -262,28 +260,28 @@ db.books.find().pretty();
 - study how to implement authentication/authorization to `GraphQL` endpoint;
 - implement `graphql` subscription;
 - Fix Automatic index creation
-```
-WARN [book-review-api,,,] 1 --- [           main] .m.c.i.MongoPersistentEntityIndexCreator : Automatic index creation will be disabled by default as of Spring Data MongoDB 3.x.
-        Please use 'MongoMappingContext#setAutoIndexCreation(boolean)' or override 'MongoConfigurationSupport#autoIndexCreation()' to be explicit.
-        However, we recommend setting up indices manually in an application ready block. You may use index derivation there as well.
-
-        > -----------------------------------------------------------------------------------------
-        > @EventListener(ApplicationReadyEvent.class)
-        > public void initIndicesAfterStartup() {
-        >
-        >     IndexOperations indexOps = mongoTemplate.indexOps(DomainType.class);
-        >
-        >     IndexResolver resolver = new MongoPersistentEntityIndexResolver(mongoMappingContext);
-        >     resolver.resolveIndexFor(DomainType.class).forEach(indexOps::ensureIndex);
-        > }
-        > -----------------------------------------------------------------------------------------
-```
+  ```
+  WARN [book-review-api,,,] 1 --- [           main] .m.c.i.MongoPersistentEntityIndexCreator : Automatic index creation will be disabled by default as of Spring Data MongoDB 3.x.
+          Please use 'MongoMappingContext#setAutoIndexCreation(boolean)' or override 'MongoConfigurationSupport#autoIndexCreation()' to be explicit.
+          However, we recommend setting up indices manually in an application ready block. You may use index derivation there as well.
+  
+          > -----------------------------------------------------------------------------------------
+          > @EventListener(ApplicationReadyEvent.class)
+          > public void initIndicesAfterStartup() {
+          >
+          >     IndexOperations indexOps = mongoTemplate.indexOps(DomainType.class);
+          >
+          >     IndexResolver resolver = new MongoPersistentEntityIndexResolver(mongoMappingContext);
+          >     resolver.resolveIndexFor(DomainType.class).forEach(indexOps::ensureIndex);
+          > }
+          > -----------------------------------------------------------------------------------------
+  ```
 
 ## Issues
 
 - During the startup, there is a warning presented below. It seems to be a `spring-data-mongo` problem
-(https://github.com/aidanwhiteley/books/issues/86)
-```
-WARN 3450 --- [           main] o.s.data.convert.CustomConversions       : Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-WARN 3450 --- [           main] o.s.data.convert.CustomConversions       : Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-```
+  (https://github.com/aidanwhiteley/books/issues/86)
+  ```
+  WARN 3450 --- [           main] o.s.data.convert.CustomConversions       : Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+  WARN 3450 --- [           main] o.s.data.convert.CustomConversions       : Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+  ```
