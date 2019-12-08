@@ -3,7 +3,12 @@ server.port: 9080
 spring:
   data:
     mongodb:
-      uri: mongodb://${MONGODB_HOST:localhost}:${MONGODB_PORT:27017}/bookreviewdb
+      host: ${MONGODB_HOST:localhost}
+      port: ${MONGODB_PORT:27017}
+      database: bookreviewdb
+      username: change-me
+      password: change-me
+      auto-index-creation: false
   sleuth:
     sampler.probability: 1.0
 

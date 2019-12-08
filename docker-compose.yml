@@ -9,17 +9,24 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: authorbookdb
+      MYSQL_USER: authorbookuser
+      MYSQL_PASSWORD: authorbookpass
+      MYSQL_ROOT_PASSWORD: secret
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
       start_period: 20s
 
   mongodb:
-    image: mongo:4.2.1
+    image: bitnami/mongodb:4.2.1
     container_name: mongodb
     ports:
       - "27017:27017"
+    environment:
+      MONGODB_DATABASE: bookreviewdb
+      MONGODB_USERNAME: bookreviewuser
+      MONGODB_PASSWORD: bookreviewpass
+      MONGODB_ROOT_PASSWORD: secret
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/bookreviewdb --quiet
       start_period: 20s
@@ -33,36 +40,3 @@ services:
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "9411" ]
       start_period: 20s
-
-  author-book-api:
-    image: docker.mycompany.com/author-book-api:1.0.0
-    container_name: author-book-api
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
-      - zipkin
-    environment:
-      MYSQL_HOST: mysql
-      ZIPKIN_HOST: zipkin
-      BOOK_REVIEW_API_HOST: book-review-api
-    healthcheck:
-      test: [ "CMD", "nc", "-z", "localhost", "8080" ]
-      start_period: 40s
-
-  book-review-api:
-    image: docker.mycompany.com/book-review-api:1.0.0
-    container_name: book-review-api
-    restart: unless-stopped
-    ports:
-      - "9080:9080"
-    depends_on:
-      - mongodb
-      - zipkin
-    environment:
-      MONGODB_HOST: mongodb
-      ZIPKIN_HOST: zipkin
-    healthcheck:
-      test: [ "CMD", "nc", "-z", "localhost", "9080" ]
-      start_period: 40s

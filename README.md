@@ -26,7 +26,12 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
 
 ## Build Docker Images
 
-In a terminal and inside `springboot-graphql-databases` root folder, run the following `./mvnw` commands to build the applications docker images
+In a terminal and inside `springboot-graphql-databases` root folder, in order to build the applications docker images, you can just run the following script
+```
+./build-apps.sh
+``` 
+
+Or manually run the following `./mvnw` commands for each application
 
 ### author-book-api
 
@@ -66,6 +71,32 @@ Wait a little bit until all containers are Up (healthy). You can check their sta
 docker-compose ps
 ```
 
+## Running Applications as Docker containers
+
+Open a terminal and inside `springboot-graphql-databases` root folder run following script
+```
+./start-apps.sh
+```
+
+## Running applications with Maven
+
+During development, it is easier to just run the applications instead of always build the docker images and run them. For it, inside `springboot-graphql-databases`, run the following Maven commands in different terminals
+
+### author-book-api
+
+```
+export BOOK_REVIEW_API_PORT=9080
+./mvnw clean spring-boot:run --projects author-book-api \
+-Dspring-boot.run.jvmArguments="-Dspring.datasource.username=authorbookuser -Dspring.datasource.password=authorbookpass"
+```
+
+### book-review-api
+
+```
+./mvnw clean spring-boot:run --projects book-review-api \
+-Dspring-boot.run.jvmArguments="-Dserver.port=9080 -Dspring.data.mongodb.username=bookreviewuser -Dspring.data.mongodb.password=bookreviewpass"
+```
+
 ## Applications Link
 
 | Application     | URL Type | URL                                   |
@@ -73,23 +104,6 @@ docker-compose ps
 | author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
 | author-book-api | GraphiQL | http://localhost:8080/graphiql        |
 | book-review-api | GraphiQL | http://localhost:9080/graphiql        |
-
-## Running applications with Maven
-
-During development, it is better to just run the applications instead of always build their docker images before running them. In order to do that, comment the application(s) in `docker-compose.yml` file (so that they do not start when you start the environment) and run them with Maven.
-
-### author-book-api
-
-```
-export BOOK_REVIEW_API_PORT=9080
-./mvnw spring-boot:run --projects author-book-api
-```
-
-### book-review-api
-
-```
-./mvnw spring-boot:run --projects book-review-api -Dspring-boot.run.jvmArguments="-Dserver.port=9080"
-```
 
 ## How to use GraphiQL
 
@@ -201,7 +215,12 @@ export BOOK_REVIEW_API_PORT=9080
 
 ## Shutdown
 
-Run the command below to stop and remove containers, networks and volumes
+Run the command below to stop the docker containers of the applications
+```
+./stop-apps.sh
+```
+
+Then, run the following command to stop and remove docker-compose containers, networks and volumes
 ```
 docker-compose down -v
 ```
@@ -219,7 +238,7 @@ It can be accessed at http://localhost:9411
 
 ### MySQL monitor
 ```
-docker exec -it mysql mysql -uroot -psecret --database=authorbookdb
+docker exec -it mysql mysql -uauthorbookuser -pauthorbookpass --database=authorbookdb
 show tables;
 select * from authors;
 select * from books;
@@ -228,7 +247,7 @@ select * from books;
 
 ### MongoDB shell
 ```
-docker exec -it mongodb mongo
+docker exec -it mongodb mongo -ubookreviewuser -pbookreviewpass --authenticationDatabase bookreviewdb
 use bookreviewdb;
 db.books.find().pretty();
 ```
@@ -245,23 +264,6 @@ db.books.find().pretty();
 - replace `Hystrix` by `Resilience4j`;
 - study how to implement authentication/authorization to `GraphQL` endpoint;
 - implement `graphql` subscription;
-- Fix Automatic index creation
-  ```
-  WARN [book-review-api,,,] 1 --- [           main] .m.c.i.MongoPersistentEntityIndexCreator : Automatic index creation will be disabled by default as of Spring Data MongoDB 3.x.
-          Please use 'MongoMappingContext#setAutoIndexCreation(boolean)' or override 'MongoConfigurationSupport#autoIndexCreation()' to be explicit.
-          However, we recommend setting up indices manually in an application ready block. You may use index derivation there as well.
-  
-          > -----------------------------------------------------------------------------------------
-          > @EventListener(ApplicationReadyEvent.class)
-          > public void initIndicesAfterStartup() {
-          >
-          >     IndexOperations indexOps = mongoTemplate.indexOps(DomainType.class);
-          >
-          >     IndexResolver resolver = new MongoPersistentEntityIndexResolver(mongoMappingContext);
-          >     resolver.resolveIndexFor(DomainType.class).forEach(indexOps::ensureIndex);
-          > }
-          > -----------------------------------------------------------------------------------------
-  ```
 
 ## Issues
 
