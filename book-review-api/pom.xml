@@ -21,7 +21,7 @@
         <orika.version>1.5.4</orika.version>
         <graphql.version>5.0.2</graphql.version>
         <graphql-java-tools.version>5.5.2</graphql-java-tools.version>
-        <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
+        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
         <docker.image.prefix>docker.mycompany.com</docker.image.prefix>
     </properties>
 

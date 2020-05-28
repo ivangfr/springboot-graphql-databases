@@ -13,7 +13,7 @@ echo
 echo "Starting book-review-api..."
 
 docker run -d --rm --name book-review-api \
-  -p 9080:8080 --network=springboot-graphql-databases_default \
+  -p 9080:9080 --network=springboot-graphql-databases_default \
   -e MONGODB_HOST=mongodb -e ZIPKIN_HOST=zipkin -e SPRING_DATA_MONGODB_USERNAME=bookreviewuser -e SPRING_DATA_MONGODB_PASSWORD=bookreviewpass \
-  --health-cmd="curl -f http://localhost:8080/actuator/health || exit 1" --health-start-period=40s \
+  --health-cmd="curl -f http://localhost:9080/actuator/health || exit 1" --health-start-period=40s \
   docker.mycompany.com/book-review-api:1.0.0
