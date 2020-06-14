@@ -1,6 +1,6 @@
 package com.mycompany.authorbookapi.rest.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class CreateAuthorDto {
 
-    @ApiModelProperty(example = "Craig Walls")
+    @Schema(example = "Craig Walls")
     @NotBlank
     private String name;
 

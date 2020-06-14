@@ -3,19 +3,17 @@ package com.mycompany.authorbookapi.rest.service;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.repository.AuthorRepository;
 import com.mycompany.authorbookapi.rest.exception.AuthorNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service("RestAuthorServiceImpl")
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
-
-    public AuthorServiceImpl(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
 
     @Override
     public List<Author> getAllAuthors() {

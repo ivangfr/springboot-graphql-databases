@@ -5,20 +5,17 @@ import com.mycompany.authorbookapi.graphql.service.AuthorService;
 import com.mycompany.authorbookapi.graphql.service.BookService;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Component
 public class Query implements GraphQLQueryResolver {
 
     private final AuthorService authorService;
     private final BookService bookService;
-
-    public Query(AuthorService authorService, BookService bookService) {
-        this.authorService = authorService;
-        this.bookService = bookService;
-    }
 
     // ------
     // Author

@@ -5,35 +5,33 @@ import com.mycompany.authorbookapi.graphql.input.AuthorInput;
 import com.mycompany.authorbookapi.graphql.input.BookInput;
 import com.mycompany.authorbookapi.graphql.service.AuthorService;
 import com.mycompany.authorbookapi.graphql.service.BookService;
+import com.mycompany.authorbookapi.mapper.AuthorMapper;
+import com.mycompany.authorbookapi.mapper.BookMapper;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
-import ma.glasnost.orika.MapperFacade;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class Mutation implements GraphQLMutationResolver {
 
     private final AuthorService authorService;
     private final BookService bookService;
-    private final MapperFacade mapperFacade;
-
-    public Mutation(AuthorService authorService, BookService bookService, MapperFacade mapperFacade) {
-        this.authorService = authorService;
-        this.bookService = bookService;
-        this.mapperFacade = mapperFacade;
-    }
+    private final AuthorMapper authorMapper;
+    private final BookMapper bookMapper;
 
     // ------
     // Author
 
     public Author createAuthor(AuthorInput authorInput) {
-        Author author = mapperFacade.map(authorInput, Author.class);
+        Author author = authorMapper.toAuthor(authorInput);
         return authorService.saveAuthor(author);
     }
 
     public Author updateAuthor(Long authorId, AuthorInput authorInput) {
         Author author = authorService.validateAndGetAuthorById(authorId);
-        mapperFacade.map(authorInput, author);
+        authorMapper.updateAuthorFromDto(authorInput, author);
         return authorService.saveAuthor(author);
     }
 
@@ -48,14 +46,14 @@ public class Mutation implements GraphQLMutationResolver {
 
     public Book createBook(BookInput bookInput) {
         Author author = authorService.validateAndGetAuthorById(bookInput.getAuthorId());
-        Book book = mapperFacade.map(bookInput, Book.class);
+        Book book = bookMapper.toBook(bookInput);
         book.setAuthor(author);
         return bookService.saveBook(book);
     }
 
     public Book updateBook(Long bookId, BookInput bookInput) {
         Book book = bookService.validateAndGetBookById(bookId);
-        mapperFacade.map(bookInput, book);
+        bookMapper.updateBookFromDto(bookInput, book);
 
         Long authorId = bookInput.getAuthorId();
         if (authorId != null) {

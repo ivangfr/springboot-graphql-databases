@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-./mvnw clean package dockerfile:build -DskipTests --projects author-book-api
-./mvnw clean package dockerfile:build -DskipTests --projects book-review-api
+./mvnw clean compile jib:dockerBuild --projects author-book-api
+./mvnw clean compile jib:dockerBuild --projects book-review-api

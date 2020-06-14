@@ -1,6 +1,7 @@
 package com.mycompany.authorbookapi.client;
 
 import feign.hystrix.FallbackFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -32,13 +33,10 @@ public interface BookReviewApiClient {
     // Client Fallback
 
     @Slf4j
+    @RequiredArgsConstructor
     class BookReviewApiClientFallback implements BookReviewApiClient {
 
         private final Throwable cause;
-
-        BookReviewApiClientFallback(Throwable cause) {
-            this.cause = cause;
-        }
 
         @Override
         public BookReviewApiResult getBookReviews(String graphQLQuery) {

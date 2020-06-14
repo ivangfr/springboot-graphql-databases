@@ -3,31 +3,30 @@ package com.mycompany.bookreviewapi.resolver;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.mycompany.bookreviewapi.input.BookInput;
 import com.mycompany.bookreviewapi.input.ReviewInput;
+import com.mycompany.bookreviewapi.mapper.BookMapper;
+import com.mycompany.bookreviewapi.mapper.ReviewMapper;
 import com.mycompany.bookreviewapi.model.Book;
 import com.mycompany.bookreviewapi.model.Review;
 import com.mycompany.bookreviewapi.service.BookService;
-import ma.glasnost.orika.MapperFacade;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class Mutation implements GraphQLMutationResolver {
 
     private final BookService bookService;
-    private final MapperFacade mapperFacade;
-
-    public Mutation(BookService bookService, MapperFacade mapperFacade) {
-        this.bookService = bookService;
-        this.mapperFacade = mapperFacade;
-    }
+    private final BookMapper bookMapper;
+    private final ReviewMapper reviewMapper;
 
     public Book createBook(BookInput bookInput) {
-        Book book = mapperFacade.map(bookInput, Book.class);
+        Book book = bookMapper.toBook(bookInput);
         return bookService.saveBook(book);
     }
 
     public Book updateBook(String bookId, BookInput bookInput) {
         Book book = bookService.validateAndGetBookById(bookId);
-        mapperFacade.map(bookInput, book);
+        bookMapper.updateBookFromDto(bookInput, book);
         return bookService.saveBook(book);
     }
 
@@ -39,7 +38,7 @@ public class Mutation implements GraphQLMutationResolver {
 
     public Book addBookReview(String bookId, ReviewInput reviewInput) {
         Book book = bookService.validateAndGetBookById(bookId);
-        Review review = mapperFacade.map(reviewInput, Review.class);
+        Review review = reviewMapper.toReview(reviewInput);
         book.getReviews().add(0, review);
         return bookService.saveBook(book);
     }

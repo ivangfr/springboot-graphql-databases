@@ -24,6 +24,12 @@ In the repository [`react-graphql-databases`](https://github.com/ivangfr/react-g
 
 If you want to see the complete communication frontend-backend using `GraphQL`, clone the `react-graphql-databases` and follow the README instructions.
 
+## Prerequisites
+
+- `Java 11+`
+- `Docker`
+- `Docker-Compose`
+
 ## Start Environment
 
 - Open a terminal and inside `springboot-graphql-databases` root folder run
@@ -70,12 +76,12 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   
      - **author-book-api**
        ```
-       ./mvnw clean package dockerfile:build -DskipTests --projects author-book-api
+       ./mvnw clean compile jib:dockerBuild --projects author-book-api
        ```
       
      - **book-review-api**
        ```
-       ./mvnw clean package dockerfile:build -DskipTests --projects book-review-api
+       ./mvnw clean compile jib:dockerBuild --projects book-review-api
        ```
       
 - The application's environment variable and their default values are shown below

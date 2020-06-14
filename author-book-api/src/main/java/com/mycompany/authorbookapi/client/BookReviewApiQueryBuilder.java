@@ -3,8 +3,10 @@ package com.mycompany.authorbookapi.client;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class BookReviewApiQueryBuilder {
 
@@ -12,10 +14,6 @@ public class BookReviewApiQueryBuilder {
             "{ getBookByIsbn(bookIsbn: \"%s\") { id, reviews { comment, rating, reviewer, createdAt } } }";
 
     private final Gson gson;
-
-    public BookReviewApiQueryBuilder(Gson gson) {
-        this.gson = gson;
-    }
 
     public String getBookReviewQuery(String bookIsbn) {
         String query = String.format(BOOK_REVIEW_QUERY, bookIsbn);

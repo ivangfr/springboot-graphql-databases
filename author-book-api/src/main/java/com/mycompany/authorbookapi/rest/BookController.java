@@ -3,6 +3,7 @@ package com.mycompany.authorbookapi.rest;
 import com.mycompany.authorbookapi.client.BookReviewApiClient;
 import com.mycompany.authorbookapi.client.BookReviewApiQueryBuilder;
 import com.mycompany.authorbookapi.client.BookReviewApiResult;
+import com.mycompany.authorbookapi.mapper.BookMapper;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
 import com.mycompany.authorbookapi.model.BookReview;
@@ -11,8 +12,7 @@ import com.mycompany.authorbookapi.rest.dto.CreateBookDto;
 import com.mycompany.authorbookapi.rest.dto.UpdateBookDto;
 import com.mycompany.authorbookapi.rest.service.AuthorService;
 import com.mycompany.authorbookapi.rest.service.BookService;
-import lombok.extern.slf4j.Slf4j;
-import ma.glasnost.orika.MapperFacade;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -37,59 +37,50 @@ public class BookController {
     private final AuthorService authorService;
     private final BookReviewApiClient bookReviewApiClient;
     private final BookReviewApiQueryBuilder bookReviewApiQueryBuilder;
-    private final MapperFacade mapperFacade;
-
-    public BookController(BookService bookService, AuthorService authorService, BookReviewApiClient bookReviewApiClient,
-                          BookReviewApiQueryBuilder bookReviewApiQueryBuilder, MapperFacade mapperFacade) {
-        this.bookService = bookService;
-        this.authorService = authorService;
-        this.bookReviewApiClient = bookReviewApiClient;
-        this.bookReviewApiQueryBuilder = bookReviewApiQueryBuilder;
-        this.mapperFacade = mapperFacade;
-    }
+    private final BookMapper bookMapper;
 
     @GetMapping
     public List<BookDto> getBooks() {
         return bookService.getAllBooks()
                 .stream()
-                .map(book -> mapperFacade.map(book, BookDto.class))
+                .map(bookMapper::toBookDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{bookId}")
     public BookDto getBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
-        return mapperFacade.map(book, BookDto.class);
+        return bookMapper.toBookDto(book);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public BookDto createBook(@Valid @RequestBody CreateBookDto createBookDto) {
         Author author = authorService.validateAndGetAuthorById(createBookDto.getAuthorId());
-        Book book = mapperFacade.map(createBookDto, Book.class);
+        Book book = bookMapper.toBook(createBookDto);
         book.setAuthor(author);
         book = bookService.saveBook(book);
-        return mapperFacade.map(book, BookDto.class);
+        return bookMapper.toBookDto(book);
     }
 
     @PutMapping("/{bookId}")
     public BookDto updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
         Book book = bookService.validateAndGetBookById(bookId);
-        mapperFacade.map(updateBookDto, book);
+        bookMapper.updateBookFromDto(updateBookDto, book);
         Long authorId = updateBookDto.getAuthorId();
         if (authorId != null) {
             Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
         }
         book = bookService.saveBook(book);
-        return mapperFacade.map(book, BookDto.class);
+        return bookMapper.toBookDto(book);
     }
 
     @DeleteMapping("/{bookId}")
     public BookDto deleteBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
         bookService.deleteBook(book);
-        return mapperFacade.map(book, BookDto.class);
+        return bookMapper.toBookDto(book);
     }
 
     @GetMapping("/{bookId}/reviews")

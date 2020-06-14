@@ -8,23 +8,16 @@ import com.mycompany.authorbookapi.graphql.service.AuthorService;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
 import com.mycompany.authorbookapi.model.BookReview;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Slf4j
+@RequiredArgsConstructor
 @Component
 public class BookResolver implements GraphQLResolver<Book> {
 
     private final AuthorService authorService;
     private final BookReviewApiClient bookReviewApiClient;
     private final BookReviewApiQueryBuilder bookReviewApiQueryBuilder;
-
-    public BookResolver(AuthorService authorService, BookReviewApiClient bookReviewApiClient,
-                        BookReviewApiQueryBuilder bookReviewApiQueryBuilder) {
-        this.authorService = authorService;
-        this.bookReviewApiClient = bookReviewApiClient;
-        this.bookReviewApiQueryBuilder = bookReviewApiQueryBuilder;
-    }
 
     public Author getAuthor(Book book) {
         return authorService.validateAndGetAuthorById(book.getAuthor().getId());

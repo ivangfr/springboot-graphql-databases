@@ -1,21 +1,21 @@
 package com.mycompany.authorbookapi.rest.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class UpdateBookDto {
 
-    @ApiModelProperty(example = "2")
+    @Schema(example = "2")
     private Long authorId;
 
-    @ApiModelProperty(position = 1, example = "9781617291999")
+    @Schema(example = "9781617291999")
     private String isbn;
 
-    @ApiModelProperty(position = 2, example = "Java 8 in Action")
+    @Schema(example = "Java 8 in Action")
     private String title;
 
-    @ApiModelProperty(position = 3, example = "2014")
+    @Schema(example = "2014")
     private Integer year;
 
 }

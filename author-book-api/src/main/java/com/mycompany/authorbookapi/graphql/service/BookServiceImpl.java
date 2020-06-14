@@ -4,18 +4,16 @@ import com.mycompany.authorbookapi.graphql.exception.BookNotFoundException;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
 import com.mycompany.authorbookapi.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service("GraphQLBookServiceImpl")
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
-
-    public BookServiceImpl(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @Override
     public List<Book> getAllBooks() {
