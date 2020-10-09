@@ -10,11 +10,11 @@ The goal of this project is to explore [`GraphQL`](https://graphql.org). For it,
 
 ## Applications
 
-- **author-book-api**
+- ### author-book-api
 
   `Spring Boot` Web Java application that handles `authors` and `books`. It exposes a `GraphQL` endpoint **and** traditional REST API endpoints. `author-book-api` uses [`MySQL`](https://www.mysql.com) as storage and calls `book-review-api` to get the reviews of the books. It uses [`Feign`](https://github.com/OpenFeign/feign) to easily create a client for `book-review-api` and [`Hystrix`](https://github.com/Netflix/Hystrix) (latency and fault tolerance library) to handle situations when `book-review-api` is down. The book `ISBN` is what connects books stored in `author-book-api` with the ones stored in `book-review-api`.
 
-- **book-review-api**
+- ### book-review-api
 
   `Spring Boot` Web Java application that handles `books` and their `reviews`. It only exposes a `GraphQL` API and uses [`MongoDB`](https://www.mongodb.com) as storage.
 
@@ -37,7 +37,7 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
   docker-compose up -d
   ```
 
-- Wait a little bit until all containers are Up (healthy). You can check their status running
+- Wait a bit until all containers are Up (healthy). You can check their status running
   ```
   docker-compose ps
   ```
