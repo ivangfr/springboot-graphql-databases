@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service("GrapgQLAuthorServiceImpl")
+@Service("GraphQLAuthorServiceImpl")
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;

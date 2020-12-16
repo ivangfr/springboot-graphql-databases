@@ -65,46 +65,32 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 - Open a terminal and make sure you are in `springboot-graphql-databases` root folder
 
-- In order to build the application's docker images, there are two ways
-
-  1. Running the following script
-     ```
-     ./build-apps.sh
-     ```
-
-  1. Manually run the following `./mvnw` commands for each application
-  
-     - **author-book-api**
-       ```
-       ./mvnw clean compile jib:dockerBuild --projects author-book-api
-       ```
+- In order to build the docker images, run the following script
+  ```
+  ./build-apps.sh
+  ```
       
-     - **book-review-api**
-       ```
-       ./mvnw clean compile jib:dockerBuild --projects book-review-api
-       ```
-      
-- The application's environment variable and their default values are shown below
+### Application's environment variables
     
-  - **author-book-api**
+- **author-book-api**
 
-    | Environment Variable   | Description                                                                          |
-    | ---------------------- | ------------------------------------------------------------------------------------ |
-    | `MYSQL_HOST`           | Specify host of the `MySQL` database to use (default `localhost`)                    |
-    | `MYSQL_PORT`           | Specify port of the `MySQL` database to use (default `3306`)                         |
-    | `ZIPKIN_HOST`          | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
-    | `ZIPKIN_PORT`          | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
-    | `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`)                  |
-    | `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `9080`)                       |
+  | Environment Variable   | Description                                                                          |
+  | ---------------------- | ------------------------------------------------------------------------------------ |
+  | `MYSQL_HOST`           | Specify host of the `MySQL` database to use (default `localhost`)                    |
+  | `MYSQL_PORT`           | Specify port of the `MySQL` database to use (default `3306`)                         |
+  | `ZIPKIN_HOST`          | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
+  | `ZIPKIN_PORT`          | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
+  | `BOOK_REVIEW_API_HOST` | Specify host of the `book-review-api` service (default `localhost`)                  |
+  | `BOOK_REVIEW_API_PORT` | Specify port of the `book-review-api` service (default `9080`)                       |
 
-  - **book-review-api**
+- **book-review-api**
 
-    | Environment Variable | Description                                                                          |
-    | -------------------- | ------------------------------------------------------------------------------------ |
-    | `MONGODB_HOST`       | Specify host of the `MongoDB` database to use (default `localhost`)                  |
-    | `MONGODB_PORT`       | Specify port of the `MongoDB` database to use (default `27017`)                      |
-    | `ZIPKIN_HOST`        | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
-    | `ZIPKIN_PORT`        | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
+  | Environment Variable | Description                                                                          |
+  | -------------------- | ------------------------------------------------------------------------------------ |
+  | `MONGODB_HOST`       | Specify host of the `MongoDB` database to use (default `localhost`)                  |
+  | `MONGODB_PORT`       | Specify port of the `MongoDB` database to use (default `27017`)                      |
+  | `ZIPKIN_HOST`        | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
+  | `ZIPKIN_PORT`        | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
 
 ### Start Applications Docker containers
 
@@ -222,7 +208,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
      }
      ```
 
-  1. Delete author and return his/her id
+  1. Delete the author and return his/her id
      ```
      mutation {
        deleteAuthor(authorId: 1) {

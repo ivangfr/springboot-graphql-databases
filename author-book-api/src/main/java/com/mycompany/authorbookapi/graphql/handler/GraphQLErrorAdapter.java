@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class GraphQLErrorAdapter implements GraphQLError {
 
-    private GraphQLError error;
+    private final GraphQLError error;
 
     public GraphQLErrorAdapter(GraphQLError error) {
         this.error = error;
