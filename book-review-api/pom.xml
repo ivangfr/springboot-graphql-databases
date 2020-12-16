@@ -16,7 +16,7 @@
 
     <properties>
         <graphql-spring-boot.version>5.0.2</graphql-spring-boot.version>
-        <graphql-java-tools.version>5.5.2</graphql-java-tools.version>
+        <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
     </properties>
 
@@ -54,7 +54,7 @@
             <version>${graphql-spring-boot.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
+            <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-tools</artifactId>
             <version>${graphql-java-tools.version}</version>
         </dependency>
