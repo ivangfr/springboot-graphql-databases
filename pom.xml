@@ -22,6 +22,7 @@
         <java.version>11</java.version>
         <spring-cloud.version>2020.0.0-RC1</spring-cloud.version>
         <jib.maven-plugin.version>2.7.0</jib.maven-plugin.version>
+        <openjdk.image.version>11.0.9</openjdk.image.version>
         <docker.image.prefix>docker.mycompany.com</docker.image.prefix>
     </properties>
 
@@ -54,7 +55,7 @@
                 <version>${jib.maven-plugin.version}</version>
                 <configuration>
                     <from>
-                        <image>openjdk:11.0.9</image>
+                        <image>openjdk:${openjdk.image.version}</image>
                     </from>
                     <to>
                         <image>${docker.image.prefix}/${project.artifactId}:${project.version}</image>
