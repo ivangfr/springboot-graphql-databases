@@ -15,11 +15,12 @@
     </parent>
 
     <properties>
-        <netflix-hystrix.version>2.2.6.RELEASE</netflix-hystrix.version>
+        <feign-hystrix.version>11.0</feign-hystrix.version>
+        <netflix-hystrix.version>2.2.7.RELEASE</netflix-hystrix.version>
         <graphql-spring-boot.version>5.0.2</graphql-spring-boot.version>
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
-        <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
-        <springdoc.openapi.version>1.5.1</springdoc.openapi.version>
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <springdoc.openapi.version>1.5.5</springdoc.openapi.version>
     </properties>
 
     <dependencies>
@@ -57,10 +58,10 @@
         </dependency>
 
         <!-- Feign Hystrix -->
-        <!-- Added explicitly this dependency after changing to spring-boot 2.4.1 and spring.cloud 2020.0.0-RC1 -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-hystrix</artifactId>
+            <version>${feign-hystrix.version}</version>
         </dependency>
 
         <!-- Netflix Hystrix -->
@@ -132,17 +133,27 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <annotationProcessorPaths>
-                        <!-- Lombok -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </path>
-                        <!-- MapStruct -->
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
