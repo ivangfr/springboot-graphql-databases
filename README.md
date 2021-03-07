@@ -12,7 +12,7 @@ The goal of this project is to explore [`GraphQL`](https://graphql.org). For it,
 
 - ### author-book-api
 
-  `Spring Boot` Web Java application that handles `authors` and `books`. It exposes a `GraphQL` endpoint **and** traditional REST API endpoints. `author-book-api` uses [`MySQL`](https://www.mysql.com) as storage and calls `book-review-api` to get the reviews of the books. It uses [`Feign`](https://github.com/OpenFeign/feign) to easily create a client for `book-review-api` and [`Hystrix`](https://github.com/Netflix/Hystrix) (latency and fault tolerance library) to handle situations when `book-review-api` is down. The book `ISBN` is what connects books stored in `author-book-api` with the ones stored in `book-review-api`.
+  `Spring Boot` Web Java application that handles `authors` and `books`. It exposes a `GraphQL` endpoint **and** traditional REST API endpoints. `author-book-api` uses [`MySQL`](https://www.mysql.com) as storage and calls `book-review-api` to get the reviews of the books. It uses [`Feign`](https://github.com/OpenFeign/feign) to easily create a client for `book-review-api` and [`Resilience4j`](https://github.com/resilience4j/resilience4j) (fault tolerance library) to handle fallback when `book-review-api` is down. The book `ISBN` is what connects books stored in `author-book-api` with the ones stored in `book-review-api`.
 
 - ### book-review-api
 
@@ -48,7 +48,6 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 - **author-book-api**
   ```
-  export BOOK_REVIEW_API_PORT=9080
   ./mvnw clean spring-boot:run --projects author-book-api \
   -Dspring-boot.run.jvmArguments="-Dspring.datasource.username=authorbookuser -Dspring.datasource.password=authorbookpass"
   ```
@@ -56,7 +55,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 - **book-review-api**
   ```
   ./mvnw clean spring-boot:run --projects book-review-api \
-  -Dspring-boot.run.jvmArguments="-Dserver.port=9080 -Dspring.data.mongodb.username=bookreviewuser -Dspring.data.mongodb.password=bookreviewpass"
+  -Dspring-boot.run.jvmArguments="-Dspring.data.mongodb.username=bookreviewuser -Dspring.data.mongodb.password=bookreviewpass"
   ```
   
 ## Running Applications as Docker containers
@@ -235,11 +234,6 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 ## Useful links & commands
 
-- **Hystrix Dashboard**
-
-  - It can be accessed at http://localhost:8080/hystrix
-  - Add `http://localhost:8080/actuator/hystrix.stream` to the input field.
-
 - **Zipkin**
 
   It can be accessed at http://localhost:9411
@@ -261,14 +255,14 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   ```
   > Type `exit` to get out of MongoDB shell
 
+## TODO
+
+- study how to implement authentication/authorization to `GraphQL` endpoint;
+- implement `graphql` subscription;
+
 ## References
 
 - https://graphql.org/learn
 - https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
 - https://www.baeldung.com/spring-graphql
-
-## TODO
-
-- replace `Hystrix` by `Resilience4j`;
-- study how to implement authentication/authorization to `GraphQL` endpoint;
-- implement `graphql` subscription;
+- https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/

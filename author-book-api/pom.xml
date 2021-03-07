@@ -15,8 +15,6 @@
     </parent>
 
     <properties>
-        <feign-hystrix.version>11.0</feign-hystrix.version>
-        <netflix-hystrix.version>2.2.7.RELEASE</netflix-hystrix.version>
         <graphql-spring-boot.version>5.0.2</graphql-spring-boot.version>
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
@@ -56,24 +54,9 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
-
-        <!-- Feign Hystrix -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-hystrix</artifactId>
-            <version>${feign-hystrix.version}</version>
-        </dependency>
-
-        <!-- Netflix Hystrix -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-            <version>${netflix-hystrix.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
-            <version>${netflix-hystrix.version}</version>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
         </dependency>
 
         <!-- GraphQL -->

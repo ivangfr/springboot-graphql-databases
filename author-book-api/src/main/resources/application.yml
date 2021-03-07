@@ -14,7 +14,7 @@ app:
     allowed-origins: http://localhost:3000
 
 feign:
-  hystrix:
+  circuitbreaker:
     enabled: true
   client:
     config:
