@@ -42,7 +42,7 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
   docker-compose ps
   ```
   
-## Running applications with Maven
+## Run applications with Maven
 
 Inside `springboot-graphql-databases`, run the following Maven commands in different terminals
 
@@ -58,7 +58,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   -Dspring-boot.run.jvmArguments="-Dspring.data.mongodb.username=bookreviewuser -Dspring.data.mongodb.password=bookreviewpass"
   ```
   
-## Running Applications as Docker containers
+## Run Applications as Docker containers
 
 ### Build Application's Docker Images
 
@@ -66,7 +66,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 - In order to build the docker images, run the following script
   ```
-  ./build-apps.sh
+  ./docker-build.sh
   ```
       
 ### Application's environment variables
@@ -91,7 +91,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   | `ZIPKIN_HOST`        | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
   | `ZIPKIN_PORT`        | Specify port of the `Zipkin` distributed tracing system to use (default `9411`)      |
 
-### Start Applications Docker containers
+### Start Applications as Docker containers
 
 - In a terminal, make sure you are inside `springboot-graphql-databases` root folder
 
