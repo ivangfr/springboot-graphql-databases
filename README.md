@@ -216,22 +216,6 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
      }
      ```
 
-## Shutdown
-
-- Stop applications
-
-  - If they were started with `Maven`, go to the terminals where they are running and press `Ctrl+C`
-  
-  - If they were started as a Docker container, inside `springboot-graphql-databases` root folder, run the script below
-    ```
-    ./stop-apps.sh
-    ```
-
-- Inside `springboot-graphql-databases` root folder, run the following command to stop and remove docker-compose containers, networks and volumes
-  ```
-  docker-compose down -v
-  ```
-
 ## Useful links & commands
 
 - **Zipkin**
@@ -254,6 +238,29 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   db.books.find().pretty();
   ```
   > Type `exit` to get out of MongoDB shell
+
+## Shutdown
+
+- To stop applications
+
+  - If they were started with `Maven`, go to the terminals where they are running and press `Ctrl+C`
+  
+  - If they were started as a Docker container, go to a terminal and, inside `springboot-graphql-databases` root folder, run the script below
+    ```
+    ./stop-apps.sh
+    ```
+
+- To stop and remove docker-compose containers, network and volumes, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following command
+  ```
+  docker-compose down -v
+  ```
+
+## Cleanup
+
+To remove the Docker images created by this project, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following script
+```
+./remove-docker-images.sh
+```
 
 ## TODO
 
