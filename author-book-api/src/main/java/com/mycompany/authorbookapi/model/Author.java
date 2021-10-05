@@ -47,5 +47,4 @@ public class Author {
     public void onPreUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
 }

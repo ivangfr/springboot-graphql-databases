@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class UpdateBookDto {
+public class UpdateBookRequest {
 
     @Schema(example = "2")
     private Long authorId;
@@ -17,5 +17,4 @@ public class UpdateBookDto {
 
     @Schema(example = "2014")
     private Integer year;
-
 }

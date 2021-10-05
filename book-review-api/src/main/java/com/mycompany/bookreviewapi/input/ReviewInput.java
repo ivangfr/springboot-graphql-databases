@@ -8,5 +8,4 @@ public class ReviewInput {
     private String reviewer;
     private String comment;
     private Integer rating;
-
 }

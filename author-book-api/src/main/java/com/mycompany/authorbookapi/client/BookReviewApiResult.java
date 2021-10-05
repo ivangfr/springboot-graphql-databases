@@ -28,5 +28,4 @@ public class BookReviewApiResult {
         bookReviewApiResult.setData(new ResultData());
         return bookReviewApiResult;
     }
-
 }

@@ -45,5 +45,4 @@ public interface BookReviewApiClient {
             return BookReviewApiResult.empty(error);
         }
     }
-
 }

@@ -14,6 +14,5 @@ public interface BookMapper {
 
     Book toBook(BookInput bookInput);
 
-    void updateBookFromDto(BookInput bookInput, @MappingTarget Book book);
-
+    void updateBookFromInput(BookInput bookInput, @MappingTarget Book book);
 }

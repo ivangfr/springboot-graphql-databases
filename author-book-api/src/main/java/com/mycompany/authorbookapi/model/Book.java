@@ -58,5 +58,4 @@ public class Book {
     public void onPreUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
 }

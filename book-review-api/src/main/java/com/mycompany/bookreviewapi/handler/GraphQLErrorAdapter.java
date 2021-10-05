@@ -48,5 +48,4 @@ public class GraphQLErrorAdapter implements GraphQLError {
     public String getMessage() {
         return (error instanceof ExceptionWhileDataFetching) ? ((ExceptionWhileDataFetching) error).getException().getMessage() : error.getMessage();
     }
-
 }

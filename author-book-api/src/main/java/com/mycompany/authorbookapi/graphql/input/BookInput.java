@@ -9,5 +9,4 @@ public class BookInput {
     private String title;
     private Integer year;
     private Long authorId;
-
 }

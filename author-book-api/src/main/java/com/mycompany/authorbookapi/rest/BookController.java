@@ -7,9 +7,9 @@ import com.mycompany.authorbookapi.mapper.BookMapper;
 import com.mycompany.authorbookapi.model.Author;
 import com.mycompany.authorbookapi.model.Book;
 import com.mycompany.authorbookapi.model.BookReview;
-import com.mycompany.authorbookapi.rest.dto.BookDto;
-import com.mycompany.authorbookapi.rest.dto.CreateBookDto;
-import com.mycompany.authorbookapi.rest.dto.UpdateBookDto;
+import com.mycompany.authorbookapi.rest.dto.BookResponse;
+import com.mycompany.authorbookapi.rest.dto.CreateBookRequest;
+import com.mycompany.authorbookapi.rest.dto.UpdateBookRequest;
 import com.mycompany.authorbookapi.rest.service.AuthorService;
 import com.mycompany.authorbookapi.rest.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -40,47 +40,47 @@ public class BookController {
     private final BookMapper bookMapper;
 
     @GetMapping
-    public List<BookDto> getBooks() {
+    public List<BookResponse> getBooks() {
         return bookService.getAllBooks()
                 .stream()
-                .map(bookMapper::toBookDto)
+                .map(bookMapper::toBookResponse)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{bookId}")
-    public BookDto getBook(@PathVariable Long bookId) {
+    public BookResponse getBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
-        return bookMapper.toBookDto(book);
+        return bookMapper.toBookResponse(book);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public BookDto createBook(@Valid @RequestBody CreateBookDto createBookDto) {
-        Author author = authorService.validateAndGetAuthorById(createBookDto.getAuthorId());
-        Book book = bookMapper.toBook(createBookDto);
+    public BookResponse createBook(@Valid @RequestBody CreateBookRequest createBookRequest) {
+        Author author = authorService.validateAndGetAuthorById(createBookRequest.getAuthorId());
+        Book book = bookMapper.toBook(createBookRequest);
         book.setAuthor(author);
         book = bookService.saveBook(book);
-        return bookMapper.toBookDto(book);
+        return bookMapper.toBookResponse(book);
     }
 
     @PutMapping("/{bookId}")
-    public BookDto updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookDto updateBookDto) {
+    public BookResponse updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookRequest updateBookRequest) {
         Book book = bookService.validateAndGetBookById(bookId);
-        bookMapper.updateBookFromDto(updateBookDto, book);
-        Long authorId = updateBookDto.getAuthorId();
+        bookMapper.updateBookFromRequest(updateBookRequest, book);
+        Long authorId = updateBookRequest.getAuthorId();
         if (authorId != null) {
             Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
         }
         book = bookService.saveBook(book);
-        return bookMapper.toBookDto(book);
+        return bookMapper.toBookResponse(book);
     }
 
     @DeleteMapping("/{bookId}")
-    public BookDto deleteBook(@PathVariable Long bookId) {
+    public BookResponse deleteBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
         bookService.deleteBook(book);
-        return bookMapper.toBookDto(book);
+        return bookMapper.toBookResponse(book);
     }
 
     @GetMapping("/{bookId}/reviews")
@@ -91,5 +91,4 @@ public class BookController {
         BookReviewApiResult bookReviewApiResult = bookReviewApiClient.getBookReviews(graphQLQuery);
         return new BookReview(bookReviewApiResult);
     }
-
 }

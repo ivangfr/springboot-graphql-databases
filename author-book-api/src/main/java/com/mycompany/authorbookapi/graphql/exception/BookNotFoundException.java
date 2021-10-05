@@ -31,5 +31,4 @@ public class BookNotFoundException extends RuntimeException implements GraphQLEr
     public Map<String, Object> getExtensions() {
         return extensions;
     }
-
 }

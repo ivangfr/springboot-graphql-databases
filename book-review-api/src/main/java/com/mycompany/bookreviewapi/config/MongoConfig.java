@@ -26,5 +26,4 @@ public class MongoConfig {
         IndexResolver resolver = new MongoPersistentEntityIndexResolver(mongoMappingContext);
         resolver.resolveIndexFor(Book.class).forEach(indexOps::ensureIndex);
     }
-
 }

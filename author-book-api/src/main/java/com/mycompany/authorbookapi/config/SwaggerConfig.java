@@ -28,5 +28,4 @@ public class SwaggerConfig {
     GroupedOpenApi actuatorApi() {
         return GroupedOpenApi.builder().group("actuator").pathsToMatch("/actuator/**").build();
     }
-
 }

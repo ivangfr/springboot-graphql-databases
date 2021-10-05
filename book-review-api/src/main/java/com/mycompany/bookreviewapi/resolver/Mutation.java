@@ -26,7 +26,7 @@ public class Mutation implements GraphQLMutationResolver {
 
     public Book updateBook(String bookId, BookInput bookInput) {
         Book book = bookService.validateAndGetBookById(bookId);
-        bookMapper.updateBookFromDto(bookInput, book);
+        bookMapper.updateBookFromInput(bookInput, book);
         return bookService.saveBook(book);
     }
 

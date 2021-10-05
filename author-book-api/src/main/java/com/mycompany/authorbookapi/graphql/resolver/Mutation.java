@@ -31,7 +31,7 @@ public class Mutation implements GraphQLMutationResolver {
 
     public Author updateAuthor(Long authorId, AuthorInput authorInput) {
         Author author = authorService.validateAndGetAuthorById(authorId);
-        authorMapper.updateAuthorFromDto(authorInput, author);
+        authorMapper.updateAuthorFromRequest(authorInput, author);
         return authorService.saveAuthor(author);
     }
 
@@ -53,7 +53,7 @@ public class Mutation implements GraphQLMutationResolver {
 
     public Book updateBook(Long bookId, BookInput bookInput) {
         Book book = bookService.validateAndGetBookById(bookId);
-        bookMapper.updateBookFromDto(bookInput, book);
+        bookMapper.updateBookFromRequest(bookInput, book);
 
         Long authorId = bookInput.getAuthorId();
         if (authorId != null) {
@@ -69,5 +69,4 @@ public class Mutation implements GraphQLMutationResolver {
         bookService.deleteBook(book);
         return book;
     }
-
 }

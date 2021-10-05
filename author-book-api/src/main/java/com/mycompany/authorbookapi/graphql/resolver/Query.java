@@ -42,5 +42,4 @@ public class Query implements GraphQLQueryResolver {
     public Book getBookById(Long bookId) {
         return bookService.validateAndGetBookById(bookId);
     }
-
 }

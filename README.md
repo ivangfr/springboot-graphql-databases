@@ -37,7 +37,7 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
   docker-compose up -d
   ```
 
-- Wait a bit until all containers are Up (healthy). You can check their status running
+- Wait for containers to be with status `running (healthy)`. To check it, run
   ```
   docker-compose ps
   ```
@@ -242,14 +242,11 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 ## Shutdown
 
 - To stop applications
-
   - If they were started with `Maven`, go to the terminals where they are running and press `Ctrl+C`
-  
   - If they were started as a Docker container, go to a terminal and, inside `springboot-graphql-databases` root folder, run the script below
     ```
     ./stop-apps.sh
     ```
-
 - To stop and remove docker-compose containers, network and volumes, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following command
   ```
   docker-compose down -v

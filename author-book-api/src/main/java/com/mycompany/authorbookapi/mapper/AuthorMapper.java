@@ -2,9 +2,9 @@ package com.mycompany.authorbookapi.mapper;
 
 import com.mycompany.authorbookapi.graphql.input.AuthorInput;
 import com.mycompany.authorbookapi.model.Author;
-import com.mycompany.authorbookapi.rest.dto.AuthorDto;
-import com.mycompany.authorbookapi.rest.dto.CreateAuthorDto;
-import com.mycompany.authorbookapi.rest.dto.UpdateAuthorDto;
+import com.mycompany.authorbookapi.rest.dto.AuthorResponse;
+import com.mycompany.authorbookapi.rest.dto.CreateAuthorRequest;
+import com.mycompany.authorbookapi.rest.dto.UpdateAuthorRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -17,16 +17,15 @@ public interface AuthorMapper {
 
     //-- REST API
 
-    AuthorDto toAuthorDto(Author author);
+    AuthorResponse toAuthorResponse(Author author);
 
-    Author toAuthor(CreateAuthorDto createAuthorDto);
+    Author toAuthor(CreateAuthorRequest createAuthorRequest);
 
-    void updateAuthorFromDto(UpdateAuthorDto updateAuthorDto, @MappingTarget Author author);
+    void updateAuthorFromRequest(UpdateAuthorRequest updateAuthorRequest, @MappingTarget Author author);
 
     //-- GraphQL
 
     Author toAuthor(AuthorInput authorInput);
 
-    void updateAuthorFromDto(AuthorInput authorInput, @MappingTarget Author author);
-
+    void updateAuthorFromRequest(AuthorInput authorInput, @MappingTarget Author author);
 }

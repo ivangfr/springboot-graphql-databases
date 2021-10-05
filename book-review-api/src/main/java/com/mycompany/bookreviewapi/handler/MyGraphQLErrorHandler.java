@@ -35,5 +35,4 @@ public class MyGraphQLErrorHandler implements GraphQLErrorHandler {
     private boolean isClientError(GraphQLError error) {
         return !(error instanceof ExceptionWhileDataFetching || error instanceof Throwable);
     }
-
 }

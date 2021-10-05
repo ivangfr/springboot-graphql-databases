@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class CreateBookDto {
+public class CreateBookRequest {
 
     @Schema(example = "1")
     @NotNull
@@ -24,5 +24,4 @@ public class CreateBookDto {
     @Schema(example = "2016")
     @NotNull
     private Integer year;
-
 }

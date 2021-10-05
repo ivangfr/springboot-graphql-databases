@@ -12,5 +12,4 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface ReviewMapper {
 
     Review toReview(ReviewInput reviewInput);
-
 }

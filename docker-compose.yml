@@ -15,10 +15,9 @@ services:
       MYSQL_ROOT_PASSWORD: secret
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
-      start_period: 20s
 
   mongodb:
-    image: bitnami/mongodb:4.4.6
+    image: bitnami/mongodb:4.4.8
     container_name: mongodb
     ports:
       - "27017:27017"
@@ -29,7 +28,6 @@ services:
       MONGODB_ROOT_PASSWORD: secret
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/bookreviewdb --quiet
-      start_period: 20s
 
   zipkin:
     image: openzipkin/zipkin:2.23.2
@@ -39,4 +37,3 @@ services:
       - "9411:9411"
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "9411" ]
-      start_period: 20s

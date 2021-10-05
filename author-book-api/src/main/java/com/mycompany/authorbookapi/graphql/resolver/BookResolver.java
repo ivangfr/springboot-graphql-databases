@@ -28,5 +28,4 @@ public class BookResolver implements GraphQLResolver<Book> {
         BookReviewApiResult bookReviewApiResult = bookReviewApiClient.getBookReviews(graphQLQuery);
         return new BookReview(bookReviewApiResult);
     }
-
 }

@@ -43,5 +43,4 @@ public class AuthorServiceImpl implements AuthorService {
     public void deleteAuthor(Author author) {
         authorRepository.delete(author);
     }
-
 }

@@ -18,5 +18,4 @@ public class AuthorResolver implements GraphQLResolver<Author> {
     public List<Book> getBooks(Author author) {
         return bookService.getBooksByAuthor(author);
     }
-
 }

@@ -3,10 +3,10 @@ package com.mycompany.authorbookapi.rest;
 import com.mycompany.authorbookapi.mapper.AuthorMapper;
 import com.mycompany.authorbookapi.mapper.BookMapper;
 import com.mycompany.authorbookapi.model.Author;
-import com.mycompany.authorbookapi.rest.dto.AuthorDto;
-import com.mycompany.authorbookapi.rest.dto.BookDto;
-import com.mycompany.authorbookapi.rest.dto.CreateAuthorDto;
-import com.mycompany.authorbookapi.rest.dto.UpdateAuthorDto;
+import com.mycompany.authorbookapi.rest.dto.AuthorResponse;
+import com.mycompany.authorbookapi.rest.dto.BookResponse;
+import com.mycompany.authorbookapi.rest.dto.CreateAuthorRequest;
+import com.mycompany.authorbookapi.rest.dto.UpdateAuthorRequest;
 import com.mycompany.authorbookapi.rest.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,55 +35,54 @@ public class AuthorController {
     private final BookMapper bookMapper;
 
     @GetMapping
-    public List<AuthorDto> getAllAuthors() {
+    public List<AuthorResponse> getAllAuthors() {
         return authorService.getAllAuthors()
                 .stream()
-                .map(authorMapper::toAuthorDto)
+                .map(authorMapper::toAuthorResponse)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/name/{authorName}")
-    public AuthorDto getAuthorByName(@PathVariable String authorName) {
+    public AuthorResponse getAuthorByName(@PathVariable String authorName) {
         Author author = authorService.validateAndGetAuthorByName(authorName);
-        return authorMapper.toAuthorDto(author);
+        return authorMapper.toAuthorResponse(author);
     }
 
     @GetMapping("/{authorId}")
-    public AuthorDto getAuthorById(@PathVariable Long authorId) {
+    public AuthorResponse getAuthorById(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);
-        return authorMapper.toAuthorDto(author);
+        return authorMapper.toAuthorResponse(author);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public AuthorDto createAuthor(@Valid @RequestBody CreateAuthorDto createAuthorDto) {
-        Author author = authorMapper.toAuthor(createAuthorDto);
+    public AuthorResponse createAuthor(@Valid @RequestBody CreateAuthorRequest createAuthorRequest) {
+        Author author = authorMapper.toAuthor(createAuthorRequest);
         author = authorService.saveAuthor(author);
-        return authorMapper.toAuthorDto(author);
+        return authorMapper.toAuthorResponse(author);
     }
 
     @PutMapping("/{authorId}")
-    public AuthorDto updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorDto updateAuthorDto) {
+    public AuthorResponse updateAuthor(@PathVariable Long authorId, @Valid @RequestBody UpdateAuthorRequest updateAuthorRequest) {
         Author author = authorService.validateAndGetAuthorById(authorId);
-        authorMapper.updateAuthorFromDto(updateAuthorDto, author);
+        authorMapper.updateAuthorFromRequest(updateAuthorRequest, author);
         author = authorService.saveAuthor(author);
-        return authorMapper.toAuthorDto(author);
+        return authorMapper.toAuthorResponse(author);
     }
 
     @DeleteMapping("/{authorId}")
-    public AuthorDto deleteAuthor(@PathVariable Long authorId) {
+    public AuthorResponse deleteAuthor(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);
         authorService.deleteAuthor(author);
-        return authorMapper.toAuthorDto(author);
+        return authorMapper.toAuthorResponse(author);
     }
 
     @GetMapping("/{authorId}/books")
-    public Set<BookDto> getAuthorBooks(@PathVariable Long authorId) {
+    public Set<BookResponse> getAuthorBooks(@PathVariable Long authorId) {
         Author author = authorService.validateAndGetAuthorById(authorId);
         return author.getBooks()
                 .stream()
-                .map(bookMapper::toBookDto)
+                .map(bookMapper::toBookResponse)
                 .collect(Collectors.toSet());
     }
-
 }
