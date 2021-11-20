@@ -6,7 +6,7 @@ The goal of this project is to explore [`GraphQL`](https://graphql.org). For it,
 
 ## Project Diagram
 
-![project-diagram](images/project-diagram-BE.png)
+![project-diagram](documentation/project-diagram-BE.png)
 
 ## Applications
 
@@ -26,7 +26,7 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
 
 ## Prerequisites
 
-- [`Java 11+`](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+- [`Java 11+`](https://www.oracle.com/java/technologies/downloads/#java11)
 - [`Docker`](https://www.docker.com/)
 - [`Docker-Compose`](https://docs.docker.com/compose/install/)
 
@@ -37,7 +37,7 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
   docker-compose up -d
   ```
 
-- Wait for containers to be with status `running (healthy)`. To check it, run
+- Wait for Docker containers to be up and running. To check it, run
   ```
   docker-compose ps
   ```
