@@ -74,7 +74,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 - **author-book-api**
 
   | Environment Variable   | Description                                                                          |
-  | ---------------------- | ------------------------------------------------------------------------------------ |
+  |------------------------|--------------------------------------------------------------------------------------|
   | `MYSQL_HOST`           | Specify host of the `MySQL` database to use (default `localhost`)                    |
   | `MYSQL_PORT`           | Specify port of the `MySQL` database to use (default `3306`)                         |
   | `ZIPKIN_HOST`          | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
@@ -85,7 +85,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 - **book-review-api**
 
   | Environment Variable | Description                                                                          |
-  | -------------------- | ------------------------------------------------------------------------------------ |
+  |----------------------|--------------------------------------------------------------------------------------|
   | `MONGODB_HOST`       | Specify host of the `MongoDB` database to use (default `localhost`)                  |
   | `MONGODB_PORT`       | Specify port of the `MongoDB` database to use (default `27017`)                      |
   | `ZIPKIN_HOST`        | Specify host of the `Zipkin` distributed tracing system to use (default `localhost`) |
@@ -103,7 +103,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 ## Application's Link
 
 | Application     | URL Type | URL                                   |
-| --------------- | -------- | ------------------------------------- |
+|-----------------|----------|---------------------------------------|
 | author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
 | author-book-api | GraphiQL | http://localhost:8080/graphiql        |
 | book-review-api | GraphiQL | http://localhost:9080/graphiql        |
