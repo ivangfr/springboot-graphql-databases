@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.3</version>
+        <version>2.6.5</version>
         <relativePath/>
     </parent>
 
@@ -19,7 +19,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <spring-cloud.version>2021.0.0</spring-cloud.version>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
         <graphql-spring-boot.version>5.0.2</graphql-spring-boot.version>
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
