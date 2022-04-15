@@ -224,10 +224,10 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 - **MySQL monitor**
   ```
-  docker exec -it mysql mysql -uauthorbookuser -pauthorbookpass --database=authorbookdb
-  show tables;
-  select * from authors;
-  select * from books;
+  docker exec -it -e MYSQL_PWD="authorbookpass" mysql mysql -uauthorbookuser --database authorbookdb
+  SHOW tables;
+  SELECT * FROM authors;
+  SELECT * FROM books;
   ```
   > Type `exit` to get out of MySQL monitor
 
