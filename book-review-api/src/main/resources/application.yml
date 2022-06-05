@@ -8,7 +8,7 @@ spring:
       database: bookreviewdb
       username: change-me
       password: change-me
-      auto-index-creation: false
+      auto-index-creation: true
   graphql:
     graphiql:
       enabled: true
