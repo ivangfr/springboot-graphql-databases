@@ -1,27 +1,28 @@
-package com.mycompany.bookreviewapi.mapper;
+package com.mycompany.authorbookapi.graphql.mapper;
 
-import com.mycompany.bookreviewapi.graphql.input.BookInput;
-import com.mycompany.bookreviewapi.model.Book;
+import com.mycompany.authorbookapi.graphql.input.AuthorInput;
+import com.mycompany.authorbookapi.model.Author;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(
+        implementationName = "GraphQlAuthorMapper",
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
-public interface BookMapper {
+public interface AuthorMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "reviews", ignore = true)
+    @Mapping(target = "books", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    Book toBook(BookInput bookInput);
+    Author toAuthor(AuthorInput authorInput);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "reviews", ignore = true)
+    @Mapping(target = "books", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    void updateBookFromInput(BookInput bookInput, @MappingTarget Book book);
+    void updateAuthorFromRequest(AuthorInput authorInput, @MappingTarget Author author);
 }

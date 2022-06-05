@@ -15,13 +15,14 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> getBooks() {
         return bookRepository.findAll();
     }
 
     @Override
     public Book validateAndGetBookById(String id) {
-        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found", "id", id));
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(String.format("Book with id %s not found", id)));
     }
 
     @Override
@@ -36,6 +37,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book validateAndGetBookByIsbn(String isbn) {
-        return bookRepository.findByIsbn(isbn).orElseThrow(() -> new BookNotFoundException("Book not found", "isbn", isbn));
+        return bookRepository.findByIsbn(isbn)
+                .orElseThrow(() -> new BookNotFoundException(String.format("Book with isbn %s not found", isbn)));
     }
 }

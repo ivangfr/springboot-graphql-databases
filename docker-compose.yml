@@ -17,7 +17,7 @@ services:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
 
   mongodb:
-    image: bitnami/mongodb:5.0.8
+    image: bitnami/mongodb:5.0.9
     container_name: mongodb
     ports:
       - "27017:27017"

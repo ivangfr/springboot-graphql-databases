@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book> getAllBooks();
+    List<Book> getBooks();
 
     Book validateAndGetBookById(String id);
 

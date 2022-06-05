@@ -1,6 +1,6 @@
 package com.mycompany.bookreviewapi.mapper;
 
-import com.mycompany.bookreviewapi.input.ReviewInput;
+import com.mycompany.bookreviewapi.graphql.input.ReviewInput;
 import com.mycompany.bookreviewapi.model.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

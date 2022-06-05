@@ -117,7 +117,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   1. Create a book and return its id
      ```
      mutation {
-       createBook(bookInput: {title: "Learning GraphQL and Relay", isbn: "9781786465757"}) {
+       createBook(bookInput: {title: "Getting Started With Roo", isbn: "9781449307905"}) {
         id
        }
      }
@@ -135,7 +135,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   1. Get all books stored in `book-review-api`, including their reviews
      ```
      {
-       getAllBooks {
+       getBooks {
          id
          title
          isbn
@@ -156,17 +156,17 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   1. Create an author and return its id
      ```
      mutation {
-       createAuthor(authorInput: {name: "Samer Buna"}) {
+       createAuthor(authorInput: {name: "Josh Long"}) {
          id
        }
      }
      ```
 
   1. Create a book and return the book id and author name
-     > **Note:** while creating this book in `author-book-api`, we are setting the same ISBN, `9781786465757`, as we did when creating the book in `book-review-api`.
+     > **Note:** while creating this book in `author-book-api`, we are setting the same ISBN, `9781449307905`, as we did when creating the book in `book-review-api`.
      ```
      mutation {
-       createBook(bookInput: {authorId: 1, isbn: "9781786465757", title: "Learning GraphQL and Relay", year: 2016}) {
+       createBook(bookInput: {authorId: 1, isbn: "9781449307905", title: "Getting Started With Roo", year: 2020}) {
          id
          author {
            name
@@ -176,7 +176,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
      ```
 
   1. Get author by id and return some information about his/her books including reviews of the book from `book-review-api`.
-     > **Note:** as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781786465757`, it's possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does not have a specific ISBN or the service is down. 
+     > **Note:** as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781449307905`, it's possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does not have a specific ISBN or the service is down. 
      ```
      {
        getAuthorById(authorId: 1) {
@@ -200,7 +200,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
   1. Update book title and return its id and new title
      ```
      mutation {
-       updateBook(bookId: 1, bookInput: {title: "Learning GraphQL and Relay 2"}) {
+       updateBook(bookId: 1, bookInput: {title: "Getting Started With Roo 2"}) {
          id
          title
        }
@@ -259,8 +259,11 @@ To remove the Docker images created by this project, go to a terminal and, insid
 ./remove-docker-images.sh
 ```
 
+
 ## TODO
 
+- implement test cases;
+- use [`HttpGraphQlClient`](https://docs.spring.io/spring-graphql/docs/1.0.0/reference/html/#client) to call `book-review` instead of `feign` (we need to convert to project to `WebFlux`);
 - study how to implement authentication/authorization to `GraphQL` endpoint;
 - implement `graphql` subscription;
 

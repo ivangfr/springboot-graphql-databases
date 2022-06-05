@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
-    List<Author> findByNameIgnoreCase(String authorName);
+    List<Author> findByNameContainingOrderByName(String authorName);
 }

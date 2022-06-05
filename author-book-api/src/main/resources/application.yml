@@ -6,6 +6,11 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/authorbookdb?characterEncoding=UTF-8&serverTimezone=UTC
     username: change-me
     password: change-me
+  graphql:
+    graphiql:
+      enabled: true
+    cors:
+      allowed-origins: ${app.cors.allowed-origins}
   sleuth:
     sampler.probability: 1.0
 
@@ -20,18 +25,6 @@ feign:
     config:
       default:
         loggerLevel: basic
-
-graphql: # default values
-  servlet:
-    mapping: /graphql
-    enabled: true
-    corsEnabled: true
-
-graphiql: # default values
-  mapping: /graphiql
-  endpoint:
-    graphql: /graphql
-  enabled: true
 
 management:
   endpoints:

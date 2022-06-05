@@ -63,11 +63,11 @@ type Review {
 # ---
 
 type Query {
-    getAllAuthors: [Author!]!
+    getAuthors: [Author!]!
     getAuthorById(authorId: ID!): Author
-    getAuthorByName(authorName: String!): Author
+    getAuthorByName(authorName: String!): [Author!]!
 
-    getAllBooks: [Book!]!
+    getBooks: [Book!]!
     getBookById(bookId: ID!): Book
 }
 

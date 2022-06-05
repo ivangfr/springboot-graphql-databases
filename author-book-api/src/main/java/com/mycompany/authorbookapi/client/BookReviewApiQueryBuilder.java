@@ -1,9 +1,8 @@
 package com.mycompany.authorbookapi.client;
 
 import com.google.gson.Gson;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -21,9 +20,8 @@ public class BookReviewApiQueryBuilder {
         return gson.toJson(bookReviewApiQuery);
     }
 
-    @Data
-    @AllArgsConstructor
+    @Value
     private static class BookReviewApiQuery {
-        private String query;
+        String query;
     }
 }
