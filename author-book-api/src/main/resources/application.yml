@@ -45,4 +45,4 @@ logging:
     org.hibernate:
       SQL: DEBUG
       type.descriptor.sql.BasicBinder: TRACE
-    com.mycompany.authorbookapi.client.BookReviewApiClient: DEBUG
+    com.ivanfranchin.authorbookapi.client.BookReviewApiClient: DEBUG

@@ -2,7 +2,7 @@
 
 The goal of this project is to explore [`GraphQL`](https://graphql.org). For it, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Web Java applications: `author-book-api` and `book-review-api`.
 
-> **Note:** In [`kubernetes-minikube-environment`](https://github.com/ivangfr/kubernetes-minikube-environment/tree/master/author-book-review-graphql) repository, it's shown how to deploy this project in `Kubernetes` (`Minikube`)
+> **Note**: In [`kubernetes-minikube-environment`](https://github.com/ivangfr/kubernetes-minikube-environment/tree/master/author-book-review-graphql) repository, it's shown how to deploy this project in `Kubernetes` (`Minikube`)
 
 ## Project Diagram
 
@@ -62,12 +62,10 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 ### Build Application's Docker Images
 
-- Open a terminal and make sure you are in `springboot-graphql-databases` root folder
-
-- In order to build the docker images, run the following script
-  ```
-  ./docker-build.sh
-  ```
+In a terminal and inside `springboot-graphql-databases` root folder, run the following script
+```
+./docker-build.sh
+```
       
 ### Application's environment variables
     
@@ -93,20 +91,18 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 ### Start Applications as Docker containers
 
-- In a terminal, make sure you are inside `springboot-graphql-databases` root folder
-
-- Run following script
-  ```
-  ./start-apps.sh
-  ```
+In a terminal and inside `springboot-graphql-databases` root folder, run following script
+```
+./start-apps.sh
+```
 
 ## Application's Link
 
-| Application     | URL Type | URL                                   |
-|-----------------|----------|---------------------------------------|
-| author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
-| author-book-api | GraphiQL | http://localhost:8080/graphiql        |
-| book-review-api | GraphiQL | http://localhost:9080/graphiql        |
+| Application     | URL Type | URL                                         |
+|-----------------|----------|---------------------------------------------|
+| author-book-api | Swagger  | http://localhost:8080/swagger-ui/index.html |
+| author-book-api | GraphiQL | http://localhost:8080/graphiql              |
+| book-review-api | GraphiQL | http://localhost:9080/graphiql              |
 
 ## How to use GraphiQL
 
@@ -163,7 +159,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
      ```
 
   1. Create a book and return the book id and author name
-     > **Note:** while creating this book in `author-book-api`, we are setting the same ISBN, `9781449307905`, as we did when creating the book in `book-review-api`.
+     > **Note**: while creating this book in `author-book-api`, we are setting the same ISBN, `9781449307905`, as we did when creating the book in `book-review-api`.
      ```
      mutation {
        createBook(bookInput: {authorId: 1, isbn: "9781449307905", title: "Getting Started With Roo", year: 2020}) {
@@ -176,7 +172,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
      ```
 
   1. Get author by id and return some information about his/her books including reviews of the book from `book-review-api`.
-     > **Note:** as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781449307905`, it's possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does not have a specific ISBN or the service is down. 
+     > **Note**: as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781449307905`, it's possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does not have a specific ISBN or the service is down. 
      ```
      {
        getAuthorById(authorId: 1) {

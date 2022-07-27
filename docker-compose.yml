@@ -30,7 +30,7 @@ services:
       test: echo 'db.stats().ok' | mongo localhost:27017/bookreviewdb --quiet
 
   zipkin:
-    image: openzipkin/zipkin:2.23.16
+    image: openzipkin/zipkin:2.23.18
     container_name: zipkin
     restart: unless-stopped
     ports:
