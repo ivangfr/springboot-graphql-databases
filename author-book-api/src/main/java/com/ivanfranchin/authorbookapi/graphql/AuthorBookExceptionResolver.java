@@ -1,6 +1,7 @@
 package com.ivanfranchin.authorbookapi.graphql;
 
 import com.ivanfranchin.authorbookapi.exception.AuthorNotFoundException;
+import com.ivanfranchin.authorbookapi.exception.BookDuplicatedIsbnException;
 import com.ivanfranchin.authorbookapi.exception.BookNotFoundException;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
@@ -17,6 +18,8 @@ public class AuthorBookExceptionResolver extends DataFetcherExceptionResolverAda
         ErrorType errorType = ErrorType.INTERNAL_ERROR;
         if (ex instanceof BookNotFoundException || ex instanceof AuthorNotFoundException) {
             errorType = ErrorType.NOT_FOUND;
+        } else if (ex instanceof BookDuplicatedIsbnException) {
+            errorType = ErrorType.BAD_REQUEST;
         }
 
         return GraphqlErrorBuilder.newError(env)

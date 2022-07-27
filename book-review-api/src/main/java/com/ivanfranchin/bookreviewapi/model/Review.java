@@ -1,18 +1,10 @@
 package com.ivanfranchin.bookreviewapi.model;
 
-import lombok.Data;
-
 import java.time.Instant;
 
-@Data
-public class Review {
+public record Review(String reviewer, String comment, Integer rating, String createdAt) {
 
-    private String reviewer;
-    private String comment;
-    private Integer rating;
-    private String createdAt;
-
-    public Review() {
+    public Review {
         createdAt = Instant.ofEpochSecond(Instant.now().getEpochSecond()).toString();
     }
 }

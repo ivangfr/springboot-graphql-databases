@@ -2,14 +2,13 @@ package com.ivanfranchin.authorbookapi.restapi;
 
 import com.ivanfranchin.authorbookapi.client.BookReviewApiClient;
 import com.ivanfranchin.authorbookapi.client.BookReviewApiQueryBuilder;
-import com.ivanfranchin.authorbookapi.client.BookReviewApiResult;
 import com.ivanfranchin.authorbookapi.model.Author;
+import com.ivanfranchin.authorbookapi.model.Book;
+import com.ivanfranchin.authorbookapi.model.BookReview;
 import com.ivanfranchin.authorbookapi.restapi.dto.BookResponse;
 import com.ivanfranchin.authorbookapi.restapi.dto.CreateBookRequest;
 import com.ivanfranchin.authorbookapi.restapi.dto.UpdateBookRequest;
 import com.ivanfranchin.authorbookapi.restapi.mapper.BookMapper;
-import com.ivanfranchin.authorbookapi.model.Book;
-import com.ivanfranchin.authorbookapi.model.BookReview;
 import com.ivanfranchin.authorbookapi.service.AuthorService;
 import com.ivanfranchin.authorbookapi.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -86,9 +85,7 @@ public class BookController {
     @GetMapping("/{bookId}/reviews")
     public BookReview getBookReviews(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
-
         String graphQLQuery = bookReviewApiQueryBuilder.getBookReviewQuery(book.getIsbn());
-        BookReviewApiResult bookReviewApiResult = bookReviewApiClient.getBookReviews(graphQLQuery);
-        return new BookReview(bookReviewApiResult);
+        return bookReviewApiClient.getBookReviews(graphQLQuery).toBookReview();
     }
 }

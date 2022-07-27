@@ -1,14 +1,14 @@
 package com.ivanfranchin.authorbookapi.service;
 
-import com.ivanfranchin.authorbookapi.model.Author;
 import com.ivanfranchin.authorbookapi.exception.AuthorNotFoundException;
+import com.ivanfranchin.authorbookapi.model.Author;
 import com.ivanfranchin.authorbookapi.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -29,9 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> validateAndGetAuthorByName(String name) {
-        return authorRepository.findByNameContainingOrderByName(StringUtils.normalizeSpace(name))
-                .stream()
-                .collect(Collectors.toList());
+        return new ArrayList<>(authorRepository.findByNameContainingOrderByName(StringUtils.normalizeSpace(name)));
     }
 
     @Override

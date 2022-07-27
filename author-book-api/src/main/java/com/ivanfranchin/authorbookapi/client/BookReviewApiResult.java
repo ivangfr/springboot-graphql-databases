@@ -1,31 +1,34 @@
 package com.ivanfranchin.authorbookapi.client;
 
+import com.ivanfranchin.authorbookapi.model.BookReview;
 import com.ivanfranchin.authorbookapi.model.Review;
-import lombok.Data;
 
+import java.util.Collections;
 import java.util.List;
 
-@Data
-public class BookReviewApiResult {
+public record BookReviewApiResult(ResultData data, String error) {
 
-    private ResultData data;
-    private String error;
+    public record ResultData(QueryName getBookByIsbn) {
 
-    @Data
-    public static class ResultData {
-        private QueryName getBookByIsbn;
+        public ResultData() {
+            this(null);
+        }
 
-        @Data
-        public static class QueryName {
-            private String id;
-            private List<Review> reviews;
+        public record QueryName(String id, List<Review> reviews) {
         }
     }
 
     static BookReviewApiResult empty(String error) {
-        BookReviewApiResult bookReviewApiResult = new BookReviewApiResult();
-        bookReviewApiResult.setError(error);
-        bookReviewApiResult.setData(new ResultData());
-        return bookReviewApiResult;
+        return new BookReviewApiResult(new ResultData(), error);
+    }
+
+    public BookReview toBookReview() {
+        BookReviewApiResult.ResultData.QueryName getBookByIsbn = this.data().getBookByIsbn();
+        if (getBookByIsbn == null) {
+            String errorStr = this.error() != null ?
+                    this.error() : "Unable to get book reviews. Check if there is a book with exact ISBN in book-review-api.";
+            return new BookReview(errorStr, null, Collections.emptyList());
+        }
+        return new BookReview(null, getBookByIsbn.id(), getBookByIsbn.reviews());
     }
 }

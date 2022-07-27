@@ -1,10 +1,9 @@
 package com.ivanfranchin.authorbookapi.graphql;
 
-import com.ivanfranchin.authorbookapi.graphql.input.BookInput;
-import com.ivanfranchin.authorbookapi.graphql.mapper.BookMapper;
 import com.ivanfranchin.authorbookapi.client.BookReviewApiClient;
 import com.ivanfranchin.authorbookapi.client.BookReviewApiQueryBuilder;
-import com.ivanfranchin.authorbookapi.client.BookReviewApiResult;
+import com.ivanfranchin.authorbookapi.graphql.input.BookInput;
+import com.ivanfranchin.authorbookapi.graphql.mapper.BookMapper;
 import com.ivanfranchin.authorbookapi.model.Author;
 import com.ivanfranchin.authorbookapi.model.Book;
 import com.ivanfranchin.authorbookapi.model.BookReview;
@@ -41,7 +40,7 @@ public class BookController {
 
     @MutationMapping
     public Book createBook(@Argument BookInput bookInput) {
-        Author author = authorService.validateAndGetAuthorById(bookInput.getAuthorId());
+        Author author = authorService.validateAndGetAuthorById(bookInput.authorId());
         Book book = bookMapper.toBook(bookInput);
         book.setAuthor(author);
         return bookService.saveBook(book);
@@ -52,7 +51,7 @@ public class BookController {
         Book book = bookService.validateAndGetBookById(bookId);
         bookMapper.updateBookFromRequest(bookInput, book);
 
-        Long authorId = bookInput.getAuthorId();
+        Long authorId = bookInput.authorId();
         if (authorId != null) {
             Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
@@ -70,7 +69,6 @@ public class BookController {
     @SchemaMapping(field = "bookReview")
     public BookReview getBookReview(Book book) {
         String graphQLQuery = bookReviewApiQueryBuilder.getBookReviewQuery(book.getIsbn());
-        BookReviewApiResult bookReviewApiResult = bookReviewApiClient.getBookReviews(graphQLQuery);
-        return new BookReview(bookReviewApiResult);
+        return bookReviewApiClient.getBookReviews(graphQLQuery).toBookReview();
     }
 }

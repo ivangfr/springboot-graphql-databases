@@ -18,12 +18,12 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
         <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
-        <openjdk-image.version>11.0.15</openjdk-image.version>
+        <openjdk-image.version>17.0.2</openjdk-image.version>
         <docker-image.prefix>ivanfranchin</docker-image.prefix>
     </properties>
 

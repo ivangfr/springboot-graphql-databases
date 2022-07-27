@@ -1,10 +1,12 @@
 package com.ivanfranchin.authorbookapi.service;
 
-import com.ivanfranchin.authorbookapi.model.Author;
-import com.ivanfranchin.authorbookapi.repository.BookRepository;
+import com.ivanfranchin.authorbookapi.exception.BookDuplicatedIsbnException;
 import com.ivanfranchin.authorbookapi.exception.BookNotFoundException;
+import com.ivanfranchin.authorbookapi.model.Author;
 import com.ivanfranchin.authorbookapi.model.Book;
+import com.ivanfranchin.authorbookapi.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +34,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book saveBook(Book book) {
-        return bookRepository.save(book);
+        try {
+            return bookRepository.save(book);
+        } catch (DataIntegrityViolationException e) {
+            throw new BookDuplicatedIsbnException(String.format("Book with ISBN '%s' already exists", book.getIsbn()));
+        }
     }
 
     @Override

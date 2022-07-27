@@ -1,5 +1,6 @@
 package com.ivanfranchin.bookreviewapi.graphql;
 
+import com.ivanfranchin.bookreviewapi.exception.BookDuplicatedIsbnException;
 import com.ivanfranchin.bookreviewapi.exception.BookNotFoundException;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
@@ -16,6 +17,8 @@ public class BookReviewExceptionResolver extends DataFetcherExceptionResolverAda
         ErrorType errorType = ErrorType.INTERNAL_ERROR;
         if (ex instanceof BookNotFoundException) {
             errorType = ErrorType.NOT_FOUND;
+        } else if (ex instanceof BookDuplicatedIsbnException) {
+            errorType = ErrorType.BAD_REQUEST;
         }
 
         return GraphqlErrorBuilder.newError(env)
