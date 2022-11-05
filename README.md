@@ -98,11 +98,11 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 ## Application's Link
 
-| Application     | URL Type | URL                                         |
-|-----------------|----------|---------------------------------------------|
-| author-book-api | Swagger  | http://localhost:8080/swagger-ui/index.html |
-| author-book-api | GraphiQL | http://localhost:8080/graphiql              |
-| book-review-api | GraphiQL | http://localhost:9080/graphiql              |
+| Application     | URL Type | URL                                   |
+|-----------------|----------|---------------------------------------|
+| author-book-api | Swagger  | http://localhost:8080/swagger-ui.html |
+| author-book-api | GraphiQL | http://localhost:8080/graphiql        |
+| book-review-api | GraphiQL | http://localhost:9080/graphiql        |
 
 ## How to use GraphiQL
 
@@ -254,7 +254,6 @@ To remove the Docker images created by this project, go to a terminal and, insid
 ```
 ./remove-docker-images.sh
 ```
-
 
 ## TODO
 
