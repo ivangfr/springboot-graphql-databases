@@ -14,8 +14,6 @@ spring:
       enabled: true
     cors:
       allowed-origins: ${app.cors.allowed-origins}
-  sleuth:
-    sampler.probability: 1.0
 
 app:
   cors:
@@ -28,3 +26,10 @@ management:
   endpoint:
     health:
       show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

@@ -4,7 +4,7 @@ services:
 
   mysql:
     container_name: mysql
-    image: mysql:8.0.31
+    image: mysql:8.0.32
     restart: unless-stopped
     ports:
       - "3306:3306"
@@ -17,7 +17,7 @@ services:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
 
   mongodb:
-    image: bitnami/mongodb:6.0.2
+    image: bitnami/mongodb:6.0.4
     container_name: mongodb
     ports:
       - "27017:27017"
@@ -30,7 +30,7 @@ services:
       test: echo 'db.stats().ok' | mongosh localhost:27017/bookreviewdb --quiet
 
   zipkin:
-    image: openzipkin/zipkin:2.23.19
+    image: openzipkin/zipkin:2.24.0
     container_name: zipkin
     restart: unless-stopped
     ports:

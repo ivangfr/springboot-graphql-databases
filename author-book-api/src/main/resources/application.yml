@@ -11,20 +11,18 @@ spring:
       enabled: true
     cors:
       allowed-origins: ${app.cors.allowed-origins}
-  sleuth:
-    sampler.probability: 1.0
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      client:
+        config:
+          default:
+            loggerLevel: BASIC
 
 app:
   cors:
     allowed-origins: http://localhost:3000
-
-feign:
-  circuitbreaker:
-    enabled: true
-  client:
-    config:
-      default:
-        loggerLevel: basic
 
 management:
   endpoints:
@@ -33,6 +31,9 @@ management:
   endpoint:
     health:
       show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
 
 springdoc:
   show-actuator: true
@@ -41,6 +42,8 @@ springdoc:
     disable-swagger-default-url: true
 
 logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
   level:
     org.hibernate:
       SQL: DEBUG

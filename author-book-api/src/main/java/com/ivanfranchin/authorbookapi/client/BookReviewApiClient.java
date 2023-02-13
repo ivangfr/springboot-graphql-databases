@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
         fallbackFactory = BookReviewApiClient.BookReviewApiClientFallbackFactory.class)
 public interface BookReviewApiClient {
 
-    @PostMapping(path = "/graphql", consumes = "application/graphql+json")
+    @PostMapping(path = "/graphql", consumes = "application/json")
     BookReviewApiResult getBookReviews(@RequestBody String graphQLQuery);
 
     // ----------------
