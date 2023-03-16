@@ -6,7 +6,7 @@ The goal of this project is to explore [`GraphQL`](https://graphql.org). For it,
 
 ## Project Diagram
 
-![project-diagram](documentation/project-diagram-BE.png)
+![project-diagram](documentation/project-diagram.jpeg)
 
 ## Applications
 
