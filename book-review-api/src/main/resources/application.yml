@@ -1,6 +1,8 @@
 server.port: 9080
 
 spring:
+  application:
+    name: book-review-api
   data:
     mongodb:
       host: ${MONGODB_HOST:localhost}
@@ -29,6 +31,9 @@ management:
   tracing:
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
 
 logging:
   pattern:

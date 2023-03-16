@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: author-book-api
   jpa:
     hibernate:
       ddl-auto: update
@@ -34,6 +36,9 @@ management:
   tracing:
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
 
 springdoc:
   show-actuator: true
