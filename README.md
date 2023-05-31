@@ -110,7 +110,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
   1. In a browser, access http://localhost:9080/graphiql
 
-  1. Create a book and return its id
+  2. Create a book and return its id
      ```
      mutation {
        createBook(bookInput: {title: "Getting Started With Roo", isbn: "9781449307905"}) {
@@ -119,7 +119,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  1. Add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`
+  3. Add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`
      ```
      mutation {
        addBookReview(bookId: "5bd4bd4790e9f641b7388f23", reviewInput: {reviewer: "Ivan Franchin", comment: "It is a very good book", rating: 5}) {
@@ -128,7 +128,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  1. Get all books stored in `book-review-api`, including their reviews
+  4. Get all books stored in `book-review-api`, including their reviews
      ```
      {
        getBooks {
@@ -149,7 +149,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
   1. In a browser, access http://localhost:8080/graphiql
 
-  1. Create an author and return the author id
+  2. Create an author and return the author id
      ```
      mutation {
        createAuthor(authorInput: {name: "Josh Long"}) {
@@ -158,7 +158,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  1. Create a book and return the book id and author name
+  3. Create a book and return the book id and author name
      > **Note**: while creating this book in `author-book-api`, we are setting the same ISBN, `9781449307905`, as we did when creating the book in `book-review-api`.
      ```
      mutation {
@@ -171,7 +171,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  1. Get author by id and return some information about his/her books including book reviews from `book-review-api`.
+  4. Get author by id and return some information about his/her books including book reviews from `book-review-api`.
      > **Note**: as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781449307905`, it's possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does not have a specific ISBN or the service is down. 
      ```
      {
@@ -193,7 +193,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  1. Update book title and return its id and new title
+  5. Update book title and return its id and new title
      ```
      mutation {
        updateBook(bookId: 1, bookInput: {title: "Getting Started With Roo 2"}) {
@@ -203,7 +203,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  1. Delete the author and return author id
+  6. Delete the author and return author id
      ```
      mutation {
        deleteAuthor(authorId: 1) {
