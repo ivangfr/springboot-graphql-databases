@@ -37,18 +37,17 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
 
 - [`Java 17+`](https://www.oracle.com/java/technologies/downloads/#java17)
 - [`Docker`](https://www.docker.com/)
-- [`Docker-Compose`](https://docs.docker.com/compose/install/)
 
 ## Start Environment
 
 - Open a terminal and inside `springboot-graphql-databases` root folder run
   ```
-  docker-compose up -d
+  docker compose up -d
   ```
 
 - Wait for Docker containers to be up and running. To check it, run
   ```
-  docker-compose ps
+  docker compose ps
   ```
   
 ## Run applications with Maven
@@ -252,9 +251,9 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
     ```
     ./stop-apps.sh
     ```
-- To stop and remove docker-compose containers, network and volumes, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following command
+- To stop and remove docker compose containers, network and volumes, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following command
   ```
-  docker-compose down -v
+  docker compose down -v
   ```
 
 ## Cleanup
