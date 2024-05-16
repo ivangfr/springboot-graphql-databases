@@ -2,7 +2,7 @@
 
 The goal of this project is to explore [`GraphQL`](https://graphql.org). For it, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Web Java applications: `author-book-api` and `book-review-api`.
 
-> **Note**: In [`kubernetes-minikube-environment`](https://github.com/ivangfr/kubernetes-minikube-environment/tree/master/author-book-review-graphql) repository, it's shown how to deploy this project in `Kubernetes` (`Minikube`)
+> **Note**: In [`kubernetes-minikube-environment`](https://github.com/ivangfr/kubernetes-minikube-environment/tree/master/author-book-review-graphql) repository, it's shown how to deploy this project in `Kubernetes` (`Minikube`).
 
 ## Proof-of-Concepts & Articles
 
@@ -40,19 +40,19 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
 
 ## Start Environment
 
-- Open a terminal and inside `springboot-graphql-databases` root folder run
+- Open a terminal and inside `springboot-graphql-databases` root folder run:
   ```
   docker compose up -d
   ```
 
-- Wait for Docker containers to be up and running. To check it, run
+- Wait for Docker containers to be up and running. To check it, run:
   ```
   docker compose ps
   ```
   
 ## Run applications with Maven
 
-Inside `springboot-graphql-databases`, run the following Maven commands in different terminals
+Inside `springboot-graphql-databases`, run the following Maven commands in different terminals:
 
 - **author-book-api**
   ```
@@ -70,7 +70,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 ### Build Application's Docker Images
 
-In a terminal and inside `springboot-graphql-databases` root folder, run the following script
+In a terminal and inside `springboot-graphql-databases` root folder, run the following script:
 ```
 ./docker-build.sh
 ```
@@ -99,7 +99,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run the fol
 
 ### Start Applications as Docker containers
 
-In a terminal and inside `springboot-graphql-databases` root folder, run following script
+In a terminal and inside `springboot-graphql-databases` root folder, run following script:
 ```
 ./start-apps.sh
 ```
@@ -116,9 +116,9 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 - **book-review-api**
 
-  1. In a browser, access http://localhost:9080/graphiql
+  1. In a browser, access http://localhost:9080/graphiql;
 
-  2. Create a book and return its id
+  2. Create a book and return its id:
      ```
      mutation {
        createBook(bookInput: {title: "Getting Started With Roo", isbn: "9781449307905"}) {
@@ -127,7 +127,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  3. Add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`
+  3. Add one review for the book created above, suppose the id is `5bd4bd4790e9f641b7388f23`:
      ```
      mutation {
        addBookReview(bookId: "5bd4bd4790e9f641b7388f23", reviewInput: {reviewer: "Ivan Franchin", comment: "It is a very good book", rating: 5}) {
@@ -136,7 +136,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  4. Get all books stored in `book-review-api`, including their reviews
+  4. Get all books stored in `book-review-api`, including their reviews:
      ```
      {
        getBooks {
@@ -155,9 +155,9 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 - **author-book-api**
 
-  1. In a browser, access http://localhost:8080/graphiql
+  1. In a browser, access http://localhost:8080/graphiql;
 
-  2. Create an author and return the author id
+  2. Create an author and return the author id:
      ```
      mutation {
        createAuthor(authorInput: {name: "Josh Long"}) {
@@ -166,7 +166,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  3. Create a book and return the book id and author name
+  3. Create a book and return the book id and author name:
      > **Note**: while creating this book in `author-book-api`, we are setting the same ISBN, `9781449307905`, as we did when creating the book in `book-review-api`.
      ```
      mutation {
@@ -179,7 +179,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  4. Get author by id and return some information about his/her books including book reviews from `book-review-api`.
+  4. Get author by id and return some information about his/her books including book reviews from `book-review-api`:
      > **Note**: as the book stored in `author-book-api` and `book-review-api` has the same ISBN, `9781449307905`, it's possible to retrieve the reviews of the book. Otherwise, an empty list will be returned in case `book-review-api` does not have a specific ISBN or the service is down. 
      ```
      {
@@ -201,7 +201,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  5. Update book title and return its id and new title
+  5. Update book title and return its id and new title:
      ```
      mutation {
        updateBook(bookId: 1, bookInput: {title: "Getting Started With Roo 2"}) {
@@ -211,7 +211,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
      }
      ```
 
-  6. Delete the author and return author id
+  6. Delete the author and return author id:
      ```
      mutation {
        deleteAuthor(authorId: 1) {
@@ -224,7 +224,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 - **Zipkin**
 
-  It can be accessed at http://localhost:9411
+  It can be accessed at http://localhost:9411.
 
 - **MySQL monitor**
   ```
@@ -237,7 +237,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 - **MongoDB shell**
   ```
-  docker exec -it mongodb mongo -ubookreviewuser -pbookreviewpass --authenticationDatabase bookreviewdb
+  docker exec -it mongodb mongosh -u bookreviewuser -p bookreviewpass --authenticationDatabase bookreviewdb
   use bookreviewdb;
   db.books.find().pretty();
   ```
@@ -245,20 +245,20 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 ## Shutdown
 
-- To stop applications
-  - If they were started with `Maven`, go to the terminals where they are running and press `Ctrl+C`
-  - If they were started as a Docker container, go to a terminal and, inside `springboot-graphql-databases` root folder, run the script below
+- To stop applications:
+  - If they were started with `Maven`, go to the terminals where they are running and press `Ctrl+C`;
+  - If they were started as a Docker container, go to a terminal and, inside `springboot-graphql-databases` root folder, run the script below:
     ```
     ./stop-apps.sh
     ```
-- To stop and remove docker compose containers, network and volumes, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following command
+- To stop and remove docker compose containers, network and volumes, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following command:
   ```
   docker compose down -v
   ```
 
 ## Cleanup
 
-To remove the Docker images created by this project, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following script
+To remove the Docker images created by this project, go to a terminal and, inside `springboot-graphql-databases` root folder, run the following script:
 ```
 ./remove-docker-images.sh
 ```
