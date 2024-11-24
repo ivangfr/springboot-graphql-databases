@@ -2,7 +2,7 @@ services:
 
   mysql:
     container_name: mysql
-    image: mysql:8.3.0
+    image: mysql:9.0.1
     restart: unless-stopped
     ports:
       - "3306:3306"
@@ -15,7 +15,7 @@ services:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
 
   mongodb:
-    image: bitnami/mongodb:7.0.6
+    image: bitnami/mongodb:7.0.14
     container_name: mongodb
     ports:
       - "27017:27017"

@@ -1,6 +1,6 @@
 # springboot-graphql-databases
 
-The goal of this project is to explore [`GraphQL`](https://graphql.org). For it, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Web Java applications: `author-book-api` and `book-review-api`.
+The goal of this project is to explore [`GraphQL`](https://graphql.org). For it, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/index.html) Web Java applications: `author-book-api` and `book-review-api`.
 
 > **Note**: In [`kubernetes-minikube-environment`](https://github.com/ivangfr/kubernetes-minikube-environment/tree/master/author-book-review-graphql) repository, it's shown how to deploy this project in `Kubernetes` (`Minikube`).
 
@@ -10,8 +10,8 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Additional Readings
 
-- \[**Medium**\] [**Implementing and Securing a Spring Boot GraphQL API with Keycloak**](https://medium.com/javarevisited/implementing-and-securing-a-spring-boot-graphql-api-with-keycloak-c461c86e3972)
-- \[**Medium**\] [**Implementing and Securing a Spring Boot GraphQL API with Okta**](https://medium.com/javarevisited/implementing-and-securing-a-spring-boot-graphql-api-with-okta-78bc997359b4)
+- \[**Medium**\] [**Implementing and Securing a Spring Boot GraphQL API with Keycloak**](https://medium.com/@ivangfr/implementing-and-securing-a-spring-boot-graphql-api-with-keycloak-c461c86e3972)
+- \[**Medium**\] [**Implementing and Securing a Spring Boot GraphQL API with Okta**](https://medium.com/@ivangfr/implementing-and-securing-a-spring-boot-graphql-api-with-okta-78bc997359b4)
 
 ## Project Diagram
 
@@ -29,13 +29,13 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Frontend applications
 
-In the repository [`react-graphql-databases`](https://github.com/ivangfr/react-graphql-databases), I have implemented two [`ReactJS`](https://reactjs.org/) applications `author-book-ui` and `book-review-ui` that are frontend applications for `author-book-api` and `book-review-api`, respectively.
+In the repository [`react-graphql-databases`](https://github.com/ivangfr/react-graphql-databases), I have implemented two [`ReactJS`](https://react.dev) applications `author-book-ui` and `book-review-ui` that are frontend applications for `author-book-api` and `book-review-api`, respectively.
 
 If you want to see the complete communication frontend-backend using `GraphQL`, clone the `react-graphql-databases` and follow the README instructions.
 
 ## Prerequisites
 
-- [`Java 17+`](https://www.oracle.com/java/technologies/downloads/#java17)
+- [`Java 21+`](https://www.oracle.com/java/technologies/downloads/#java21)
 - [`Docker`](https://www.docker.com/)
 
 ## Start Environment
@@ -116,7 +116,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 - **book-review-api**
 
-  1. In a browser, access http://localhost:9080/graphiql;
+  1. In a browser, access http://localhost:9080/graphiql
 
   2. Create a book and return its id:
      ```
@@ -155,7 +155,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 - **author-book-api**
 
-  1. In a browser, access http://localhost:8080/graphiql;
+  1. In a browser, access http://localhost:8080/graphiql
 
   2. Create an author and return the author id:
      ```
@@ -224,7 +224,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run followi
 
 - **Zipkin**
 
-  It can be accessed at http://localhost:9411.
+  It can be accessed at http://localhost:9411
 
 - **MySQL monitor**
   ```
@@ -263,16 +263,8 @@ To remove the Docker images created by this project, go to a terminal and, insid
 ./remove-docker-images.sh
 ```
 
-## TODO
-
-- implement test cases;
-- use [`HttpGraphQlClient`](https://docs.spring.io/spring-graphql/docs/1.0.0/reference/html/#client) to call `book-review` instead of `feign` (we need to convert to project to `WebFlux`);
-- study how to implement authentication/authorization to `GraphQL` endpoint;
-- implement `graphql` subscription;
-
 ## References
 
 - https://graphql.org/learn
-- https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
+- https://www.pluralsight.com/resources/blog/guides/building-a-graphql-server-with-spring-boot
 - https://www.baeldung.com/spring-graphql
-- https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/
