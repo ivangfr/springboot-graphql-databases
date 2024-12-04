@@ -24,10 +24,10 @@ services:
       - 'MONGODB_PASSWORD=bookreviewpass'
       - 'MONGODB_ROOT_PASSWORD=secret'
     healthcheck:
-      test: echo 'db.stats().ok' | mongosh localhost:27017/bookreviewdb --quiet
+      test: "echo 'db.stats().ok' | mongosh localhost:27017/bookreviewdb --quiet"
 
   zipkin:
-    image: 'openzipkin/zipkin:2.24.3'
+    image: 'openzipkin/zipkin:3.4.1'
     container_name: 'zipkin'
     ports:
       - '9411:9411'
