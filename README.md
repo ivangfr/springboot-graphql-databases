@@ -36,7 +36,7 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
 ## Prerequisites
 
 - [`Java 21+`](https://www.oracle.com/java/technologies/downloads/#java21)
-- [`Docker`](https://www.docker.com/)
+- Some containerization tool [`Docker`](https://www.docker.com), [`Podman`](https://podman.io), etc.
 
 ## Start Environment
 

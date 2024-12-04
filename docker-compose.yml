@@ -1,37 +1,35 @@
 services:
 
   mysql:
-    container_name: mysql
-    image: mysql:9.0.1
-    restart: unless-stopped
+    container_name: 'mysql'
+    image: 'mysql:9.1.0'
     ports:
-      - "3306:3306"
+      - '3306:3306'
     environment:
-      MYSQL_DATABASE: authorbookdb
-      MYSQL_USER: authorbookuser
-      MYSQL_PASSWORD: authorbookpass
-      MYSQL_ROOT_PASSWORD: secret
+      - 'MYSQL_DATABASE=authorbookdb'
+      - 'MYSQL_USER=authorbookuser'
+      - 'MYSQL_PASSWORD=authorbookpass'
+      - 'MYSQL_ROOT_PASSWORD=secret'
     healthcheck:
-      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+      test: 'mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}'
 
   mongodb:
-    image: bitnami/mongodb:7.0.14
-    container_name: mongodb
+    image: 'bitnami/mongodb:8.0.3'
+    container_name: 'mongodb'
     ports:
-      - "27017:27017"
+      - '27017:27017'
     environment:
-      MONGODB_DATABASE: bookreviewdb
-      MONGODB_USERNAME: bookreviewuser
-      MONGODB_PASSWORD: bookreviewpass
-      MONGODB_ROOT_PASSWORD: secret
+      - 'MONGODB_DATABASE=bookreviewdb'
+      - 'MONGODB_USERNAME=bookreviewuser'
+      - 'MONGODB_PASSWORD=bookreviewpass'
+      - 'MONGODB_ROOT_PASSWORD=secret'
     healthcheck:
       test: echo 'db.stats().ok' | mongosh localhost:27017/bookreviewdb --quiet
 
   zipkin:
-    image: openzipkin/zipkin:2.24.3
-    container_name: zipkin
-    restart: unless-stopped
+    image: 'openzipkin/zipkin:2.24.3'
+    container_name: 'zipkin'
     ports:
-      - "9411:9411"
+      - '9411:9411'
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "9411" ]

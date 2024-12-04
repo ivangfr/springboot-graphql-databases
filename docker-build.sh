@@ -11,5 +11,12 @@ BOOK_REVIEW_API_DOCKER_IMAGE_NAME="${DOCKER_IMAGE_PREFIX}/${BOOK_REVIEW_API_APP_
 
 SKIP_TESTS="true"
 
-./mvnw clean spring-boot:build-image --projects "$AUTHOR_BOOK_API_APP_NAME" -DskipTests="$SKIP_TESTS" -Dspring-boot.build-image.imageName="$AUTHOR_BOOK_API_DOCKER_IMAGE_NAME"
-./mvnw clean spring-boot:build-image --projects "$BOOK_REVIEW_API_APP_NAME" -DskipTests="$SKIP_TESTS" -Dspring-boot.build-image.imageName="$BOOK_REVIEW_API_DOCKER_IMAGE_NAME"
+./mvnw clean spring-boot:build-image \
+  --projects "$AUTHOR_BOOK_API_APP_NAME" \
+  -DskipTests="$SKIP_TESTS" \
+  -Dspring-boot.build-image.imageName="$AUTHOR_BOOK_API_DOCKER_IMAGE_NAME"
+
+./mvnw clean spring-boot:build-image \
+  --projects "$BOOK_REVIEW_API_APP_NAME" \
+  -DskipTests="$SKIP_TESTS" \
+  -Dspring-boot.build-image.imageName="$BOOK_REVIEW_API_DOCKER_IMAGE_NAME"
