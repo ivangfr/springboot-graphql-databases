@@ -47,7 +47,7 @@ If you want to see the complete communication frontend-backend using `GraphQL`, 
 
 - Wait for Docker containers to be up and running. To check it, run:
   ```
-  docker compose ps
+  docker ps -a
   ```
   
 ## Run applications with Maven
@@ -72,7 +72,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 
 In a terminal and inside `springboot-graphql-databases` root folder, run the following script:
 ```
-./docker-build.sh
+./build-docker-images.sh
 ```
       
 ### Application's environment variables
