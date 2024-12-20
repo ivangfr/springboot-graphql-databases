@@ -55,7 +55,7 @@ public class BookController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public BookResponse createBook(@Valid @RequestBody CreateBookRequest createBookRequest) {
-        Author author = authorService.validateAndGetAuthorById(createBookRequest.getAuthorId());
+        Author author = authorService.validateAndGetAuthorById(createBookRequest.authorId());
         Book book = bookMapper.toBook(createBookRequest);
         book.setAuthor(author);
         book = bookService.saveBook(book);
@@ -66,7 +66,7 @@ public class BookController {
     public BookResponse updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookRequest updateBookRequest) {
         Book book = bookService.validateAndGetBookById(bookId);
         bookMapper.updateBookFromRequest(updateBookRequest, book);
-        Long authorId = updateBookRequest.getAuthorId();
+        Long authorId = updateBookRequest.authorId();
         if (authorId != null) {
             Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
