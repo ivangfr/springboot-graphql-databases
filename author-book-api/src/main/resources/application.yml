@@ -41,9 +41,7 @@ management:
       endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
 
 springdoc:
-  show-actuator: true
   swagger-ui:
-    groups-order: DESC
     disable-swagger-default-url: true
 
 logging:
