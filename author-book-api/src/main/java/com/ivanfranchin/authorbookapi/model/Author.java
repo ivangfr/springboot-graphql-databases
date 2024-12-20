@@ -1,5 +1,8 @@
 package com.ivanfranchin.authorbookapi.model;
 
+import com.ivanfranchin.authorbookapi.graphql.input.AuthorInput;
+import com.ivanfranchin.authorbookapi.restapi.dto.CreateAuthorRequest;
+import com.ivanfranchin.authorbookapi.restapi.dto.UpdateAuthorRequest;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,5 +49,29 @@ public class Author {
     @PreUpdate
     public void onPreUpdate() {
         updatedAt = Instant.now();
+    }
+
+    public static Author from(AuthorInput authorInput) {
+        Author author = new Author();
+        author.setName(authorInput.name());
+        return author;
+    }
+
+    public static void updateFrom(AuthorInput authorInput, Author author) {
+        if (authorInput.name() != null) {
+            author.setName(authorInput.name());
+        }
+    }
+
+    public static Author from(CreateAuthorRequest createAuthorRequest) {
+        Author author = new Author();
+        author.setName(createAuthorRequest.name());
+        return author;
+    }
+
+    public static void updateFrom(UpdateAuthorRequest updateAuthorRequest, Author author) {
+        if (updateAuthorRequest.name() != null) {
+            author.setName(updateAuthorRequest.name());
+        }
     }
 }

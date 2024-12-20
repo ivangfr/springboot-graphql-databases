@@ -1,7 +1,6 @@
 package com.ivanfranchin.authorbookapi.graphql;
 
 import com.ivanfranchin.authorbookapi.graphql.input.AuthorInput;
-import com.ivanfranchin.authorbookapi.graphql.mapper.AuthorMapper;
 import com.ivanfranchin.authorbookapi.model.Author;
 import com.ivanfranchin.authorbookapi.service.AuthorService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,6 @@ import java.util.List;
 public class AuthorController {
 
     private final AuthorService authorService;
-    private final AuthorMapper authorMapper;
 
     @QueryMapping
     public List<Author> getAuthors() {
@@ -36,14 +34,14 @@ public class AuthorController {
 
     @MutationMapping
     public Author createAuthor(@Argument AuthorInput authorInput) {
-        Author author = authorMapper.toAuthor(authorInput);
+        Author author = Author.from(authorInput);
         return authorService.saveAuthor(author);
     }
 
     @MutationMapping
     public Author updateAuthor(@Argument Long authorId, @Argument AuthorInput authorInput) {
         Author author = authorService.validateAndGetAuthorById(authorId);
-        authorMapper.updateAuthorFromRequest(authorInput, author);
+        Author.updateFrom(authorInput, author);
         return authorService.saveAuthor(author);
     }
 

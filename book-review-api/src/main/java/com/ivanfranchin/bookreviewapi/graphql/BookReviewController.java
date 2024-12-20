@@ -2,8 +2,6 @@ package com.ivanfranchin.bookreviewapi.graphql;
 
 import com.ivanfranchin.bookreviewapi.graphql.input.BookInput;
 import com.ivanfranchin.bookreviewapi.graphql.input.ReviewInput;
-import com.ivanfranchin.bookreviewapi.mapper.BookMapper;
-import com.ivanfranchin.bookreviewapi.mapper.ReviewMapper;
 import com.ivanfranchin.bookreviewapi.model.Book;
 import com.ivanfranchin.bookreviewapi.model.Review;
 import com.ivanfranchin.bookreviewapi.service.BookService;
@@ -20,8 +18,6 @@ import java.util.List;
 public class BookReviewController {
 
     private final BookService bookService;
-    private final BookMapper bookMapper;
-    private final ReviewMapper reviewMapper;
 
     @QueryMapping
     public List<Book> getBooks() {
@@ -40,14 +36,14 @@ public class BookReviewController {
 
     @MutationMapping
     public Book createBook(@Argument BookInput bookInput) {
-        Book book = bookMapper.toBook(bookInput);
+        Book book = Book.from(bookInput);
         return bookService.saveBook(book);
     }
 
     @MutationMapping
     public Book updateBook(@Argument String bookId, @Argument BookInput bookInput) {
         Book book = bookService.validateAndGetBookById(bookId);
-        bookMapper.updateBookFromInput(bookInput, book);
+        Book.updateFrom(bookInput, book);
         return bookService.saveBook(book);
     }
 
@@ -61,7 +57,7 @@ public class BookReviewController {
     @MutationMapping
     public Book addBookReview(@Argument String bookId, @Argument ReviewInput reviewInput) {
         Book book = bookService.validateAndGetBookById(bookId);
-        Review review = reviewMapper.toReview(reviewInput);
+        Review review = Review.from(reviewInput);
         book.getReviews().addFirst(review);
         return bookService.saveBook(book);
     }

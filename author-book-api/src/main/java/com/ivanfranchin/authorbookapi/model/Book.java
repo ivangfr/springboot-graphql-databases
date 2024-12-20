@@ -1,5 +1,8 @@
 package com.ivanfranchin.authorbookapi.model;
 
+import com.ivanfranchin.authorbookapi.graphql.input.BookInput;
+import com.ivanfranchin.authorbookapi.restapi.dto.CreateBookRequest;
+import com.ivanfranchin.authorbookapi.restapi.dto.UpdateBookRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -57,5 +60,45 @@ public class Book {
     @PreUpdate
     public void onPreUpdate() {
         updatedAt = Instant.now();
+    }
+
+    public static Book from(BookInput bookInput) {
+        Book book = new Book();
+        book.setIsbn(bookInput.isbn());
+        book.setTitle(bookInput.title());
+        book.setYear(bookInput.year());
+        return book;
+    }
+
+    public static void updateFrom(BookInput bookInput, Book book) {
+        if (bookInput.isbn() != null) {
+            book.setIsbn(bookInput.isbn());
+        }
+        if (bookInput.title() != null) {
+            book.setTitle(bookInput.title());
+        }
+        if (bookInput.year() != null) {
+            book.setYear(bookInput.year());
+        }
+    }
+
+    public static Book from(CreateBookRequest createBookRequest) {
+        Book book = new Book();
+        book.setIsbn(createBookRequest.isbn());
+        book.setTitle(createBookRequest.title());
+        book.setYear(createBookRequest.year());
+        return book;
+    }
+
+    public static void updateFrom(UpdateBookRequest updateBookRequest, Book book) {
+        if (updateBookRequest.isbn() != null) {
+            book.setIsbn(updateBookRequest.isbn());
+        }
+        if (updateBookRequest.title() != null) {
+            book.setTitle(updateBookRequest.title());
+        }
+        if (updateBookRequest.year() != null) {
+            book.setYear(updateBookRequest.year());
+        }
     }
 }

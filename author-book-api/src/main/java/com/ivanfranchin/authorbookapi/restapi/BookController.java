@@ -8,7 +8,6 @@ import com.ivanfranchin.authorbookapi.model.BookReview;
 import com.ivanfranchin.authorbookapi.restapi.dto.BookResponse;
 import com.ivanfranchin.authorbookapi.restapi.dto.CreateBookRequest;
 import com.ivanfranchin.authorbookapi.restapi.dto.UpdateBookRequest;
-import com.ivanfranchin.authorbookapi.restapi.mapper.BookMapper;
 import com.ivanfranchin.authorbookapi.service.AuthorService;
 import com.ivanfranchin.authorbookapi.service.BookService;
 import jakarta.validation.Valid;
@@ -36,50 +35,49 @@ public class BookController {
     private final AuthorService authorService;
     private final BookReviewApiClient bookReviewApiClient;
     private final BookReviewApiQueryBuilder bookReviewApiQueryBuilder;
-    private final BookMapper bookMapper;
 
     @GetMapping
     public List<BookResponse> getBooks() {
         return bookService.getBooks()
                 .stream()
-                .map(bookMapper::toBookResponse)
+                .map(BookResponse::from)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{bookId}")
     public BookResponse getBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
-        return bookMapper.toBookResponse(book);
+        return BookResponse.from(book);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public BookResponse createBook(@Valid @RequestBody CreateBookRequest createBookRequest) {
         Author author = authorService.validateAndGetAuthorById(createBookRequest.authorId());
-        Book book = bookMapper.toBook(createBookRequest);
+        Book book = Book.from(createBookRequest);
         book.setAuthor(author);
         book = bookService.saveBook(book);
-        return bookMapper.toBookResponse(book);
+        return BookResponse.from(book);
     }
 
     @PutMapping("/{bookId}")
     public BookResponse updateBook(@PathVariable Long bookId, @Valid @RequestBody UpdateBookRequest updateBookRequest) {
         Book book = bookService.validateAndGetBookById(bookId);
-        bookMapper.updateBookFromRequest(updateBookRequest, book);
+        Book.updateFrom(updateBookRequest, book);
         Long authorId = updateBookRequest.authorId();
         if (authorId != null) {
             Author author = authorService.validateAndGetAuthorById(authorId);
             book.setAuthor(author);
         }
         book = bookService.saveBook(book);
-        return bookMapper.toBookResponse(book);
+        return BookResponse.from(book);
     }
 
     @DeleteMapping("/{bookId}")
     public BookResponse deleteBook(@PathVariable Long bookId) {
         Book book = bookService.validateAndGetBookById(bookId);
         bookService.deleteBook(book);
-        return bookMapper.toBookResponse(book);
+        return BookResponse.from(book);
     }
 
     @GetMapping("/{bookId}/reviews")

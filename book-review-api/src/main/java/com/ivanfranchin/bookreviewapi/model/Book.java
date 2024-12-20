@@ -1,5 +1,6 @@
 package com.ivanfranchin.bookreviewapi.model;
 
+import com.ivanfranchin.bookreviewapi.graphql.input.BookInput;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -30,4 +31,21 @@ public class Book {
 
     @LastModifiedDate
     private Instant updatedAt;
+
+    public static Book from(BookInput bookInput) {
+        Book book = new Book();
+        book.setIsbn(bookInput.isbn());
+        book.setTitle(bookInput.title());
+        return book;
+    }
+
+    public static void updateFrom(BookInput bookInput, Book book) {
+        if (bookInput.isbn() != null) {
+            book.setIsbn(bookInput.isbn());
+        }
+
+        if (bookInput.title() != null) {
+            book.setTitle(bookInput.title());
+        }
+    }
 }
