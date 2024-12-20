@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -35,16 +35,16 @@ public class Author {
     @Column(nullable = false)
     private String name;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
 
     @PrePersist
     public void onPrePersist() {
-        createdAt = updatedAt = LocalDateTime.now();
+        createdAt = updatedAt = Instant.now();
     }
 
     @PreUpdate
     public void onPreUpdate() {
-        updatedAt = LocalDateTime.now();
+        updatedAt = Instant.now();
     }
 }

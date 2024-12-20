@@ -17,7 +17,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @ToString(exclude = "author")
@@ -46,16 +46,16 @@ public class Book {
     @Transient
     private BookReview reviewRes;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
 
     @PrePersist
     public void onPrePersist() {
-        createdAt = updatedAt = LocalDateTime.now();
+        createdAt = updatedAt = Instant.now();
     }
 
     @PreUpdate
     public void onPreUpdate() {
-        updatedAt = LocalDateTime.now();
+        updatedAt = Instant.now();
     }
 }
