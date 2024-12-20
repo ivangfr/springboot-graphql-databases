@@ -1,4 +1,4 @@
-package com.ivanfranchin.authorbookapi.restapi.security;
+package com.ivanfranchin.authorbookapi.restapi.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,4 +24,3 @@ public class CorsConfig {
         return source;
     }
 }
-
