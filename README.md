@@ -246,7 +246,7 @@ In a terminal and inside `springboot-graphql-databases` root folder, run the fol
 ## Shutdown
 
 - To stop applications:
-  - If they were started with `Maven`, go to the terminals where they are running and press `Ctrl+C`;
+  - If they were started with `Maven`, go to the terminals where they are running and press `Ctrl+C`.
   - If they were started as a Docker container, go to a terminal and, inside `springboot-graphql-databases` root folder, run the script below:
     ```bash
     ./stop-apps.sh
