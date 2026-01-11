@@ -63,7 +63,7 @@ Inside `springboot-graphql-databases`, run the following Maven commands in diffe
 - **book-review-api**
   ```bash
   ./mvnw clean spring-boot:run --projects book-review-api \
-    -Dspring-boot.run.jvmArguments="-Dspring.data.mongodb.username=bookreviewuser -Dspring.data.mongodb.password=bookreviewpass"
+    -Dspring-boot.run.jvmArguments="-Dspring.mongodb.username=bookreviewuser -Dspring.mongodb.password=bookreviewpass"
   ```
   
 ## Run Applications as Docker containers

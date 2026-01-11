@@ -17,7 +17,7 @@ echo
 echo "Starting book-review-api ..."
 
 docker run -d --rm --name book-review-api -p 9080:9080 \
-  -e MONGODB_HOST=mongodb -e ZIPKIN_HOST=zipkin -e SPRING_DATA_MONGODB_USERNAME=bookreviewuser -e SPRING_DATA_MONGODB_PASSWORD=bookreviewpass \
+  -e MONGODB_HOST=mongodb -e ZIPKIN_HOST=zipkin -e SPRING_MONGODB_USERNAME=bookreviewuser -e SPRING_MONGODB_PASSWORD=bookreviewpass \
   --network=springboot-graphql-databases_default \
   --health-cmd='[ -z "$(echo "" > /dev/tcp/localhost/9080)" ] || exit 1' \
   ivanfranchin/book-review-api:1.0.0

@@ -3,13 +3,14 @@ server.port: 9080
 spring:
   application:
     name: book-review-api
+  mongodb:
+    host: ${MONGODB_HOST:localhost}
+    port: ${MONGODB_PORT:27017}
+    database: bookreviewdb
+    username: change-me
+    password: change-me
   data:
     mongodb:
-      host: ${MONGODB_HOST:localhost}
-      port: ${MONGODB_PORT:27017}
-      database: bookreviewdb
-      username: change-me
-      password: change-me
       auto-index-creation: true
   graphql:
     graphiql:
@@ -25,11 +26,12 @@ management:
   tracing:
     sampling:
       probability: 1.0
-  zipkin:
-    tracing:
-      endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+    export:
+      zipkin:
+        endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
 
 logging:
   level:
     org.springframework.data.mongodb.core.MongoTemplate: DEBUG
     org.mongodb.driver.protocol.command: DEBUG
+    org.springframework.graphql: DEBUG
