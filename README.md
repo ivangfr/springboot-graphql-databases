@@ -226,6 +226,8 @@ In a terminal and inside `springboot-graphql-databases` root folder, run the fol
 
   It can be accessed at http://localhost:9411
 
+  ![zipkin-ui](documentation/zipkin-ui.jpg)
+
 - **MySQL monitor**
   ```bash
   docker exec -it -e MYSQL_PWD=authorbookpass mysql mysql -uauthorbookuser --database authorbookdb
