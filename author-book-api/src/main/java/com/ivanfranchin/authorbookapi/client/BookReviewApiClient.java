@@ -1,48 +1,24 @@
 package com.ivanfranchin.authorbookapi.client;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.openfeign.FallbackFactory;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.service.annotation.HttpExchange;
+import org.springframework.web.service.annotation.PostExchange;
 
-@FeignClient(
-        name = "book-review-api",
-        url = "http://${BOOK_REVIEW_API_HOST:localhost}:${BOOK_REVIEW_API_PORT:9080}",
-        fallbackFactory = BookReviewApiClient.BookReviewApiClientFallbackFactory.class)
+@HttpExchange("/graphql")
 public interface BookReviewApiClient {
 
-    @PostMapping(path = "/graphql", consumes = "application/json")
+    Logger log = LoggerFactory.getLogger(BookReviewApiClient.class);
+
+    @CircuitBreaker(name = "getBookReviews", fallbackMethod = "getBookReviewsFallback")
+    @PostExchange(contentType = "application/json")
     BookReviewApiResult getBookReviews(@RequestBody String graphQLQuery);
 
-    // ----------------
-    // Fallback Factory
-
-    @Component
-    class BookReviewApiClientFallbackFactory implements FallbackFactory<BookReviewApiClient> {
-
-        @Override
-        public BookReviewApiClient create(Throwable throwable) {
-            return new BookReviewApiClientFallback(throwable);
-        }
-    }
-
-    // --------------
-    // Client Fallback
-
-    @Slf4j
-    @RequiredArgsConstructor
-    class BookReviewApiClientFallback implements BookReviewApiClient {
-
-        private final Throwable cause;
-
-        @Override
-        public BookReviewApiResult getBookReviews(String graphQLQuery) {
-            String error = String.format("Unable to access book-review-api. Cause: %s", cause.getMessage());
-            log.error(error);
-            return BookReviewApiResult.empty(error);
-        }
+    default BookReviewApiResult getBookReviewsFallback(String query, Throwable t) {
+        String error = String.format("Unable to access book-review-api. Query: %s; Cause: %s", query, t.getMessage());
+        log.error(error);
+        return BookReviewApiResult.empty(error);
     }
 }

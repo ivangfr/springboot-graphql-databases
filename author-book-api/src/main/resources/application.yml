@@ -26,6 +26,9 @@ app:
   cors:
     allowed-origins: http://localhost:3000
 
+book-review-api:
+  url: http://${BOOK_REVIEW_API_HOST:localhost}:${BOOK_REVIEW_API_PORT:9080}
+
 management:
   tracing:
     sampling:
